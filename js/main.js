@@ -301,6 +301,148 @@
     } catch (err) { console.warn('hero 3D disabled', err); }
   }
 
+  /* ---------- Depth fields for 02 WHY and 05 WHY EQ ----------
+     Same idea as the hero, two other patterns: a tunnel of particles that
+     rushes toward the viewer, and a slow wave-grid that drifts sideways. */
+  function depthField(canvas, variant) {
+    if (!canvas || !hasThree || reduceMotion) return;
+    try {
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      const scene = new THREE.Scene();
+      scene.fog = new THREE.FogExp2(0x061033, variant === 'tunnel' ? 0.03 : 0.05);
+      const camera = new THREE.PerspectiveCamera(62, 1, 0.1, 120);
+      camera.position.set(0, 0, 12);
+
+      const N = isDesktop() ? 1700 : 700;
+      const pos = new Float32Array(N * 3);
+      const col = new Float32Array(N * 3);
+      const cA = new THREE.Color(0x5fe0ff), cB = new THREE.Color(0x2f7bff), cW = new THREE.Color(0xffffff);
+      const DEPTH = 90;
+      for (let i = 0; i < N; i++) {
+        if (variant === 'tunnel') {
+          const a = Math.random() * Math.PI * 2;
+          const r = 3.5 + Math.random() * 12;
+          pos[i * 3] = Math.cos(a) * r;
+          pos[i * 3 + 1] = Math.sin(a) * r * 0.62;
+          pos[i * 3 + 2] = -Math.random() * DEPTH;
+        } else {
+          pos[i * 3] = (Math.random() - 0.5) * 46;
+          pos[i * 3 + 1] = (Math.random() - 0.5) * 26;
+          pos[i * 3 + 2] = -Math.random() * 46;
+        }
+        const m = Math.random();
+        const c = m < 0.18 ? cW : (m < 0.62 ? cA : cB);
+        col[i * 3] = c.r; col[i * 3 + 1] = c.g; col[i * 3 + 2] = c.b;
+      }
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+      geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+      const sprite = (() => {
+        const cv = document.createElement('canvas'); cv.width = cv.height = 64;
+        const g = cv.getContext('2d');
+        const grd = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+        grd.addColorStop(0, 'rgba(255,255,255,1)'); grd.addColorStop(0.35, 'rgba(255,255,255,.6)'); grd.addColorStop(1, 'rgba(255,255,255,0)');
+        g.fillStyle = grd; g.fillRect(0, 0, 64, 64);
+        return new THREE.CanvasTexture(cv);
+      })();
+      const points = new THREE.Points(geo, new THREE.PointsMaterial({
+        size: variant === 'tunnel' ? 0.3 : 0.24, map: sprite, vertexColors: true, transparent: true,
+        opacity: 0.9, depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true
+      }));
+      scene.add(points);
+
+      let rings = null;
+      if (variant === 'waves') {
+        rings = new THREE.Group();
+        for (let i = 0; i < 4; i++) {
+          const t = new THREE.Mesh(
+            new THREE.TorusGeometry(5 + i * 2.6, 0.015, 8, 140),
+            new THREE.MeshBasicMaterial({ color: 0x9defff, transparent: true, opacity: 0.22 - i * 0.035 })
+          );
+          t.rotation.x = Math.PI / 2.2 + i * 0.06;
+          rings.add(t);
+        }
+        rings.position.set(-4, -1, -8);
+        scene.add(rings);
+      }
+
+      const target = { x: 0, y: 0 }, mouse = { x: 0, y: 0 };
+      window.addEventListener('mousemove', (e) => { target.x = (e.clientX / innerWidth - 0.5) * 2; target.y = (e.clientY / innerHeight - 0.5) * 2; });
+
+      const resize = () => {
+        const host = canvas.parentElement;
+        const w = host.clientWidth, h = host.clientHeight;
+        if (!w || !h) return;
+        renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
+      };
+      window.addEventListener('resize', resize); resize();
+
+      const clock = new THREE.Clock();
+      let visible = true;
+      new IntersectionObserver((en) => { visible = en[0].isIntersecting; }).observe(canvas.parentElement);
+      const tick = () => {
+        requestAnimationFrame(tick);
+        if (!visible) return;
+        const dt = Math.min(clock.getDelta(), 0.05);
+        const t = clock.getElapsedTime();
+        mouse.x += (target.x - mouse.x) * 0.04; mouse.y += (target.y - mouse.y) * 0.04;
+        if (variant === 'tunnel') {
+          const p = geo.attributes.position.array;
+          for (let i = 0; i < N; i++) {
+            p[i * 3 + 2] += dt * 11;                 // toward the camera
+            if (p[i * 3 + 2] > 10) p[i * 3 + 2] -= DEPTH + 10;
+          }
+          geo.attributes.position.needsUpdate = true;
+          points.rotation.z = t * 0.02;
+          camera.position.x = mouse.x * 1.1; camera.position.y = -mouse.y * 0.7;
+        } else {
+          points.rotation.y = t * 0.035 + mouse.x * 0.1;
+          points.rotation.x = Math.sin(t * 0.09) * 0.06 + mouse.y * 0.07;
+          if (rings) { rings.rotation.z = t * 0.06; rings.rotation.y = Math.sin(t * 0.12) * 0.2; }
+          camera.position.x = mouse.x * 0.9; camera.position.y = -mouse.y * 0.6;
+        }
+        camera.lookAt(0, 0, -10);
+        renderer.render(scene, camera);
+      };
+      tick();
+    } catch (err) { console.warn('depth field disabled', err); }
+  }
+  depthField(document.getElementById('why-canvas'), 'tunnel');
+  depthField(document.getElementById('eq-canvas'), 'waves');
+
+  /* ---------- 02 WHY : the object on the right comes toward you ---------- */
+  if (hasGSAP && !reduceMotion) {
+    const whyOrbit = document.querySelector('.why__orbit');
+    if (whyOrbit) {
+      gsap.fromTo(whyOrbit,
+        { scale: 0.42, xPercent: 14, opacity: 0.35 },
+        {
+          scale: 1.5, xPercent: -8, opacity: 1, ease: 'none',
+          scrollTrigger: { trigger: '.why', start: 'top bottom', end: 'bottom top', scrub: 0.8 }
+        });
+      gsap.to(whyOrbit.querySelectorAll('span'), { rotate: 360, duration: 46, ease: 'none', repeat: -1, stagger: { each: 5, repeat: -1 } });
+    }
+    // 08 GROWTH : the overlapping circles grow and drift as you pass
+    const gDepth = document.querySelector('.growth__depth');
+    if (gDepth) {
+      gsap.fromTo(gDepth,
+        { scale: 0.6, yPercent: 12, xPercent: 6, opacity: 0.5 },
+        {
+          scale: 1.35, yPercent: -14, xPercent: -10, opacity: 1, ease: 'none',
+          scrollTrigger: { trigger: '.growth', start: 'top bottom', end: 'bottom top', scrub: 0.8 }
+        });
+    }
+    // 07 DOMAINS : each photo zooms inside its frame while the card is on screen
+    gsap.utils.toArray('.domain').forEach((card) => {
+      const img = card.querySelector('.domain__visual img');
+      if (img) gsap.fromTo(img, { scale: 1 }, {
+        scale: 1.14, ease: 'none',
+        scrollTrigger: { trigger: card, start: 'top bottom', end: 'bottom top', scrub: 0.6 }
+      });
+    });
+  }
+
   /* ---------- Hero orbit tilt + scroll fade ---------- */
   const orbit = document.querySelector('.hero__orbit');
   if (orbit && hasGSAP && !reduceMotion) {
@@ -397,6 +539,8 @@
     const dotsWrap = slider.querySelector('.gdots');
     const prevBtn = slider.querySelector('.gnav[data-dir="-1"]');
     const nextBtn = slider.querySelector('.gnav[data-dir="1"]');
+    const chipVp = document.querySelector('.gain-row__viewport');
+    const chips = Array.from(document.querySelectorAll('.gchip'));
     let current = 0, ticking = false;
 
     cards.forEach((c, i) => {
@@ -440,6 +584,13 @@
           d.classList.toggle('is-on', i === best);
           d.setAttribute('aria-current', i === best ? 'true' : 'false');
         });
+        // keep the upper "学ぶもの" row in step with the lower "得られるもの" slider
+        chips.forEach((c, i) => c.classList.toggle('is-on', i === best));
+        const on = chips[best];
+        if (on && chipVp) {
+          const want = on.offsetLeft - (chipVp.clientWidth - on.offsetWidth) / 2;
+          chipVp.scrollTo({ left: Math.max(0, want), behavior: reduceMotion ? 'auto' : 'smooth' });
+        }
       }
       prevBtn.disabled = vp.scrollLeft <= 2;
       nextBtn.disabled = vp.scrollLeft >= vp.scrollWidth - vp.clientWidth - 2;
@@ -453,6 +604,7 @@
       setTimeout(() => { if (Math.abs(vp.scrollLeft - left) > 4) { vp.scrollLeft = left; paint(); } }, 700);
     };
 
+    chips.forEach((c, i) => c.addEventListener('click', () => goTo(i)));
     vp.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', () => { vp.scrollLeft = scrollFor(current, metrics()); paint(); });
     prevBtn.addEventListener('click', () => goTo(current - 1));
