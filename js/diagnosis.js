@@ -200,7 +200,7 @@
           <div class="path path--v ${T.rec === 'v' ? 'is-rec' : ''}">${T.rec === 'v' ? '<span class="rec">RECOMMENDED</span>' : ''}<div class="k">縦成長 — 人と関わり深める</div><div class="t">自分では気づけなかった自分に気づく</div><p>${T.v}</p><ul><li>EIA</li><li>EQ Humanity</li><li>EQ認識理論</li>${type === 'E' ? '<li>EQ Business Nexus</li>' : ''}${type === 'C' ? '<li>EQTM</li>' : ''}</ul></div>
         </div>
         <div class="result__actions">
-          <a class="btn" href="https://brifu-eq-platform-ixrklwz.gamma.site/" target="_blank" rel="noopener">EQ Platformで学びを見る <span class="arr">→</span></a>
+          <a class="btn" href="http://localhost:8794/eq-platform/" target="_blank" rel="noopener">EQ Platformで学びを見る <span class="arr">→</span></a>
           <a class="btn btn--ghost" href="index.html#platform">学びの全体像へ戻る</a>
           <button class="diag__back" id="diagRetry">もう一度診断する</button>
         </div>

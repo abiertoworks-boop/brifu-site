@@ -10,7 +10,7 @@
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -59,7 +59,7 @@
     <div class="menu__sub">
       <a href="company.html">会社概要・理念・代表プロフィール</a>
       <a href="https://abiertoworks-boop.github.io/EQ2/eqgate-transparent-v2#cards8" target="_blank" rel="noopener">EQコアカードを体験する</a>
-      <a href="https://brifu-eq-platform-ixrklwz.gamma.site/" target="_blank" rel="noopener">EQ Platform サイトへ</a>
+      <a href="http://localhost:8794/eq-platform/" target="_blank" rel="noopener">EQ Platform サイトへ</a>
       <a href="mailto:info@brifu.co.jp">お問い合わせ　info@brifu.co.jp</a>
     </div>
   </div>
@@ -101,7 +101,13 @@
       <p class="purpose__sub" data-reveal data-delay=".1">人の心にイノベーションが起きることで、自分も相手も大切にできる人が増えていく。その積み重ねによって、「お互いを大切にする社会」が生まれる。</p>
     </div>
     <div class="purpose__side" data-reveal data-delay=".15">
-      <span class="tag">PURPOSE → SOCIAL IMPACT</span>
+      <a class="gring-btn" href="#vision" aria-label="PURPOSE から SOCIAL IMPACT へ（真のイノベーションの項目へ移動）">
+        <span class="gring-btn__disc" aria-hidden="true">
+          <span class="gring-btn__spin"><i class="r"></i><i class="g"></i></span>
+          <svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>
+        </span>
+        <span class="gring-btn__label">PURPOSE<i>→</i>SOCIAL IMPACT</span>
+      </a>
       <p>私たちBrifuの目的は、「人の心にイノベーション」を起こし、社会に「真のイノベーション」を創り出すこと。<br class="pc">技術や制度を変える前に、それを使う人の心が変わること。すべては、そこから始まると考えています。</p>
     </div>
   </div>
@@ -131,10 +137,7 @@
         <li data-reveal data-delay=".32"><span class="n">05</span><b>人との関係</b><i>が変わる</i></li>
       </ul>
 
-      <div class="why__declare" data-reveal="scale">
-        <span class="why__declare-k">OUR ANSWER</span>
-        <p class="why__declare-t">だから<span class="nm">Brifu</span>は、<br><em>「人の心」にイノベーションを起こす。</em></p>
-      </div>
+      <p class="why__answer" data-reveal="scale">だから<span class="nm">Brifu</span>は、<br><em>「人の心」にイノベーションを起こす。</em></p>
     </div>
   </div>
 </section>
@@ -257,10 +260,10 @@
       <p>自分の感情に気づき、認識を見直し、目的から選び、行動する。<br>相手の感情に目を向け、認識の違いを確かめ、本音で対話する。<br>この往復が、自分にも相手にも「可能性」を残します。</p>
     </div>
     <ul class="eq__pillars">
-      <li data-reveal><span class="k">SELF</span><div class="t">自己理解</div><p>感情・価値観・認識を知る</p></li>
-      <li data-reveal data-delay=".1"><span class="k">EXPRESS</span><div class="t">感情の言語化</div><p>自分の状態を言葉にする</p></li>
-      <li data-reveal data-delay=".2"><span class="k">OTHERS</span><div class="t">他者理解・対話</div><p>相手の認識に関心を向ける</p></li>
-      <li data-reveal data-delay=".3"><span class="k">ACTION</span><div class="t">意思決定・行動</div><p>目的から選び、振り返る</p></li>
+      <li data-reveal><img class="eq__icon" src="images/eq-self.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><span class="k">SELF</span><div class="t">自己理解</div><p>感情・価値観・認識を知る</p></li>
+      <li data-reveal data-delay=".1"><img class="eq__icon" src="images/eq-express.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><span class="k">EXPRESS</span><div class="t">感情の言語化</div><p>自分の状態を言葉にする</p></li>
+      <li data-reveal data-delay=".2"><img class="eq__icon" src="images/eq-others.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><span class="k">OTHERS</span><div class="t">他者理解・対話</div><p>相手の認識に関心を向ける</p></li>
+      <li data-reveal data-delay=".3"><img class="eq__icon" src="images/eq-action.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><span class="k">ACTION</span><div class="t">意思決定・行動</div><p>目的から選び、振り返る</p></li>
     </ul>
   </div>
 </section>
@@ -395,7 +398,7 @@
         </h2>
         <div class="growth__formula" data-reveal><span>横成長</span><i>×</i><span>縦成長</span></div>
       </div>
-      <p class="lead" data-reveal>知識を増やし、一人で実践して広げていく<strong class="accent">横成長</strong>。<br class="pc">人と関わり、自分では見えない自分に気づいて深めていく<strong class="accent">縦成長</strong>。Brifuの学びは、この2つを掛け合わせます。</p>
+      <p class="lead growth__lead" data-reveal>知識を増やし、一人で実践して広げていく<strong class="accent">横成長</strong>。<br class="pc">人と関わり、自分では見えない自分に気づいて深めていく<strong class="accent">縦成長</strong>。Brifuの学びは、この2つを掛け合わせます。</p>
     </div>
 
     <div class="growth__axes">
@@ -428,15 +431,25 @@
           <div class="gap-tier"><span class="lv">LEVEL 3</span><span class="lbl">他者から見てもできている</span></div>
         </div>
       </div>
-      <div class="story" data-reveal data-delay=".1">
-        <div class="story__step"><p>本を読んで、<b>「相手の話を聴こう」</b>と理解する。</p><span class="tag">横成長</span></div>
-        <div class="story__arrow">↓</div>
-        <div class="story__step"><p>実際に人と話してみる。相手の話を聴いているつもりだった。</p><span class="tag">実践</span></div>
-        <div class="story__arrow">↓</div>
-        <div class="story__step"><p>ふと気づく。<b>「今、自分の正しさを証明しようとしていた」</b>。</p><span class="tag v">縦成長</span></div>
-        <div class="story__arrow">↓</div>
-        <div class="story__step"><p>「知っている」と「できている」は違う。「できていると思っている」と「他者から見てもできている」も違う。</p><span class="tag v">気づき</span></div>
-      </div>
+      <!-- 3D chart: the same four steps, read as horizontal progress (→) against vertical depth (↑) -->
+      <figure class="gchart" data-reveal aria-label="横成長と縦成長の立体グラフ">
+        <div class="gchart__y" aria-hidden="true"><b>縦成長</b><small>気づき・あり方が深まる</small><i>↑</i></div>
+        <div class="gchart__plot">
+          <span class="gchart__jump" aria-hidden="true">人と関わった瞬間、<br>ここで一気に深まる</span>
+          <div class="gbar gbar--h" style="--h:20%"><i class="gbar__top"></i><i class="gbar__side"></i><span class="gbar__tag">横成長</span></div>
+          <div class="gbar gbar--h" style="--h:30%"><i class="gbar__top"></i><i class="gbar__side"></i><span class="gbar__tag">実践</span></div>
+          <div class="gbar gbar--v" style="--h:70%"><i class="gbar__top"></i><i class="gbar__side"></i><span class="gbar__tag">縦成長</span></div>
+          <div class="gbar gbar--v" style="--h:94%"><i class="gbar__top"></i><i class="gbar__side"></i><span class="gbar__tag">気づき</span></div>
+          <span class="gchart__floor" aria-hidden="true"></span>
+        </div>
+        <div class="gchart__x" aria-hidden="true"><b>横成長</b><small>知る・実践する</small><i>→</i></div>
+        <ol class="gchart__steps">
+          <li><span class="n">01</span><p>本を読んで、<b>「相手の話を聴こう」</b>と理解する。</p></li>
+          <li><span class="n">02</span><p>実際に人と話してみる。相手の話を聴いているつもりだった。</p></li>
+          <li><span class="n">03</span><p>ふと気づく。<b>「今、自分の正しさを証明しようとしていた」</b>。</p></li>
+          <li><span class="n">04</span><p>「知っている」と「できている」は違う。「できていると思っている」と「他者から見てもできている」も違う。</p></li>
+        </ol>
+      </figure>
     </div>
 
     <div class="growth__essence" data-reveal="scale">
@@ -449,6 +462,8 @@
 
 <!-- ===================== 09 EXPERIENCE ===================== -->
 <section class="section experience" id="experience">
+  <canvas id="exp-canvas" aria-hidden="true"></canvas>
+  <div class="exp__veil"></div>
   <div class="container">
     <div class="exp__head">
       <div class="eyebrow"><span class="num">09</span> EXPERIENCE</div>
@@ -473,9 +488,7 @@
       </figure>
     </div>
 
-    <div class="exp__close" data-reveal="scale">
-      <p>積み重ねることで、<b>認識が更新され、行動が変わっていく。</b></p>
-    </div>
+    <p class="exp__closing" data-reveal>積み重ねることで、<b>認識が更新され、行動が変わっていく。</b></p>
   </div>
 </section>
 
@@ -503,9 +516,9 @@
           <li><small>ACTION</small><span>行動</span></li>
         </ul>
         <div class="cycle-flow" data-reveal><span>気づく</span><i>→</i><span>言語化する</span><i>→</i><span>認識する</span><i>→</i><span>選択する</span><i>→</i><span>行動する</span></div>
-        <div class="corecard__origin" data-reveal>
+        <p class="corecard__note" data-reveal>
           EQコアカードは、商品として生まれたものではありません。<br><b>「人の心を理解するには、まず自分の感情・価値観・認識を知る必要がある」</b>——その必然から生まれた、上の循環を日常で回すための実践ツールです。<br>目に見えないEQを、より具体的に、より分かりやすく言語化し、表現する方法として開発されました。
-        </div>
+        </p>
         <div class="corecard__cta" data-reveal>
           <a class="btn" href="https://abiertoworks-boop.github.io/EQ2/eqgate-transparent-v2#cards8" target="_blank" rel="noopener">EQコアカードを体験する <span class="arr">→</span></a>
           <span class="note">EQ Gate で8色のカードを実際に開いてみる</span>
@@ -531,7 +544,7 @@
       <article class="stage stage--humanity"><img src="images/yoga-sunset.jpg" alt=""><span class="stage__tag">育つ・高める — 人間力向上</span><div class="stage__num">STAGE 04</div><div class="stage__name">EQ Humanity</div><div class="stage__jp">認識を深め、人を理解する</div><p class="stage__desc">メタ認知・関係構築、他者理解・合意形成、視座の拡大・使命の発見。人格・人間力を高め、実践へつなげる。</p></article>
       <article class="stage stage--eqtm"><img src="images/team-office.jpg" alt=""><span class="stage__tag">実践する — 実践・習慣化</span><div class="stage__num">STAGE 05</div><div class="stage__name">EQTM</div><div class="stage__jp">学びを仲間と実践する場</div><p class="stage__desc">仲間と実践する場。トレーニング・習慣化、実践の共有・フィードバック、価値創造・社会貢献。理念を実践しながら行動を継続する。</p></article>
       <article class="stage stage--nexus"><img src="images/business-pair.jpg" alt=""><span class="stage__tag">活かす — 社会実装</span><div class="stage__num">STAGE 06</div><div class="stage__name">EQ Business Nexus</div><div class="stage__jp">個別コンサルティングプラットフォーム</div><p class="stage__desc">経営コンサルティング、ビジネス構築支援、組織づくり支援、EQ認識理論コーチング、人材育成支援、社会実装支援。学びを個人・企業・社会へ実装する。</p></article>
-      <article class="stage stage--end"><div class="stage__num" style="color:var(--cyan-300)">AND THEN</div><h3 class="h-2">社会の変化が、<br>新しい出会いを生む。</h3><p class="stage__desc">循環が、成長を加速させ、未来を創る。</p><a class="btn btn--ghost" href="https://brifu-eq-platform-ixrklwz.gamma.site/" target="_blank" rel="noopener">EQ Platformサイトへ <span class="arr">→</span></a></article>
+      <article class="stage stage--end"><div class="stage__num" style="color:var(--cyan-300)">AND THEN</div><h3 class="h-2">社会の変化が、<br>新しい出会いを生む。</h3><p class="stage__desc">循環が、成長を加速させ、未来を創る。</p><a class="btn btn--ghost" href="http://localhost:8794/eq-platform/" target="_blank" rel="noopener">EQ Platformサイトへ <span class="arr">→</span></a></article>
     </div>
     <div class="platform__bar"><i></i></div>
   </div>
@@ -576,10 +589,10 @@
       <div class="vision__final" data-reveal="scale">「お互いを大切にする社会」が生まれる。</div>
       <p class="vision__claim" data-reveal>これが私たちの考える、<b>「真のイノベーション」</b>です。</p>
       <ul class="vision__phil">
-        <li data-reveal><div class="k">PURPOSE</div><div class="t">目的</div><p>「人の心にイノベーション」を起こし、社会に「真のイノベーション」を創り出す。</p></li>
-        <li data-reveal data-delay=".1"><div class="k">MISSION</div><div class="t">使命</div><p>EQを高めて自分と人の可能性を信じ、人・組織の真の幸せを導けるリーダーを輩出する。</p></li>
-        <li data-reveal data-delay=".2"><div class="k">VISION</div><div class="t">目指す理想の姿</div><p>一人ひとりが感情を大切にし、お互いを大切にする社会をつくる。</p></li>
-        <li data-reveal data-delay=".3"><div class="k">VALUE</div><div class="t">大切にする価値観</div><p>全感謝・貢献。可能性・挑戦。心理的安全性——安心して本音で関われる関係を育む。</p></li>
+        <li data-reveal><img class="phil__icon" src="images/vis-purpose.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div class="k">PURPOSE</div><div class="t">目的</div><p>「人の心にイノベーション」を起こし、社会に「真のイノベーション」を創り出す。</p></li>
+        <li data-reveal data-delay=".1"><img class="phil__icon" src="images/vis-mission.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div class="k">MISSION</div><div class="t">使命</div><p>EQを高めて自分と人の可能性を信じ、人・組織の真の幸せを導けるリーダーを輩出する。</p></li>
+        <li data-reveal data-delay=".2"><img class="phil__icon" src="images/vis-vision.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div class="k">VISION</div><div class="t">目指す理想の姿</div><p>一人ひとりが感情を大切にし、お互いを大切にする社会をつくる。</p></li>
+        <li data-reveal data-delay=".3"><img class="phil__icon" src="images/vis-value.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div class="k">VALUE</div><div class="t">大切にする価値観</div><p>全感謝・貢献。可能性・挑戦。心理的安全性——安心して本音で関われる関係を育む。</p></li>
       </ul>
     </div>
   </div>
@@ -603,33 +616,6 @@
       </ul>
     </div>
 
-    <ul class="entry-grid" aria-label="変化の入口の5つの領域">
-      <li class="entry" data-reveal>
-        <span class="entry__k">SELF</span><span class="entry__t">自分</span>
-        <p>自分の感情を知りたい</p>
-        <a class="entry__go" href="diagnosis.html">診断へ<i>→</i></a>
-      </li>
-      <li class="entry" data-reveal data-delay=".08">
-        <span class="entry__k">RELATION</span><span class="entry__t">人</span>
-        <p>人間関係を変えたい</p>
-        <a class="entry__go" href="diagnosis.html">診断へ<i>→</i></a>
-      </li>
-      <li class="entry" data-reveal data-delay=".16">
-        <span class="entry__k">TEAM</span><span class="entry__t">チーム</span>
-        <p>チームの関係性を良くしたい</p>
-        <a class="entry__go" href="diagnosis.html">診断へ<i>→</i></a>
-      </li>
-      <li class="entry" data-reveal data-delay=".24">
-        <span class="entry__k">ORGANIZATION</span><span class="entry__t">組織</span>
-        <p>人が活きる組織をつくりたい</p>
-        <a class="entry__go" href="diagnosis.html">診断へ<i>→</i></a>
-      </li>
-      <li class="entry" data-reveal data-delay=".32">
-        <span class="entry__k">FUTURE</span><span class="entry__t">未来</span>
-        <p>自分の経験を誰かのために活かしたい</p>
-        <a class="entry__go" href="diagnosis.html">診断へ<i>→</i></a>
-      </li>
-    </ul>
   </div>
 </section>
 
@@ -658,7 +644,7 @@
         <ul>
           <li><a href="company.html">会社概要・理念</a></li>
           <li><a href="company.html#profile">代表プロフィール</a></li>
-          <li><a href="https://brifu-eq-platform-ixrklwz.gamma.site/" target="_blank" rel="noopener">EQ Platform サイト</a></li>
+          <li><a href="http://localhost:8794/eq-platform/" target="_blank" rel="noopener">EQ Platform サイト</a></li>
           <li><a href="mailto:info@brifu.co.jp">info@brifu.co.jp</a></li>
           <li>〒150-0046 東京都渋谷区松濤1-5-1-804</li>
         </ul>

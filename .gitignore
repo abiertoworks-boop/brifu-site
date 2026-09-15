@@ -9,3 +9,6 @@ desktop.ini
 # local tooling
 .claude/
 node_modules/
+
+# local QA harness
+_qa*.html

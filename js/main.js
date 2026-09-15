@@ -301,16 +301,16 @@
     } catch (err) { console.warn('hero 3D disabled', err); }
   }
 
-  /* ---------- Depth fields for 02 WHY and 05 WHY EQ ----------
-     Same idea as the hero, two other patterns: a tunnel of particles that
-     rushes toward the viewer, and a slow wave-grid that drifts sideways. */
+  /* ---------- Depth fields for 02 WHY, 05 WHY EQ and 09 EXPERIENCE ----------
+     Same idea as the hero, three other patterns: a tunnel of particles that
+     drifts toward the viewer, a slow wave-grid, and a turning spiral. */
   function depthField(canvas, variant) {
     if (!canvas || !hasThree || reduceMotion) return;
     try {
       const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       const scene = new THREE.Scene();
-      scene.fog = new THREE.FogExp2(0x061033, variant === 'tunnel' ? 0.03 : 0.05);
+      scene.fog = new THREE.FogExp2(0x061033, variant === 'tunnel' ? 0.03 : variant === 'spiral' ? 0.022 : 0.05);
       const camera = new THREE.PerspectiveCamera(62, 1, 0.1, 120);
       camera.position.set(0, 0, 12);
 
@@ -326,6 +326,14 @@
           pos[i * 3] = Math.cos(a) * r;
           pos[i * 3 + 1] = Math.sin(a) * r * 0.62;
           pos[i * 3 + 2] = -Math.random() * DEPTH;
+        } else if (variant === 'spiral') {
+          // three arms of a slowly turning spiral: the learning cycle, drawn in light
+          const arm = i % 3;
+          const r = 1 + Math.pow(Math.random(), 0.7) * 19;
+          const a = r * 0.34 + arm * (Math.PI * 2 / 3) + (Math.random() - 0.5) * 0.5;
+          pos[i * 3] = Math.cos(a) * r;
+          pos[i * 3 + 1] = (Math.random() - 0.5) * Math.max(0.4, 2.4 - r * 0.09);
+          pos[i * 3 + 2] = Math.sin(a) * r;
         } else {
           pos[i * 3] = (Math.random() - 0.5) * 46;
           pos[i * 3 + 1] = (Math.random() - 0.5) * 26;
@@ -347,10 +355,11 @@
         return new THREE.CanvasTexture(cv);
       })();
       const points = new THREE.Points(geo, new THREE.PointsMaterial({
-        size: variant === 'tunnel' ? 0.3 : 0.24, map: sprite, vertexColors: true, transparent: true,
+        size: variant === 'tunnel' ? 0.3 : variant === 'spiral' ? 0.26 : 0.24, map: sprite, vertexColors: true, transparent: true,
         opacity: 0.9, depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true
       }));
       scene.add(points);
+      if (variant === 'spiral') { points.position.set(5, -3, -14); points.rotation.x = 0.55; }
 
       let rings = null;
       if (variant === 'waves') {
@@ -390,12 +399,15 @@
         if (variant === 'tunnel') {
           const p = geo.attributes.position.array;
           for (let i = 0; i < N; i++) {
-            p[i * 3 + 2] += dt * 11;                 // toward the camera
+            p[i * 3 + 2] += dt * 5.5;                // toward the camera (half the original speed)
             if (p[i * 3 + 2] > 10) p[i * 3 + 2] -= DEPTH + 10;
           }
           geo.attributes.position.needsUpdate = true;
-          points.rotation.z = t * 0.02;
+          points.rotation.z = t * 0.01;
           camera.position.x = mouse.x * 1.1; camera.position.y = -mouse.y * 0.7;
+        } else if (variant === 'spiral') {
+          points.rotation.y = t * 0.06;
+          camera.position.x = mouse.x * 0.8; camera.position.y = -mouse.y * 0.5;
         } else {
           points.rotation.y = t * 0.035 + mouse.x * 0.1;
           points.rotation.x = Math.sin(t * 0.09) * 0.06 + mouse.y * 0.07;
@@ -410,6 +422,7 @@
   }
   depthField(document.getElementById('why-canvas'), 'tunnel');
   depthField(document.getElementById('eq-canvas'), 'waves');
+  depthField(document.getElementById('exp-canvas'), 'spiral');
 
   /* ---------- 02 WHY : the object on the right comes toward you ---------- */
   if (hasGSAP && !reduceMotion) {
