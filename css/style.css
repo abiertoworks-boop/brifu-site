@@ -648,24 +648,27 @@ body.menu-open .menu{clip-path:circle(150% at calc(100% - 52px) 52px);pointer-ev
 .gmap__cap span{font-size:12.5px;color:var(--ink-500);letter-spacing:.06em}
 .gmap__lanes{display:grid;grid-template-columns:minmax(0,1fr) 30px minmax(0,1fr);align-items:stretch}
 .gmap__x{display:grid;place-items:center;font-size:22px;color:var(--blue-600);font-weight:300}
-.gmap__lane{display:flex;flex-direction:column;padding:22px 18px 20px;border-radius:22px}
-.gmap__lane--h{background:var(--ice-100);border:1px solid var(--ice-200)}
-.gmap__lane--v{background:linear-gradient(170deg,#0b1b52,#061033);color:#fff;box-shadow:0 30px 70px -40px rgba(11,27,82,.7)}
+.gmap__lane{position:relative;isolation:isolate;overflow:hidden;display:flex;flex-direction:column;gap:12px;padding:24px 20px 22px;border-radius:22px;
+  transition:transform .6s cubic-bezier(.2,.8,.2,1),box-shadow .6s,border-color .6s}
+.gmap__lane--h{background:var(--ice-100);border:1px solid var(--ice-200);--glow:rgba(47,107,255,.34);--edge:#2f6bff}
+.gmap__lane--v{background:linear-gradient(170deg,#0b1b52,#061033);color:#fff;border:1px solid rgba(157,239,255,.14);
+  box-shadow:0 30px 70px -40px rgba(11,27,82,.7);--glow:rgba(95,224,255,.42);--edge:#9defff}
+/* hover light: a glow pours in from the top edge and the contents rise */
+.gmap__lane::before{content:'';position:absolute;z-index:-1;left:-10%;right:-10%;top:0;height:75%;pointer-events:none;
+  background:radial-gradient(60% 70% at 50% 0,var(--glow),transparent 72%);opacity:0;transform:translateY(-40%);
+  transition:opacity .7s,transform .9s cubic-bezier(.2,.8,.2,1)}
+.gmap__lane::after{content:'';position:absolute;left:12%;right:12%;top:0;height:1px;pointer-events:none;
+  background:linear-gradient(90deg,transparent,var(--edge),transparent);opacity:0;transform:scaleX(.2);
+  transition:opacity .5s,transform .8s cubic-bezier(.2,.8,.2,1)}
+.gmap__lane>*{transition:transform .6s cubic-bezier(.2,.8,.2,1)}
 .gmap__head .k{display:block;font-family:var(--font-en);font-size:10px;letter-spacing:.3em;color:var(--blue-600)}
 .gmap__lane--v .gmap__head .k{color:var(--cyan-400)}
 .gmap__head b{display:inline-block;margin-top:6px;font-size:22px;font-weight:600;letter-spacing:.06em}
 .gmap__head small{margin-left:10px;font-size:12px;color:var(--ink-500);letter-spacing:.04em}
 .gmap__lane--v .gmap__head small{color:rgba(255,255,255,.65)}
-.gmap__ex{margin:14px 0 16px;padding:12px 14px;border-radius:12px;font-size:12.5px;line-height:1.8;
-  background:#fff;border:1px dashed var(--ice-300);color:var(--ink-700)}
-.gmap__ex span{display:block;font-size:10.5px;letter-spacing:.14em;color:var(--blue-600);margin-bottom:2px}
-.gmap__lane--v .gmap__ex{background:rgba(255,255,255,.06);border-color:rgba(157,239,255,.28);color:rgba(255,255,255,.85)}
-.gmap__lane--v .gmap__ex span{color:var(--cyan-400)}
-/* one card per program; the coloured bar on the left matches the EQ Platform stage colour */
-.gmap__prog{position:relative;padding:14px 14px 13px 18px;border-radius:14px;background:#fff;border:1px solid var(--ice-200);
-  box-shadow:0 14px 30px -24px rgba(11,27,82,.45)}
-.gmap__prog::before{content:'';position:absolute;left:0;top:12px;bottom:12px;width:3px;border-radius:0 3px 3px 0;background:var(--c)}
-.gmap__lane--v .gmap__prog{background:rgba(255,255,255,.08);border-color:rgba(157,239,255,.2);box-shadow:none}
+.gmap__prog{padding:15px 16px 14px;border-radius:14px;background:#fff;border:1px solid var(--ice-200);
+  box-shadow:0 14px 30px -24px rgba(11,27,82,.45);transition:transform .6s cubic-bezier(.2,.8,.2,1),border-color .6s}
+.gmap__lane--v .gmap__prog{background:rgba(255,255,255,.07);border-color:rgba(157,239,255,.18);box-shadow:none}
 .gmap__prog--skills{--c:#ff8a3d}
 .gmap__prog--eqtm{--c:#2cb3a6}
 .gmap__prog--eia{--c:#3fbf7f}
@@ -675,12 +678,20 @@ body.menu-open .menu{clip-path:circle(150% at calc(100% - 52px) 52px);pointer-ev
 .gmap__name{display:block;margin-top:3px;font-family:var(--font-en);font-size:18px;font-weight:600;letter-spacing:.03em;color:var(--c)}
 .gmap__prog p{margin-top:6px;font-size:12.5px;line-height:1.75;color:var(--ink-700)}
 .gmap__lane--v .gmap__prog p{color:rgba(255,255,255,.82)}
-.gmap__down{display:block;text-align:center;font-style:normal;font-size:15px;line-height:1;margin:7px 0;color:var(--blue-500)}
-.gmap__lane--v .gmap__down{color:var(--cyan-400)}
-.gmap__gain{margin-top:auto;padding-top:16px;text-align:center;font-size:15px;font-weight:600;color:var(--blue-600)}
-.gmap__gain::before{content:'→ ';color:var(--ink-300)}
+.gmap__gain{margin-top:auto;align-self:center;padding:9px 22px;border-radius:999px;text-align:center;font-size:15px;font-weight:600;
+  color:var(--blue-600);border:1px solid transparent;transition:transform .6s cubic-bezier(.2,.8,.2,1),background .5s,color .5s,box-shadow .5s}
 .gmap__lane--v .gmap__gain{color:var(--cyan-300)}
-.gmap__lane--v .gmap__gain::before{color:rgba(255,255,255,.45)}
+@media (hover:hover){
+  .gmap__lane:hover{transform:translateY(-6px)}
+  .gmap__lane--h:hover{border-color:rgba(47,107,255,.4);box-shadow:0 34px 60px -38px rgba(47,107,255,.55)}
+  .gmap__lane--v:hover{border-color:rgba(157,239,255,.4);box-shadow:0 40px 80px -40px rgba(47,160,255,.6)}
+  .gmap__lane:hover::before{opacity:1;transform:none}
+  .gmap__lane:hover::after{opacity:1;transform:none}
+  .gmap__lane:hover>*{transform:translateY(-4px)}
+  .gmap__lane:hover .gmap__prog{border-color:color-mix(in srgb,var(--c) 45%,transparent)}
+  .gmap__lane:hover .gmap__gain{color:#fff;background:linear-gradient(90deg,#2f6bff,#5fe0ff);box-shadow:0 12px 28px -12px rgba(47,107,255,.7)}
+  .gmap__lane--v:hover .gmap__gain{color:#061033}
+}
 .gmap__foot{margin-top:20px;text-align:center;font-size:14px;line-height:1.9;color:var(--ink-700)}
 @media (max-width:640px){
   .gmap__lanes{grid-template-columns:1fr}
