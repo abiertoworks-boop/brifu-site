@@ -786,8 +786,13 @@
     // Headless screenshots cannot capture a scrolled window reliably, so capture mode shifts the
     // document up with a negative margin instead of scrolling, and sets pinned effects by hand.
     const st = document.createElement('style');
-    st.textContent = '*,*::before,*::after{transition:none!important;animation:none!important}';
+    // ?anim=1 keeps CSS animations running so a screenshot can show one of their frames
+    st.textContent = params.has('anim')
+      ? '*,*::before,*::after{transition:none!important}'
+      : '*,*::before,*::after{transition:none!important;animation:none!important}';
     document.head.appendChild(st);
+    // ?menu=1 shows the open hamburger menu
+    if (params.has('menu')) document.body.classList.add('menu-open');
     setTimeout(() => {
       if (hasGSAP) { gsap.globalTimeline.pause(); ScrollTrigger.refresh(); }
       const sec = params.get('sec');
