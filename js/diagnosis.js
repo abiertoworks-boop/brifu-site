@@ -1,216 +1,251 @@
 /* =========================================================
-   Brifu — 変化の入口診断
-   Knowledge of EQ is never asked. Each question is itself an EQ experience.
-   Result is never a score: it is an "entrance to change".
+   Brifu — かんたんEQ診断 v2.0
+   Not a personality test and never a score: from today's worry,
+   it shows which EQ ability is worth growing now.
+   Q1 picks the theme (personal A–D / team E / unsure F),
+   Q2 gives the axis (self / others) and depth (h = 横成長, v = 縦成長),
+   Q3 checks depth against past experience; Q4 only appears when they disagree.
    ========================================================= */
 (function () {
   'use strict';
 
-  const FREQ = ['よくある', 'ときどきある', 'あまりない', 'ほとんどない'];
-  const CAN = ['できる', 'だいたいできる', 'あまりできない', 'できない'];
+  const PLATFORM = 'https://abiertoworks-boop.github.io/eq-platform/';
 
-  // weights: points per option index (0..3) toward each type
-  const QUESTIONS = [
-    {
-      q: '何かモヤモヤすることがあったとき、自分が<b>なぜそう感じているのか</b>説明できますか？',
-      scene: 'たとえば、会議のあと、家に帰ってから、ふと引っかかる出来事があったとき。',
-      opts: CAN, kind: 'can',
-      w: { A: [0, 1, 2, 3] }, know: [3, 2, 1, 0],
-      reflect: { hi: '感情の理由を自分で言葉にできている。次は、その言葉が「事実」なのか「解釈」なのかを見分ける段階です。', lo: 'モヤモヤの理由が言葉になる前に流れてしまいがち。感情に名前をつけることが、最初の入口になります。' }
-    },
-    {
-      q: '相手に悪気はないと分かっていても、<b>「自分を否定された」</b>と感じることがありますか？',
-      scene: '軽い指摘や何気ないひと言が、あとまで残ってしまうような場面。',
-      opts: FREQ, kind: 'freq',
-      w: { B: [3, 2, 1, 0], A: [1, 1, 0, 0] }, struggle: [3, 2, 1, 0],
-      reflect: { hi: '「分かっているのに、そう感じてしまう」。ここには、知識と感情のあいだにあるギャップがそのまま現れています。', lo: '相手の言葉と自分の感情を切り分けられている。関係の中での認識のズレに、さらに目を向けられる段階です。' }
-    },
-    {
-      q: 'やりたいことがあっても、<b>「自分には無理」</b>と諦めることがありますか？',
-      scene: '始める前に、頭の中で結論が出てしまうような感覚。',
-      opts: FREQ, kind: 'freq',
-      w: { C: [3, 2, 1, 0], A: [1, 0, 0, 0] },
-      reflect: { hi: '「無理」という結論は、感情から生まれた認識かもしれません。小さな一歩に分解すると、選べる余地が見えてきます。', lo: '一歩を選ぶ力は育っている。行動の結果をどう振り返るかが、次の成長を左右します。' }
-    },
-    {
-      q: '相手のためを思って言ったことが、<b>なぜか相手を傷つけてしまった</b>経験がありますか？',
-      scene: '善意で伝えたはずなのに、空気が変わった瞬間。',
-      opts: FREQ, kind: 'freq',
-      w: { B: [2, 2, 1, 0], D: [2, 1, 0, 0] }, struggle: [3, 2, 1, 0],
-      reflect: { hi: '自分の「伝えたつもり」と、相手の「受け取り方」は違う。このズレは、一人では見えにくく、人との関わりの中でしか気づけません。', lo: '伝え方と受け取られ方の違いに、すでに意識が向いている。対話の質をさらに高められる段階です。' }
-    },
-    {
-      q: 'チームで意見が出ないとき、<b>「本人の意欲がないから」</b>と思ってしまうことがありますか？',
-      scene: '会議で沈黙が続き、結局いつも同じ人が話している場面。',
-      opts: FREQ, kind: 'freq',
-      w: { E: [3, 2, 1, 0], B: [1, 1, 0, 0] },
-      reflect: { hi: '意見が出ない理由を「個人」に置くと、関係性や場の安全性が見えなくなります。「何が起きているか」を見る視点が入口です。', lo: '意見が出ない背景に、関係性や場の要因があると捉えられている。チームの可能性を活かす土台があります。' }
-    },
-    {
-      q: '何か問題が起きたとき、<b>「誰が悪いか」よりも「何が起きているのか」</b>を考えられますか？',
-      scene: 'トラブルの報告を受けた、その最初の数秒。',
-      opts: CAN, kind: 'can',
-      w: { E: [0, 1, 2, 3] }, know: [3, 2, 1, 0],
-      reflect: { hi: '出来事を構造として見られている。これは、人と目的をつなぐリーダーシップの核になる視点です。', lo: '「誰が」に意識が向くと、感情が先に動き、状況が見えにくくなります。まず「何が起きているか」を言葉にする練習が入口です。' }
-    },
-    {
-      q: '失敗したとき、その経験から<b>次の行動を変える</b>ことができますか？',
-      scene: '同じような失敗が、形を変えて繰り返されていないか。',
-      opts: CAN, kind: 'can',
-      w: { C: [0, 1, 2, 3] },
-      reflect: { hi: '経験を次につなげる循環が回っている。振り返りの深さが、成長の速度を決めます。', lo: '振り返りが「反省」で止まると、行動は変わりません。「次に何を変えるか」を一つだけ決めることが入口です。' }
-    },
-    {
-      q: '自分と違う意見を聞いたとき、<b>「なぜこの人はそう考えるのだろう？」</b>と考えられますか？',
-      scene: '反論したくなる気持ちが先に来る、そんな場面。',
-      opts: CAN, kind: 'can',
-      w: { B: [0, 1, 2, 3] }, know: [3, 2, 1, 0],
-      reflect: { hi: '相手の認識に関心を向けられている。次は、それを対話の中で実際に確かめる段階です。', lo: '違う意見を「自分への否定」として受け取ると、相手の世界が見えなくなります。「なぜ？」を一つ添えることが入口です。' }
-    }
-  ];
-
-  const TYPES = {
-    A: {
-      name: 'TYPE A', title: '自分を知ることから始める',
-      lead: 'あなたは現在、<b>感情 → 価値観 → 認識</b> を整理することで、次の一歩が見えやすくなる可能性があります。自分の心が分かると、自分で自分の一歩を選べるようになります。',
-      chain: ['感情に気づく', '言葉にする', '大切にしていることを知る', '一歩を選ぶ'],
-      rec: 'h',
-      h: '感情・価値観・認識を、まず「知る」ところから。EQコアカードで感情に名前をつけ、EQ Skillsで感情の扱い方と思考の癖を学ぶ。',
-      v: '整理した自分の認識を、対話の中で確かめる。「自分ではこう思っていた」が、人との関わりで更新されていきます。'
-    },
-    B: {
-      name: 'TYPE B', title: '人との関係から変えていく',
-      lead: 'あなたは現在、<b>自分と相手の認識の違い</b>に気づくことで、コミュニケーションの可能性が広がるかもしれません。すれ違いは、能力の問題ではなく「認識のズレ」から生まれています。',
-      chain: ['相手は何を感じている？', '認識は違わないか？', '相手は何を大切にしている？', '本音で対話する'],
-      rec: 'v',
-      h: '「相手の話を聴く」「伝え方を選ぶ」の型を、EQ Skillsで学ぶ。知識は対話の土台になります。',
-      v: 'セッションや対話を通じて、「聴いているつもり」「伝えたつもり」の自分に気づく。EIA・EQ Humanityが、他者理解と合意形成を深めます。'
-    },
-    C: {
-      name: 'TYPE C', title: '行動を変えることから始める',
-      lead: '考えることは、できている。次に必要なのは、<b>小さく行動して、結果から学ぶこと</b>。感情ではなく目的から選び、振り返りを次の行動につなげていく段階です。',
-      chain: ['目的から考える', '小さく試す', '結果を見る', '次の行動を変える'],
-      rec: 'h',
-      h: 'EQ Skillsの「行動スキルの習得」と、EQコアカードを使った日々の振り返り。知る → 実践する → 経験する の循環を自分で回していきます。',
-      v: '一人の実践に、仲間からのフィードバックを加える。EQTMのような実践の場で、自分では見えない行動の癖に気づけます。'
-    },
-    D: {
-      name: 'TYPE D', title: '人との関わりから深める',
-      lead: '知識を増やすだけではなく、<b>人との関わりを通じて、自分では見えていない自分に気づくこと</b>が次の成長につながる可能性があります。「知っている」と「できている」は違う。そして「できているつもり」と「他者から見てもできている」も違います。',
-      chain: ['人と関わる', 'フィードバックを受ける', '気づけなかった自分に気づく', '認識が深まる'],
-      rec: 'v',
-      h: '学んだことを、言葉として整理し直す。EQ認識理論の枠組みが、経験を言語化する手がかりになります。',
-      v: 'EIA・EQ Humanity・EQ認識理論。対話とフィードバックの中で、価値観が揺さぶられ、自己理解が深まる縦の成長へ。'
-    },
-    E: {
-      name: 'TYPE E', title: '組織との関係から考える',
-      lead: '個人の問題ではなく、<b>人・関係・目的・組織文化</b>を一つのつながりとして捉える段階です。リーダーが変わり、関係性が変わり、行動が変わり、文化が変わる。理念が人の行動に表れる組織へ。',
-      chain: ['何が起きているかを見る', '目的を共有する', '関係性を整える', '文化として根づかせる'],
-      rec: 'v',
-      h: 'チームで共通言語を持つために、EQ Skillsを組織で学ぶ。認識のズレを確認できる土台をつくります。',
-      v: 'EQ Business Nexusで、個人・経営者・組織の課題に伴走する。EQTMで、理念を実践する仲間と習慣化していきます。'
-    }
+  // Stage pages. Until each stage has its own page, they point at its section of EQ Platform;
+  // the per-result anchors below (#self, #others …) are only appended to URLs that have no hash yet.
+  const STAGES = {
+    gate:     { name: 'EQ Gate',           url: PLATFORM + '#stage-1' },
+    eia:      { name: 'EIA',               url: PLATFORM + '#stage-2' },
+    skills:   { name: 'EQ Skills',         url: PLATFORM + '#stage-3' },
+    humanity: { name: 'EQ Humanity',       url: PLATFORM + '#stage-4' },
+    eqtm:     { name: 'EQTM',              url: PLATFORM + '#stage-5' },
+    nexus:    { name: 'EQ Business Nexus', url: PLATFORM + '#nexus' }
   };
 
-  const ORDER = ['A', 'B', 'C', 'D', 'E'];
+  const RESULTS = {
+    p1: { name: '自分を整え、行動につなげる力',
+      desc: '自分の状態を理解し、整えながら、自分で次の行動を選ぶ力です。仕事・目標達成・習慣づくり・感情の自己管理などにつながります。',
+      main: { stage: 'skills', anchor: '#self', title: '自分を整えるEQを見る' },
+      sub:  { stage: 'eia', anchor: '', title: '自分に気づくEQも見てみる' } },
+    p2: { name: '自分の内側に気づき、自分の見方を知る力',
+      desc: 'すぐに答えを出したり変えようとする前に、自分の内側で何が起きているかに気づく力です。自分の見方・捉え方・認識を知る入口になります。',
+      main: { stage: 'eia', anchor: '', title: '自分に気づくEQを見る' },
+      sub:  { stage: 'skills', anchor: '#self', title: '自分を整えるEQも見てみる' } },
+    p3: { name: '伝える・聴く・理解し合う力',
+      desc: '自分の気持ちや考えを言語化して伝え、相手の考えや価値観を聴き、理解する力です。家族・職場・1on1・チーム対話などで活用できます。',
+      main: { stage: 'skills', anchor: '#others', title: '人と理解し合うEQを見る' },
+      sub:  { stage: 'humanity', anchor: '', title: '関係を育てるEQも見てみる' } },
+    p4: { name: '相手との違いに気づき、関係を育てる力',
+      desc: '自分と相手の見方・価値観の違いに気づき、どちらかを悪者にせず、関係そのものを見る力です。',
+      main: { stage: 'humanity', anchor: '', title: '関係を育てるEQを見る' },
+      sub:  { stage: 'eia', anchor: '', title: '自分に気づくEQも見てみる' } },
+    p5: { name: 'まず、自分の現在地を知るところから',
+      desc: '何に悩んでいるか、何を変えたいかがまだ整理できていないときは、まず現在地を知ることから始めます。それも立派な一歩です。',
+      main: { stage: 'gate', anchor: '', title: 'はじめてのEQを見る' },
+      sub:  { stage: 'skills', anchor: '#self', title: '自分を整えるEQも見てみる' } },
+    o1: { name: '本音を言語化し、対話で理解し合う力',
+      desc: '1on1・自己理解・相互理解・対話の質を高める方向です。メンバーが自分の言葉で話せる状態をつくることから始まります。',
+      main: { stage: 'nexus', anchor: '#dialogue', title: '組織の対話を育てる支援を見る' },
+      sub:  { stage: 'skills', anchor: '#others', title: '法人研修の内容も見てみる' } },
+    o2: { name: '自分で考え、自分から動く人材を育てる力',
+      desc: '自己認識・自己管理・自発性・行動につながる人材育成の方向です。指示で動かすのではなく、自ら選べる状態を育てます。',
+      main: { stage: 'nexus', anchor: '#develop', title: '人材育成の支援を見る' },
+      sub:  { stage: 'eqtm', anchor: '', title: '実践し続ける仕組みも見てみる' } },
+    o3: { name: '価値観や見方の違いに気づき、関係性を育てる力',
+      desc: '価値観・認識・関係性・組織文化まで見る方向です。制度や手法を変えても同じ課題が繰り返されるときは、ここに原因があります。',
+      main: { stage: 'nexus', anchor: '#culture', title: '組織文化づくりの支援を見る' },
+      sub:  { stage: 'humanity', anchor: '', title: '関係を育てるEQも見てみる' } },
+    o4: { name: 'まず組織の現在地を知るところから',
+      desc: '何が課題か整理できていない場合は、組織で今どんなことが起きているかを把握するところから始めます。',
+      main: { stage: 'gate', anchor: '#corp', title: '組織のためのEQ入門を見る' },
+      sub:  { stage: 'nexus', anchor: '', title: '法人向け支援も見てみる' } }
+  };
+
+  const VAGUE = 'まだよく分からない';
+
+  const Q1 = { title: '今、特に気になっている悩みはどれですか？', options: [
+    { label: '人間関係', note: '家族・夫婦・親子・職場・友人など', value: 'A' },
+    { label: 'お金', note: '収入・仕事・お金への不安・お金との付き合い方など', value: 'B' },
+    { label: '仕事・行動', note: 'やりたいのに動けない・続かない・仕事の悩みなど', value: 'C' },
+    { label: '自分自身', note: '自分が分からない・自信・感情・考え方など', value: 'D' },
+    { label: 'チーム・組織', note: '人材育成・1on1・コミュニケーション・組織づくりなど', value: 'E' },
+    { label: 'どれにも当てはまらない／まだよく分からない', value: 'F', vague: true }
+  ] };
+
+  const Q2 = {
+    A: { title: '人間関係について、今一番変えたいことはどれに近いですか？', options: [
+      { label: '自分の気持ちや考えを言語化して、相手に伝えられるようになりたい', dim: 'others', depth: 'h' },
+      { label: '相手の気持ちや考えを聴き、もっと理解できるようになりたい', dim: 'others', depth: 'h' },
+      { label: 'なぜ同じような人間関係の悩みを繰り返すのか、自分と相手の見方や価値観の違いを知りたい', dim: 'others', depth: 'v' },
+      { label: VAGUE, dim: null, depth: null, vague: true }
+    ] },
+    B: { title: 'お金について、今一番気になっていることはどれに近いですか？', options: [
+      { label: '収入や仕事につながる行動を、もっと起こし続けられるようになりたい', dim: 'self', depth: 'h' },
+      { label: 'お金に対して感じる不安や感情の奥で、自分に何が起きているのかを知りたい', dim: 'self', depth: 'v' },
+      { label: '自分や家族・パートナーのお金に対する価値観や捉え方の違いを知りたい', dim: 'others', depth: 'v' },
+      { label: VAGUE, dim: null, depth: null, vague: true }
+    ] },
+    C: { title: '仕事や行動について、今一番変えたいことはどれに近いですか？', options: [
+      { label: '自分の考えや目標を言語化・整理して、行動につなげたい', dim: 'self', depth: 'h' },
+      { label: 'やることは分かっているので、行動を続けたり習慣にできるようになりたい', dim: 'self', depth: 'h' },
+      { label: 'なぜ途中で止まるのか、なぜ同じ行動パターンを繰り返すのかを知りたい', dim: 'self', depth: 'v' },
+      { label: VAGUE, dim: null, depth: null, vague: true }
+    ] },
+    D: { title: '自分自身について、今一番変えたい・知りたいことはどれに近いですか？', options: [
+      { label: '自分の気持ちや考えを言語化して、整理できるようになりたい', dim: 'self', depth: 'h' },
+      { label: '感情が動いたときにも、自分を整えて行動を選べるようになりたい', dim: 'self', depth: 'h' },
+      { label: '自分の内側で何が起きているのか、自分がどんな見方・捉え方・価値観を持っているのかを知りたい', dim: 'self', depth: 'v' },
+      { label: VAGUE, dim: null, depth: null, vague: true }
+    ] }
+  };
+
+  // axis implied by the Q1 theme, used when Q2 was answered "まだよく分からない"
+  const THEME_DIM = { A: 'others', B: 'self', C: 'self', D: 'self' };
+
+  // asks about past experience rather than wishes
+  const Q3 = { title: 'この悩みについて、これまではどうでしたか？', options: [
+    { label: '今回が初めて、または本格的に取り組んだことはまだない', depth: 'h' },
+    { label: '過去に何度か取り組んだが、気づくと同じところに戻っている', depth: 'v' },
+    { label: 'どちらとも言えない／まだよく分からない', depth: null, vague: true }
+  ] };
+
+  const Q4 = { title: '今、まず知りたいのはどちらですか？', options: [
+    { label: '具体的にどうすれば変えられるのかを知りたい', depth: 'h' },
+    { label: 'なぜ自分はこう感じたり、同じことを繰り返したりするのかを知りたい', depth: 'v' },
+    { label: 'まだどちらか決められない', depth: null, vague: true }
+  ] };
+
+  const OQ2 = { title: 'チームや組織について、今一番変えたいことはどれに近いですか？', options: [
+    { label: '1on1などで、メンバーが自分の考えや気持ちを言語化し、本音を話せるようにしたい', value: 'A' },
+    { label: 'メンバー同士が聴き合い、お互いを理解できるコミュニケーションを増やしたい', value: 'B' },
+    { label: 'メンバーが自分で考え、自分から行動できる組織にしたい', value: 'C' },
+    { label: '組織の中で繰り返している人間関係や、価値観・見方の違いそのものを見直したい', value: 'D' },
+    { label: '何から変えたらよいのか、まだよく分からない', value: 'E', vague: true }
+  ] };
+
+  const OQ3 = { title: '今の組織の状態に近いのはどちらですか？', options: [
+    { label: '具体的な対話の方法や人材育成のやり方が分かれば、実践しながら改善していけそう', value: 'A' },
+    { label: '1on1・研修・制度などを取り入れても、同じような人間関係や組織課題を繰り返している', value: 'B' },
+    { label: 'どちらとも言えない／まだよく分からない', value: 'C', vague: true }
+  ] };
+
   const panel = document.getElementById('diagPanel');
   if (!panel) return;
   const introEl = document.getElementById('diagIntro');
   const quizEl = document.getElementById('diagQuiz');
   const resultEl = document.getElementById('diagResult');
-  const answers = new Array(QUESTIONS.length).fill(null);
-  let idx = 0;
+  let state = { history: [], answers: {} };
 
   const show = (el) => { [introEl, quizEl, resultEl].forEach((e) => { e.hidden = e !== el; }); };
   const toTop = () => { const y = panel.getBoundingClientRect().top + window.scrollY - 110; window.scrollTo({ top: y, behavior: 'smooth' }); };
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const pad = (n) => String(n).padStart(2, '0');
 
-  document.getElementById('diagStart').addEventListener('click', () => { idx = 0; show(quizEl); renderQ(); toTop(); });
-
-  function renderQ() {
-    const q = QUESTIONS[idx];
+  function renderQuestion(q, step, onPick) {
+    show(quizEl);
     quizEl.innerHTML = `
-      <div class="diag__progress"><span>Q ${String(idx + 1).padStart(2, '0')} / ${String(QUESTIONS.length).padStart(2, '0')}</span><div class="bar"><i style="transform:scaleX(${idx / QUESTIONS.length})"></i></div></div>
+      <div class="diag__progress"><span>Q ${pad(step)}</span><div class="bar"><i style="transform:scaleX(${(step - 1) / 4})"></i></div></div>
       <div class="q-card">
-        <div class="q-card__num">QUESTION ${String(idx + 1).padStart(2, '0')}</div>
-        <p class="q-card__q">${q.q}</p>
-        <p class="q-card__scene">${q.scene}</p>
+        <div class="q-card__num">QUESTION ${pad(step)}</div>
+        <p class="q-card__q">${esc(q.title)}</p>
+        <p class="q-card__scene">一番近いものを1つ選んでください。</p>
         <div class="choices">
-          ${q.opts.map((o, i) => `<button class="choice${answers[idx] === i ? ' is-picked' : ''}" data-i="${i}"><span class="dot"></span>${o}</button>`).join('')}
+          ${q.options.map((o, i) => `<button class="choice${o.vague ? ' is-vague' : ''}" type="button" data-i="${i}"><span class="dot"></span><span class="choice__t">${esc(o.label)}${o.note ? `<small>${esc(o.note)}</small>` : ''}</span></button>`).join('')}
         </div>
         <div class="diag__nav">
-          <button class="diag__back" ${idx === 0 ? 'style="visibility:hidden"' : ''}>← ひとつ前へ</button>
-          <span class="muted" style="font-size:12px;letter-spacing:.1em">直感で選んでください</span>
+          <button class="diag__back" type="button">← ひとつ前へ</button>
+          <span class="muted" style="font-size:12px;letter-spacing:.1em">3問（場合により4問）</span>
         </div>
       </div>`;
     requestAnimationFrame(() => {
-      const bar = quizEl.querySelector('.bar i'); if (bar) bar.style.transform = `scaleX(${(idx + 1) / QUESTIONS.length})`;
+      const bar = quizEl.querySelector('.bar i'); if (bar) bar.style.transform = `scaleX(${Math.min(step / 4, 1)})`;
       quizEl.querySelector('.q-card').classList.add('is-in');
     });
     quizEl.querySelectorAll('.choice').forEach((b) => b.addEventListener('click', () => {
-      answers[idx] = Number(b.dataset.i);
-      quizEl.querySelectorAll('.choice').forEach((c) => c.classList.remove('is-picked'));
       b.classList.add('is-picked');
-      setTimeout(() => { if (idx < QUESTIONS.length - 1) { idx++; renderQ(); } else { renderResult(); } toTop(); }, 320);
+      setTimeout(() => { onPick(q.options[Number(b.dataset.i)]); toTop(); }, 320);
     }));
-    const back = quizEl.querySelector('.diag__back');
-    if (back) back.addEventListener('click', () => { if (idx > 0) { idx--; renderQ(); } });
+    quizEl.querySelector('.diag__back').addEventListener('click', back);
   }
 
-  function compute() {
-    const score = { A: 0, B: 0, C: 0, D: 0, E: 0 };
-    let know = 0, struggle = 0;
-    QUESTIONS.forEach((q, i) => {
-      const a = answers[i];
-      Object.keys(q.w).forEach((t) => { score[t] += q.w[t][a]; });
-      if (q.know) know += q.know[a];
-      if (q.struggle) struggle += q.struggle[a];
-    });
-    // D = "知っているのに、関係の中ではうまくいかない" gap
-    if (know >= 5 && struggle >= 3) score.D += 4;
-    if (know >= 7) score.D += 1;
-    const max = Math.max(...Object.values(score));
-    if (max < 3) return { type: 'D', score };
-    const type = ORDER.find((t) => score[t] === max);
-    return { type, score };
+  function goStep(name) { state.history.push(name); STEPS[name](); }
+
+  function back() {
+    state.history.pop();
+    const prev = state.history.pop();
+    if (!prev) { state = { history: [], answers: {} }; show(introEl); toTop(); return; }
+    goStep(prev);
   }
 
-  function renderResult() {
-    const { type } = compute();
-    const T = TYPES[type];
-    // choose 3 reflections that most shaped the result
-    const contrib = QUESTIONS.map((q, i) => {
-      const a = answers[i];
-      const pts = Object.keys(q.w).reduce((s, t) => s + (t === type ? q.w[t][a] : 0), 0) + (type === 'D' && q.struggle ? q.struggle[a] * 0.5 : 0) + (type === 'D' && q.know ? q.know[a] * 0.3 : 0);
-      const strong = q.kind === 'can' ? a <= 1 : a >= 2; // "hi" text applies when they can / rarely struggle
-      return { i, pts, text: strong ? q.reflect.hi : q.reflect.lo };
-    }).sort((x, y) => y.pts - x.pts || x.i - y.i).slice(0, 3).sort((x, y) => x.i - y.i);
+  const STEPS = {
+    q1: () => renderQuestion(Q1, 1, (o) => {
+      state.answers.q1 = o.value;
+      if (o.value === 'F') return finish('p5');
+      goStep(o.value === 'E' ? 'oq2' : 'q2');
+    }),
+    q2: () => renderQuestion(Q2[state.answers.q1], 2, (o) => { state.answers.q2 = o; goStep('q3'); }),
+    q3: () => renderQuestion(Q3, 3, (o) => { state.answers.q3 = o; resolvePersonal(); }),
+    q4: () => renderQuestion(Q4, 4, (o) => {
+      if (!o.depth) return finish('p5');
+      finish(mapPersonal(state.answers.q2.dim || THEME_DIM[state.answers.q1], o.depth));
+    }),
+    oq2: () => renderQuestion(OQ2, 2, (o) => {
+      state.answers.oq2 = o.value;
+      if (o.value === 'E') return finish('o4');
+      goStep('oq3');
+    }),
+    oq3: () => renderQuestion(OQ3, 3, (o) => finish(mapOrg(state.answers.oq2, o.value)))
+  };
 
+  // Q2 is the wish, Q3 the lived fact: if they disagree or both are unknown, ask Q4
+  function resolvePersonal() {
+    const d2 = state.answers.q2.depth, d3 = state.answers.q3.depth;
+    const dim = state.answers.q2.dim || THEME_DIM[state.answers.q1];
+    if ((d2 && d3 && d2 !== d3) || (!d2 && !d3)) return goStep('q4');
+    finish(mapPersonal(dim, d2 || d3));
+  }
+
+  function mapPersonal(dim, depth) {
+    if (dim === 'self') return depth === 'h' ? 'p1' : depth === 'v' ? 'p2' : 'p5';
+    if (dim === 'others') return depth === 'h' ? 'p3' : depth === 'v' ? 'p4' : 'p5';
+    return 'p5';
+  }
+
+  function mapOrg(q2, q3) {
+    if (q3 === 'B') return 'o3';
+    if (q3 === 'A') return q2 === 'C' ? 'o2' : q2 === 'D' ? 'o3' : 'o1';
+    return 'o4';
+  }
+
+  function linkUrl(link) {
+    const base = STAGES[link.stage].url;
+    return base.includes('#') ? base : base + (link.anchor || '');
+  }
+
+  function finish(id) {
+    const r = RESULTS[id];
+    const card = (link, main) => `
+      <a class="path ${main ? 'path--v is-rec' : 'path--h'}" href="${linkUrl(link)}" target="_blank" rel="noopener">
+        ${main ? '<span class="rec">おすすめ</span>' : ''}
+        <div class="k">${esc(STAGES[link.stage].name)}</div>
+        <div class="t">${esc(link.title)}</div><span class="arr">→</span>
+      </a>`;
     resultEl.innerHTML = `
       <div class="result">
-        <div class="result__type">YOUR ENTRANCE — ${T.name}</div>
-        <h2 class="result__title">${T.title}</h2>
-        <p class="result__lead">${T.lead}</p>
-        <div class="result__chain">${T.chain.map((c, i) => `${i ? '<i>→</i>' : ''}<span>${c}</span>`).join('')}</div>
-        <div class="result__reflect">
-          <h4>あなたの回答から見えたこと</h4>
-          <ul>${contrib.map((c) => `<li><b>Q${c.i + 1}</b>　${c.text}</li>`).join('')}</ul>
-        </div>
-        <div class="result__paths">
-          <div class="path path--h ${T.rec === 'h' ? 'is-rec' : ''}">${T.rec === 'h' ? '<span class="rec">RECOMMENDED</span>' : ''}<div class="k">横成長 — 自分自身で広げる</div><div class="t">知る・学ぶ・実践する</div><p>${T.h}</p><ul><li>EQコアカード</li><li>EQ Skills</li></ul></div>
-          <div class="path path--v ${T.rec === 'v' ? 'is-rec' : ''}">${T.rec === 'v' ? '<span class="rec">RECOMMENDED</span>' : ''}<div class="k">縦成長 — 人と関わり深める</div><div class="t">自分では気づけなかった自分に気づく</div><p>${T.v}</p><ul><li>EIA</li><li>EQ Humanity</li><li>EQ認識理論</li>${type === 'E' ? '<li>EQ Business Nexus</li>' : ''}${type === 'C' ? '<li>EQTM</li>' : ''}</ul></div>
-        </div>
+        <div class="result__type">YOUR EQ — 今のあなたが伸ばすとよいEQの力</div>
+        <h2 class="result__title">${esc(r.name)}</h2>
+        <p class="result__lead">${esc(r.desc)}</p>
+        <p class="result__cta-lead">この力について、くわしく知る</p>
+        <div class="result__paths result__paths--cta">${card(r.main, true)}${card(r.sub, false)}</div>
         <div class="result__actions">
-          <a class="btn" href="http://localhost:8794/eq-platform/" target="_blank" rel="noopener">EQ Platformで学びを見る <span class="arr">→</span></a>
-          <a class="btn btn--ghost" href="index.html#platform">学びの全体像へ戻る</a>
-          <button class="diag__back" id="diagRetry">もう一度診断する</button>
-        </div>
-        <div class="result__others">
-          <h4>5つの「変化の入口」</h4>
-          <ul>${ORDER.map((t) => `<li class="${t === type ? 'is-me' : ''}"><b>${TYPES[t].name}</b>${TYPES[t].title}</li>`).join('')}</ul>
+          <a class="btn" href="index.html#platform">学びの全体像へ戻る <span class="arr">→</span></a>
+          <button class="diag__back" id="diagRetry" type="button">もう一度診断する</button>
         </div>
       </div>`;
     show(resultEl);
     requestAnimationFrame(() => resultEl.querySelector('.result').classList.add('is-in'));
-    document.getElementById('diagRetry').addEventListener('click', () => { answers.fill(null); idx = 0; show(quizEl); renderQ(); toTop(); });
+    document.getElementById('diagRetry').addEventListener('click', () => { state = { history: [], answers: {} }; goStep('q1'); toTop(); });
   }
+
+  document.getElementById('diagStart').addEventListener('click', () => { state = { history: [], answers: {} }; goStep('q1'); toTop(); });
 })();
