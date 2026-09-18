@@ -703,13 +703,12 @@ body.menu-open .menu{clip-path:circle(150% at calc(100% - 52px) 52px);pointer-ev
 .gap-tier .lv{font-family:var(--font-en);font-size:12px;letter-spacing:.3em;color:var(--blue-600);width:70px}
 .gap-tier .lbl{font-size:clamp(20px,2vw,30px);font-weight:700}
 .gap-tiers .ne{font-family:var(--font-en);font-size:14px;letter-spacing:.3em;color:var(--blue-500);padding:6px 0 6px 92px}
-.growth__essence{margin-top:54px;padding:clamp(28px,4vw,54px);border-radius:28px;background:var(--navy-900);color:#fff;position:relative;overflow:hidden}
-.growth__essence::before{content:'';position:absolute;inset:0;background:url('../images/bubbles.jpg') center/cover;opacity:.18;mix-blend-mode:screen}
-.growth__essence>*{position:relative}
-.growth__essence .k{font-family:var(--font-en);font-size:11px;letter-spacing:.32em;color:var(--cyan-400)}
-.growth__essence .t{font-size:clamp(22px,2.6vw,38px);font-weight:700;line-height:1.5;margin-top:14px}
-.growth__essence .t b{color:var(--cyan-400)}
-.growth__essence p{margin-top:16px;color:rgba(255,255,255,.8);max-width:44em}
+/* closing statement of GROWTH: text only, no box */
+.growth__essence{margin-top:clamp(64px,8vw,110px)}
+.growth__essence .k{font-family:var(--font-en);font-size:11px;letter-spacing:.32em;color:var(--blue-600)}
+.growth__essence .t{font-size:clamp(22px,2.6vw,38px);font-weight:700;line-height:1.5;margin-top:14px;color:var(--ink-900)}
+.growth__essence .t b{color:var(--blue-600)}
+.growth__essence p{margin-top:16px;color:var(--ink-700);max-width:44em}
 
 /* ---------- 07 CORE CARD ---------- */
 .corecard{background:var(--ice-100);color:var(--ink-900)}
