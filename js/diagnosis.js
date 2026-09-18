@@ -238,7 +238,7 @@
         <p class="result__cta-lead">この力について、くわしく知る</p>
         <div class="result__paths result__paths--cta">${card(r.main, true)}${card(r.sub, false)}</div>
         <div class="result__actions">
-          <a class="btn" href="index.html#platform">学びの全体像へ戻る <span class="arr">→</span></a>
+          <a class="btn" href="index.html#platform">サービス一覧を見る <span class="arr">→</span></a>
           <button class="diag__back" id="diagRetry" type="button">もう一度診断する</button>
         </div>
       </div>`;
