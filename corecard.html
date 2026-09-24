@@ -7,10 +7,11 @@
 <meta name="description" content="EQコアカードは、感情・価値観・認識・行動を言葉にするカード型のEQトレーニングツール。セルフコーチング、体験会、チームビルディング、企業研修で使えます。認定講座（ナビゲーター・ファシリテーター）もご案内します。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Noto+Serif+JP:wght@600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/corecard.css">
 </head>
-<body>
+<body class="cc-body">
 <div id="transition"></div>
 <div id="cursor"><div class="ring"></div><div class="dot"></div></div>
 
@@ -55,187 +56,235 @@
   </div>
 </div>
 
-<main>
-<section class="subhero cc-hero">
-  <div class="subhero__photo"></div>
-  <div class="container">
-    <div class="breadcrumb"><a href="index.html">TOP</a><span>/</span><span>EQ CORE CARD</span></div>
-    <img class="cc-hero__logo" src="images/eq-logo-white.png" alt="EQ Total management" width="230" height="120" decoding="async">
-    <div class="eyebrow">EQ CORE CARD</div>
-    <h1 class="h-display split-group">
-      <span class="split-line"><span>言葉にならない気持ちを、</span></span>
-      <span class="split-line"><span>カードで言葉にする。</span></span>
+<main class="cc">
+
+<!-- HERO: the words are the visual; the card ring turns behind them, fronts and backs both visible -->
+<section class="cc-hero" id="top">
+  <div class="cc-ring" aria-hidden="true"><div class="cc-ring__wheel"></div></div>
+  <div class="cc-hero__inner">
+    <h1 class="cc-hero__type cc-chars">
+      <span class="l">言葉にならない</span>
+      <span class="l l--2">気持ちを、</span>
+      <span class="l l--3">カードで</span>
+      <span class="l l--4">言葉にする。</span>
     </h1>
-    <p class="lead" data-reveal style="margin-top:30px">EQコアカードは、<strong class="accent-c">感情・価値観・認識・行動</strong>を言葉にするための、カード型のEQトレーニングツールです。<br>1人で使えばセルフコーチング。チームで使えば本音の対話。研修で使えば、組織の共通言語になります。</p>
-    <div class="cc-hero__cta" data-reveal>
-      <a class="btn btn--lg" href="https://www.amazon.co.jp/EQ%E3%82%B3%E3%82%A2%E3%82%AB%E3%83%BC%E3%83%89/dp/B0FHM1CHVW" target="_blank" rel="noopener">Amazonで購入する <span class="arr">→</span></a>
-      <a class="btn btn--ghost" href="#contact">体験会・研修を相談する <span class="arr">→</span></a>
+    <div class="cc-hero__foot">
+      <img src="images/eq-logo-white.png" alt="EQ Total management" width="230" height="120" decoding="async">
+      <p>EQコアカード<br>感情・価値観・認識・行動を、言葉にするためのカード。</p>
+      <a class="cc-link" href="https://www.amazon.co.jp/EQ%E3%82%B3%E3%82%A2%E3%82%AB%E3%83%BC%E3%83%89/dp/B0FHM1CHVW" target="_blank" rel="noopener">Amazonで購入する</a>
     </div>
+  </div>
+  <span class="cc-hero__scroll" aria-hidden="true">SCROLL</span>
+</section>
+
+<!-- 01 QUESTION: a question that sinks in, line by line -->
+<section class="cc-sec cc-q" id="question">
+  <p class="cc-label"><b>01</b>問い</p>
+  <h2 class="cc-q__type cc-chars">
+    <span class="l">自分の気持ちを、</span>
+    <span class="l l--2">本当に言葉に</span>
+    <span class="l l--3">できていますか？</span>
+  </h2>
+  <p class="cc-q__note" data-reveal>「なんか疲れた」「別に」「まあ、いいか」。<br>一日のうちに、言葉にしないまま流している気持ちは、いくつあるだろう。</p>
+</section>
+
+<!-- 02 NOTICE: the sentence develops from invisible to ink as it is read -->
+<section class="cc-sec cc-notice" id="notice">
+  <p class="cc-label"><b>02</b>気づき</p>
+  <h2 class="cc-notice__type cc-develop">人は、自分のことを<br>意外と知らない。</h2>
+  <p class="cc-notice__note" data-reveal>感じたことの多くは、言葉になる前に通り過ぎていく。<br>名前のない気持ちは、見えないまま次の行動を決めている。<span class="pgap"></span>だから人は、同じところで何度もつまずく。</p>
+</section>
+
+<!-- 03 WHAT IT IS: back and front of one card = invisible and visible -->
+<section class="cc-sec cc-what" id="what">
+  <p class="cc-label"><b>03</b>EQコアカードとは</p>
+  <div class="cc-what__cards" aria-hidden="true">
+    <img class="back" src="images/cards/back.jpg" alt="" loading="lazy" decoding="async">
+    <img class="front" src="images/cards/front-8.png" alt="" loading="lazy" decoding="async">
+  </div>
+  <div class="cc-what__text">
+    <h2 class="cc-what__type" data-reveal>無意識にある<br><span class="c-e">感情</span>・<span class="c-v">価値観</span>・<span class="c-p">認識</span>・<span class="c-a">行動</span>を、<br>目に見える形にする。</h2>
+    <p data-reveal>EQコアカードは、カード型のEQトレーニングツールです。<br>並んだ言葉から、今の自分に近い1枚を選ぶ。<br>それだけで、名前のなかった気持ちに言葉がつきます。<span class="pgap"></span>8色のカードには、「共感する」「挑戦する」「頼る」など、心の動きを表す言葉が書かれています。ゲーム感覚で使えるので、EQの知識がなくても始められます。</p>
+    <p class="cc-what__use" data-reveal>ひとりでセルフコーチングに。体験会で初対面の人と。<br>チームの1on1や会議の前に。企業研修の共通言語として。</p>
   </div>
 </section>
 
-<!-- WHAT IT IS: answer "tool, workshop or training?" up front -->
-<section class="section company" id="what">
-  <div class="container">
-    <div class="corecard__grid">
-      <div class="tilt" data-reveal>
-        <div class="tilt__inner">
-          <img src="images/corecard-circle.jpg" alt="EQコアカード。考える・挑戦する・言葉にする・理解する・責任を持つ・競争する・頼る・共感するの8色のカードが円形に並んでいる" loading="lazy" decoding="async">
-          <div class="shine"></div>
-        </div>
-      </div>
-      <div>
-        <div class="eyebrow">WHAT IT IS</div>
-        <h2 class="h-1 split-group">
-          <span class="split-line"><span>無意識を、</span></span>
-          <span class="split-line"><span>目に見える言葉に。</span></span>
-        </h2>
-        <p class="lead" data-reveal style="margin-top:24px">「モヤモヤする」「なんとなく嫌だ」。<br>その奥にある本音は、自分でも言葉にできないまま流れていきます。<span class="pgap"></span>EQコアカードは、並んだ言葉の中から今の自分に近いものを選ぶことで、見えていなかった感情と価値観に名前をつける道具です。ゲーム感覚で使えるので、EQの知識がなくても始められます。</p>
-        <ul class="words4" data-reveal>
-          <li><small>EMOTION</small><span>感情</span></li>
-          <li><small>VALUE</small><span>価値観</span></li>
-          <li><small>PERCEPTION</small><span>認識</span></li>
-          <li><small>ACTION</small><span>行動</span></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="cc-uses">
-      <div class="cc-uses__head">
-        <div class="eyebrow">HOW TO USE</div>
-        <h3 class="h-2">使い方は、4つ。</h3>
-      </div>
-      <ul class="cc-uses__list">
-        <li data-reveal><span class="k">SELF</span><b>ひとりで</b><p>今日の気持ちに近いカードを選び、理由を書き出す。EQセルフコーチングの入口になります。</p><small>個人・自己理解</small></li>
-        <li data-reveal data-delay=".08"><span class="k">WORKSHOP</span><b>体験会で</b><p>初めて会う人同士でもカードを介して本音を話せる。自己理解・他者理解・相互理解が一度に起きます。</p><small>イベント・コミュニティ</small></li>
-        <li data-reveal data-delay=".16"><span class="k">TEAM</span><b>チームで</b><p>1on1や会議の前に使うと、「言いにくいこと」がカードの言葉を借りて出てきます。</p><small>チームビルディング・1on1</small></li>
-        <li data-reveal data-delay=".24"><span class="k">TRAINING</span><b>企業研修で</b><p>感情・価値観を表す言葉がそろい、組織の中で認識のズレを確かめ合える共通言語になります。</p><small>人材育成・組織開発</small></li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- WHAT CHANGES: evidence without numbers — the shift in how people speak -->
-<section class="section section--light" id="change">
-  <div class="container">
-    <div class="grid-2">
-      <div>
-        <div class="eyebrow">WHAT CHANGES</div>
-        <h2 class="h-1 split-group"><span class="split-line"><span>カードを使うと、</span></span><span class="split-line"><span>話す言葉が変わる。</span></span></h2>
-      </div>
-      <p class="lead" data-reveal>変化は、まず「言葉」に表れます。<br>体験の中でよく起きる言葉の変化の例です。</p>
-    </div>
-    <ul class="cc-change">
-      <li data-reveal><div class="cc-change__b"><span>BEFORE</span>「なんかモヤモヤする」</div><div class="cc-change__a"><span>AFTER</span>「認めてほしかったのに、流されて悔しかった」</div><small>感情に名前がつく</small></li>
-      <li data-reveal data-delay=".08"><div class="cc-change__b"><span>BEFORE</span>「あの人とは合わない」</div><div class="cc-change__a"><span>AFTER</span>「大切にしているものが違うだけだった」</div><small>価値観の違いが見える</small></li>
-      <li data-reveal data-delay=".16"><div class="cc-change__b"><span>BEFORE</span>「メンバーにやる気がない」</div><div class="cc-change__a"><span>AFTER</span>「失敗が怖くて、手を挙げられなかった」</div><small>行動の奥の理由に気づく</small></li>
-      <li data-reveal data-delay=".24"><div class="cc-change__b"><span>BEFORE</span>会議で話すのは、いつも同じ人</div><div class="cc-change__a"><span>AFTER</span>一人ひとりが、自分の言葉で話し始める</div><small>場の安全性が育つ</small></li>
-    </ul>
-  </div>
-</section>
-
-<!-- WHO MADE IT: developer credibility -->
-<section class="section section--white" id="developer">
-  <div class="container">
-    <div class="profile">
-      <div class="img-reveal" style="aspect-ratio:4/3"><img src="images/business-pair.jpg" alt="" loading="lazy" decoding="async"></div>
-      <div data-reveal>
-        <div class="eyebrow">DEVELOPER</div>
-        <div class="profile__name">波多野 輝未</div>
-        <div class="profile__role">EQコアカード開発者／株式会社Brifu 代表<br>EQ感情・メタ認知実践開発者／EQ組織づくりコンサルタント</div>
-        <p class="profile__bio">人材育成・コミュニティ構築・リーダー育成の現場で、成果を左右するのは「非認知能力」だと気づいたことが、開発の出発点です。<span class="pgap"></span>「人の心を理解するには、まず自分の感情・価値観・認識を知る必要がある」。その必然から、目に見えないEQを言語化し、日常で使える形にしたのがEQコアカードです。</p>
-        <ul class="stats">
-          <li><b>2,000名+</b><span>延べ人材育成・コンサルティング実績</span></li>
-          <li><b>400名+</b><span>EQ活用のリーダー教育で2年間に拡大した全国組織</span></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- COURSES -->
-<section class="section company" id="course">
-  <div class="container">
-    <div class="eyebrow">COURSE</div>
-    <h2 class="h-1 split-group"><span class="split-line"><span>使う人から、</span></span><span class="split-line"><span>場をつくる人へ。</span></span></h2>
-    <p class="lead" data-reveal style="margin-top:20px">EQコアカードには、体験会や講座を開ける認定資格があります。<br>段階を追って、「使う人」から「伝える人」「育てる人」へ進めます。</p>
-
-    <ol class="cc-ladder" data-reveal>
-      <li><span class="n">STEP 1</span><b>公式ナビゲーター</b><small>体験会を開催できる</small></li>
-      <li><span class="n">STEP 2</span><b>ファシリテーター</b><small>ナビゲーター講座を開催できる</small></li>
-      <li><span class="n">STEP 3</span><b>インストラクター</b><small>ファシリテーター講座を開催できる</small></li>
-      <li><span class="n">STEP 4</span><b>マスターインストラクター</b><small>インストラクター講座を開催できる</small></li>
+<!-- 04 HOW: one small story passes through the four layers -->
+<section class="cc-sec cc-how" id="how">
+  <p class="cc-label"><b>04</b>仕組み</p>
+  <h2 class="cc-how__lead" data-reveal>ひとつの出来事の奥には、<br>4つの層がある。</h2>
+  <div class="cc-how__body">
+    <ol class="cc-how__words" aria-hidden="true">
+      <li class="c-e is-on">感情</li>
+      <li class="c-v">価値観</li>
+      <li class="c-p">認識</li>
+      <li class="c-a">行動</li>
     </ol>
-
-    <div class="cc-course">
-      <article class="cc-course__card" data-reveal>
-        <div class="cc-course__img img-reveal"><img src="images/team-casual.jpg" alt="" loading="lazy" decoding="async"></div>
-        <div class="cc-course__body">
-          <span class="k">NAVIGATOR</span>
-          <h3>EQコアカード公式ナビゲーター認定講座</h3>
-          <p class="cc-course__lead">EQコアカード体験会を、自分で開催できるようになる講座です。</p>
-          <h4>学ぶこと</h4>
-          <ul>
-            <li>行動につながる感情と、その言語化</li>
-            <li>集客できる体験会の企画設計（ペルソナ・導線・投稿）</li>
-            <li>チームのEQスキル・主体性・共感力の育て方</li>
-          </ul>
-          <h4>受講後にできること</h4>
-          <ul>
-            <li>体験会の自主開催（オンライン開催も可）</li>
-            <li>自分の講座やサービスの入口として体験会を運営</li>
-          </ul>
-          <h4>受講料に含まれるもの</h4>
-          <p>認定料・年間登録料・EQコアカード5セット・認定証・開催マニュアル・スライドテンプレート</p>
-        </div>
+    <div class="cc-how__story">
+      <article class="cc-how__step" data-step="0">
+        <p class="k c-e">EMOTION — 感情</p>
+        <p class="t">会議で、自分の案が流された。<br>胸のあたりがざわつく。</p>
+        <p class="d">まだ名前のない反応。カードを見ると、それが「悔しい」だったと分かる。</p>
       </article>
-
-      <article class="cc-course__card" data-reveal data-delay=".1">
-        <div class="cc-course__img img-reveal"><img src="images/team-office.jpg" alt="" loading="lazy" decoding="async"></div>
-        <div class="cc-course__body">
-          <span class="k">FACILITATOR</span>
-          <h3>EQコアカード ファシリテーター認定講座</h3>
-          <p class="cc-course__lead">人と人をつなぎ、心が動く場をつくる。<br>体験会を「感情の学びの場」に深める、共感型ファシリテーションの講座です。</p>
-          <h4>講座内容</h4>
-          <ol class="cc-course__8">
-            <li>感情ファシリテーションの基本</li>
-            <li>感情カードの意味・使い方と反応の見取り</li>
-            <li>「共感空間」を生み出す問いかけ・言語化技法</li>
-            <li>グループでの感情対話の設計・進行・介入方法</li>
-            <li>体験会を企業研修やイベントに応用する方法</li>
-            <li>自己開示と共感循環の実践練習</li>
-            <li>人の本質の見極め方</li>
-            <li>認定に向けた実践課題とサポート</li>
-          </ol>
-          <h4>受講後にできること</h4>
-          <ul>
-            <li>企業研修・チーム支援での体験会の設計と進行</li>
-            <li>公式ナビゲーター認定講座の開催</li>
-          </ul>
-          <p class="cc-course__note">受講条件：公式ナビゲーター認定者。3日間の集中合宿（リアル開催）。</p>
-        </div>
+      <article class="cc-how__step" data-step="1">
+        <p class="k c-v">VALUE — 価値観</p>
+        <p class="t">悔しいのは、<br>「認められること」を大切にしているから。</p>
+        <p class="d">感情の奥には、その人が大切にしているものがある。</p>
+      </article>
+      <article class="cc-how__step" data-step="2">
+        <p class="k c-p">PERCEPTION — 認識</p>
+        <p class="t">「無視された」と受け取ったのは、<br>自分の見方だったかもしれない。</p>
+        <p class="d">大切にしているものが、出来事の見え方を決めている。</p>
+      </article>
+      <article class="cc-how__step" data-step="3">
+        <p class="k c-a">ACTION — 行動</p>
+        <p class="t">黙るのではなく、<br>「どう思った？」と聞いてみる。</p>
+        <p class="d">見え方が変わると、選ぶ行動が変わる。</p>
       </article>
     </div>
-    <p class="cc-course__foot" data-reveal>日程・受講料は、最新の講座案内でご確認ください。<a href="https://eqtm.jimdofree.com/course/" target="_blank" rel="noopener">講座案内（EQTM）を見る</a></p>
   </div>
 </section>
 
-<!-- CTA: three concrete next steps -->
-<section class="section diag-cta" id="contact">
-  <div class="container">
-    <div class="diag-cta__box cc-cta" data-reveal="scale">
-      <div>
-        <div class="eyebrow" style="color:var(--cyan-400)">NEXT STEP</div>
-        <h2 class="h-1">まずは1枚、<br>選んでみてください。</h2>
-        <p>カードは手に取った瞬間から使えます。<br>チームや研修での使い方は、体験会で実際に確かめられます。</p>
-      </div>
-      <ul class="cc-cta__list">
-        <li><span class="k">01 — BUY</span><b>カードを手に入れる</b><a class="btn" href="https://www.amazon.co.jp/EQ%E3%82%B3%E3%82%A2%E3%82%AB%E3%83%BC%E3%83%89/dp/B0FHM1CHVW" target="_blank" rel="noopener">Amazonで購入する <span class="arr">→</span></a></li>
-        <li><span class="k">02 — TRY</span><b>オンラインで体験する</b><a class="btn btn--ghost" href="https://abiertoworks-boop.github.io/EQ2/eqgate-transparent-v2#cards8" target="_blank" rel="noopener">EQ Gateで8色のカードを開く <span class="arr">→</span></a></li>
-        <li><span class="k">03 — ASK</span><b>体験会・企業研修を相談する</b><a class="btn btn--ghost" href="mailto:info@brifu.co.jp?subject=EQ%E3%82%B3%E3%82%A2%E3%82%AB%E3%83%BC%E3%83%89%20%E4%BD%93%E9%A8%93%E4%BC%9A%E3%83%BB%E7%A0%94%E4%BF%AE%E3%81%AE%E7%9B%B8%E8%AB%87">info@brifu.co.jp に相談する <span class="arr">→</span></a></li>
-      </ul>
+<!-- 05 WORDS (WHAT CHANGES): the spoken words change, and colour returns to the photo -->
+<section class="cc-sec cc-words" id="change">
+  <p class="cc-label"><b>05</b>体験 — WHAT CHANGES</p>
+  <h2 class="cc-words__type cc-chars">
+    <span class="l">カードを使うと、</span>
+    <span class="l l--2">話す言葉が変わる。</span>
+  </h2>
+  <div class="cc-row cc-row--1">
+    <figure class="cc-row__img"><img src="images/feel-chest.jpg" alt="胸に手を当てて、自分の気持ちを確かめている女性" loading="lazy" decoding="async"></figure>
+    <div class="cc-row__text">
+      <p class="before">「なんかモヤモヤする」</p>
+      <p class="after">「認めてほしかったのに、<br>流されて悔しかった」</p>
+      <p class="tag c-e">感情に、名前がつく</p>
     </div>
   </div>
+  <div class="cc-row cc-row--2">
+    <figure class="cc-row__img"><img src="images/feel-head.jpg" alt="頭に手を当てて考え込む女性" loading="lazy" decoding="async"></figure>
+    <div class="cc-row__text">
+      <p class="before">「あの人とは合わない」</p>
+      <p class="after">「大切にしているものが、<br>違うだけだった」</p>
+      <p class="tag c-v">価値観の違いが、見える</p>
+    </div>
+  </div>
+  <div class="cc-row cc-row--3">
+    <figure class="cc-row__img"><img src="images/feel-cover.jpg" alt="両手で顔を覆う女性" loading="lazy" decoding="async"></figure>
+    <div class="cc-row__text">
+      <p class="before">「メンバーにやる気がない」</p>
+      <p class="after">「失敗が怖くて、<br>手を挙げられなかった」</p>
+      <p class="tag c-p">行動の奥の理由に、気づく</p>
+    </div>
+  </div>
+  <div class="cc-row cc-row--4">
+    <figure class="cc-row__img"><img src="images/feel-smile.jpg" alt="穏やかに微笑む女性" loading="lazy" decoding="async"></figure>
+    <div class="cc-row__text">
+      <p class="before">会議で話すのは、いつも同じ人</p>
+      <p class="after">一人ひとりが、<br>自分の言葉で話し始める</p>
+      <p class="tag c-a">場が、変わる</p>
+    </div>
+  </div>
+  <p class="cc-words__note">体験の中でよく起きる、言葉の変化の例です。</p>
+</section>
+
+<!-- 06 PROCESS: each word lights up and stays lit, building the chain -->
+<section class="cc-sec cc-proc" id="process">
+  <p class="cc-label"><b>06</b>変化</p>
+  <ol class="cc-proc__list">
+    <li><span class="w">気づく。</span><span class="d">今の気持ちに近いカードを、1枚選ぶ。</span></li>
+    <li><span class="w">言葉になる。</span><span class="d">なぜそのカードを選んだのか、話してみる。</span></li>
+    <li><span class="w">認識が変わる。</span><span class="d">「そう受け取っていたのは、自分の見方だった」と分かる。</span></li>
+    <li><span class="w">選択が変わる。</span><span class="d">同じ場面で、別の選び方ができると知る。</span></li>
+    <li><span class="w">行動が変わる。</span><span class="d">次のひと言、次の一歩が変わる。</span></li>
+  </ol>
+</section>
+
+<!-- 07 FOR WHOM: one sentence that widens as it goes -->
+<section class="cc-sec cc-for" id="for">
+  <p class="cc-label"><b>07</b>誰のためのものか</p>
+  <ol class="cc-for__list">
+    <li data-reveal><span class="s">ひとりの気づきが、</span><span class="u"><b>SELF</b>ひとりで。今日の気持ちに近い1枚を選び、理由を書き出すセルフコーチングに。</span></li>
+    <li data-reveal><span class="s">隣の人との対話になり、</span><span class="u"><b>WORKSHOP</b>体験会で。初対面でも、カードの言葉を借りて本音が話せる。</span></li>
+    <li data-reveal><span class="s">チームの共通言語になり、</span><span class="u"><b>TEAM</b>1on1や会議の前に。言いにくいことが、言葉になって出てくる。</span></li>
+    <li data-reveal><span class="s">組織の文化になる。</span><span class="u"><b>COMPANY</b>企業研修で。感情と価値観を表す言葉がそろい、認識のズレを確かめ合える。</span></li>
+  </ol>
+</section>
+
+<!-- 08 ORIGIN & PEOPLE: who made it and who carries it -->
+<section class="cc-sec cc-origin" id="developer">
+  <p class="cc-label"><b>08</b>つくった人と、広げている人</p>
+  <div class="cc-origin__grid">
+    <blockquote class="cc-origin__quote" data-reveal>
+      <p>「人の心を理解するには、<br>まず自分の感情・価値観・認識を<br>知る必要がある。」</p>
+      <footer>波多野 輝未<small>EQコアカード開発者／株式会社Brifu 代表<br>EQ感情・メタ認知実践開発者／EQ組織づくりコンサルタント</small></footer>
+    </blockquote>
+    <div class="cc-origin__side" data-reveal>
+      <p>人材育成・コミュニティ構築・リーダー育成の現場で、成果を左右するのは「非認知能力」だと気づいたことが、開発の出発点です。目に見えないEQを、日常で使える言葉にしたのがEQコアカードです。</p>
+      <dl class="cc-facts">
+        <div><dt>2,000<small>名+</small></dt><dd>延べ人材育成・コンサルティング</dd></div>
+        <div><dt>400<small>名+</small></dt><dd>EQを活かしたリーダー教育で、2年間に広がった全国組織</dd></div>
+        <div><dt>600<small>名</small></dt><dd>イベント企画で、1年間に集まった参加者</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <div class="cc-course" id="course">
+    <h2 class="cc-course__type" data-reveal>使う人から、<br>場をつくる人へ。</h2>
+    <ol class="cc-stairs" data-reveal>
+      <li><small>STEP 1</small>公式ナビゲーター<span>体験会を開催できる</span></li>
+      <li><small>STEP 2</small>ファシリテーター<span>ナビゲーター講座を開催できる</span></li>
+      <li><small>STEP 3</small>インストラクター<span>ファシリテーター講座を開催できる</span></li>
+      <li><small>STEP 4</small>マスターインストラクター<span>インストラクター講座を開催できる</span></li>
+    </ol>
+    <div class="cc-course__cols">
+      <div data-reveal>
+        <h3>EQコアカード<br>公式ナビゲーター認定講座</h3>
+        <p class="lead">EQコアカード体験会を、自分で開催できるようになる講座です。</p>
+        <h4>学ぶこと</h4>
+        <p>行動につながる感情と、その言語化／集客できる体験会の企画設計（ペルソナ・導線・投稿）／チームのEQスキル・主体性・共感力の育て方</p>
+        <h4>受講後にできること</h4>
+        <p>体験会の自主開催（オンライン開催も可）。自分の講座やサービスの入口として体験会を運営できます。</p>
+        <h4>受講料に含まれるもの</h4>
+        <p>認定料・年間登録料・EQコアカード5セット・認定証・開催マニュアル・スライドテンプレート</p>
+      </div>
+      <div data-reveal data-delay=".1">
+        <h3>EQコアカード<br>ファシリテーター認定講座</h3>
+        <p class="lead">人と人をつなぎ、心が動く場をつくる。体験会を「感情の学びの場」に深める、共感型ファシリテーションの講座です。</p>
+        <h4>講座内容</h4>
+        <ol class="cc-course__8">
+          <li>感情ファシリテーションの基本</li>
+          <li>感情カードの意味・使い方と反応の見取り</li>
+          <li>「共感空間」を生み出す問いかけ・言語化技法</li>
+          <li>グループでの感情対話の設計・進行・介入方法</li>
+          <li>体験会を企業研修やイベントに応用する方法</li>
+          <li>自己開示と共感循環の実践練習</li>
+          <li>人の本質の見極め方</li>
+          <li>認定に向けた実践課題とサポート</li>
+        </ol>
+        <p class="note">受講条件：公式ナビゲーター認定者。3日間の集中合宿（リアル開催）。</p>
+      </div>
+    </div>
+    <p class="cc-course__foot">日程・受講料は、最新の講座案内でご確認ください。<a class="cc-link" href="https://eqtm.jimdofree.com/course/" target="_blank" rel="noopener">講座案内（EQTM）</a></p>
+  </div>
+</section>
+
+<!-- 09 CTA: the page ends by letting the visitor actually pick one card -->
+<section class="cc-sec cc-end" id="contact">
+  <p class="cc-label"><b>09</b>はじめる</p>
+  <h2 class="cc-end__type cc-chars">
+    <span class="l">まずは、1枚。</span>
+    <span class="l l--2">選んでみてください。</span>
+  </h2>
+  <div class="cc-pick" data-reveal>
+    <p class="cc-pick__hint">伏せたカードから、気になる1枚を選んでください。</p>
+    <div class="cc-pick__fan"></div>
+    <p class="cc-pick__ask" aria-live="polite"></p>
+  </div>
+  <ul class="cc-end__links">
+    <li><span>カードを手に入れる</span><a href="https://www.amazon.co.jp/EQ%E3%82%B3%E3%82%A2%E3%82%AB%E3%83%BC%E3%83%89/dp/B0FHM1CHVW" target="_blank" rel="noopener">Amazonで購入する</a></li>
+    <li><span>オンラインで体験する</span><a href="https://abiertoworks-boop.github.io/EQ2/eqgate-transparent-v2#cards8" target="_blank" rel="noopener">EQ Gateで8色のカードを開く</a></li>
+    <li><span>体験会・企業研修を相談する</span><a href="mailto:info@brifu.co.jp?subject=EQ%E3%82%B3%E3%82%A2%E3%82%AB%E3%83%BC%E3%83%89%20%E4%BD%93%E9%A8%93%E4%BC%9A%E3%83%BB%E7%A0%94%E4%BF%AE%E3%81%AE%E7%9B%B8%E8%AB%87">info@brifu.co.jp</a></li>
+  </ul>
 </section>
 </main>
 
@@ -279,5 +328,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
 <script src="js/main.js"></script>
+<script src="js/corecard.js"></script>
 </body>
 </html>
