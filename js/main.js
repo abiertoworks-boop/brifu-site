@@ -106,10 +106,45 @@
         walk(span);
         span.parentElement.classList.add('is-split');
       });
-      group.querySelectorAll('.ch').forEach((c, i) => {
+      const chars = group.querySelectorAll('.ch');
+      chars.forEach((c, i) => {
         c.style.transitionDelay = Math.min(i * 0.024, 0.95).toFixed(3) + 's';
+        c.style.setProperty('--ci', i);
       });
+      const last = Array.from(chars).filter((c) => !c.classList.contains('sp')).pop();
+      if (last) last.dataset.anim = '';
+      new TitleAnimation(group);
     });
+  }
+
+  /* ---------- Title light trace ----------
+     Same shape as a logo replay: adding the running class traces every character in light and
+     then fills it; the class comes off when the last character finishes, and a click replays it. */
+  class TitleAnimation {
+    constructor(el) {
+      this.el = el;
+      this.lastAnimPart = el.querySelector('[data-anim]');
+      this.playClass = 'title--running';
+      this.running = false;
+      this.el.addEventListener('click', this.replay.bind(this));
+      this.lastAnimPart?.addEventListener('animationend', this.stop.bind(this));
+      if (!('IntersectionObserver' in window)) return;
+      const io = new IntersectionObserver((en) => {
+        if (en[0].isIntersecting) { io.disconnect(); this.replay(); }
+      }, { threshold: 0.35 });
+      io.observe(el);
+    }
+    replay() {
+      if (this.running) return;
+      this.running = true;
+      this.el.classList.remove(this.playClass);
+      void this.el.offsetWidth; // restart the keyframes
+      this.el.classList.add(this.playClass);
+    }
+    stop() {
+      this.running = false;
+      this.el.classList.remove(this.playClass);
+    }
   }
 
   /* ---------- Loader ---------- */
@@ -301,16 +336,16 @@
     } catch (err) { console.warn('hero 3D disabled', err); }
   }
 
-  /* ---------- Depth fields for 02 WHY, 05 WHY EQ and 09 EXPERIENCE ----------
-     Same idea as the hero, three other patterns: a tunnel of particles that
-     drifts toward the viewer, a slow wave-grid, and a turning spiral. */
+  /* ---------- Depth fields for WHY, WHY EQ, EXPERIENCE and TRUE INNOVATION ----------
+     Same idea as the hero, four other patterns: a tunnel of particles that
+     drifts toward the viewer, a slow wave-grid, a turning spiral, and the hero's halo. */
   function depthField(canvas, variant) {
     if (!canvas || !hasThree || reduceMotion) return;
     try {
       const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       const scene = new THREE.Scene();
-      scene.fog = new THREE.FogExp2(0x061033, variant === 'tunnel' ? 0.03 : variant === 'spiral' ? 0.022 : 0.05);
+      scene.fog = new THREE.FogExp2(0x061033, variant === 'tunnel' ? 0.03 : variant === 'spiral' ? 0.022 : variant === 'halo' ? 0.04 : 0.05);
       const camera = new THREE.PerspectiveCamera(62, 1, 0.1, 120);
       camera.position.set(0, 0, 12);
 
@@ -326,6 +361,13 @@
           pos[i * 3] = Math.cos(a) * r;
           pos[i * 3 + 1] = Math.sin(a) * r * 0.62;
           pos[i * 3 + 2] = -Math.random() * DEPTH;
+        } else if (variant === 'halo') {
+          // the hero's sphere of light, turned inside out: a wider shell with a clear centre for the words
+          const r = 7 + Math.pow(Math.random(), 0.8) * 17;
+          const th = Math.random() * Math.PI * 2, ph = Math.acos(2 * Math.random() - 1);
+          pos[i * 3] = r * Math.sin(ph) * Math.cos(th) * 1.7;
+          pos[i * 3 + 1] = r * Math.sin(ph) * Math.sin(th) * 0.9;
+          pos[i * 3 + 2] = r * Math.cos(ph) - 8;
         } else if (variant === 'spiral') {
           // three arms of a slowly turning spiral: the learning cycle, drawn in light
           const arm = i % 3;
@@ -374,6 +416,16 @@
         }
         rings.position.set(-4, -1, -8);
         scene.add(rings);
+      } else if (variant === 'halo') {
+        // the hero's wire sphere and orbit rings, centred behind the words
+        rings = new THREE.Group();
+        rings.add(new THREE.Mesh(new THREE.IcosahedronGeometry(6, 1), new THREE.MeshBasicMaterial({ color: 0x5fe0ff, wireframe: true, transparent: true, opacity: 0.07 })));
+        const o1 = new THREE.Mesh(new THREE.TorusGeometry(10, 0.02, 8, 160), new THREE.MeshBasicMaterial({ color: 0x9defff, transparent: true, opacity: 0.24 }));
+        o1.rotation.x = Math.PI / 2.3;
+        const o2 = o1.clone(); o2.rotation.x = Math.PI / 1.7; o2.rotation.y = 0.5; o2.scale.setScalar(0.74);
+        rings.add(o1, o2);
+        rings.position.set(0, 0, -8);
+        scene.add(rings);
       }
 
       const target = { x: 0, y: 0 }, mouse = { x: 0, y: 0 };
@@ -405,6 +457,14 @@
           geo.attributes.position.needsUpdate = true;
           points.rotation.z = t * 0.01;
           camera.position.x = mouse.x * 1.1; camera.position.y = -mouse.y * 0.7;
+        } else if (variant === 'halo') {
+          points.rotation.y = t * 0.028 + mouse.x * 0.12;
+          points.rotation.x = Math.sin(t * 0.07) * 0.06 + mouse.y * 0.08;
+          if (rings) {
+            rings.children[0].rotation.y = t * 0.1; rings.children[0].rotation.x = t * 0.06;
+            rings.children[1].rotation.z = t * 0.08; rings.children[2].rotation.z = -t * 0.06;
+          }
+          camera.position.x = Math.sin(t * 0.05) * 1.6 + mouse.x * 0.7; camera.position.y = -mouse.y * 0.5;
         } else if (variant === 'spiral') {
           points.rotation.y = t * 0.06;
           camera.position.x = mouse.x * 0.8; camera.position.y = -mouse.y * 0.5;
@@ -423,6 +483,7 @@
   depthField(document.getElementById('why-canvas'), 'tunnel');
   depthField(document.getElementById('eq-canvas'), 'waves');
   depthField(document.getElementById('exp-canvas'), 'spiral');
+  depthField(document.getElementById('vision-canvas'), 'halo');
 
   /* ---------- 02 WHY : the object on the right comes toward you ---------- */
   if (hasGSAP && !reduceMotion) {
@@ -435,16 +496,6 @@
           scrollTrigger: { trigger: '.why', start: 'top bottom', end: 'bottom top', scrub: 0.8 }
         });
       gsap.to(whyOrbit.querySelectorAll('span'), { rotate: 360, duration: 46, ease: 'none', repeat: -1, stagger: { each: 5, repeat: -1 } });
-    }
-    // 08 GROWTH : the overlapping circles grow and drift as you pass
-    const gDepth = document.querySelector('.growth__depth');
-    if (gDepth) {
-      gsap.fromTo(gDepth,
-        { scale: 0.6, yPercent: 12, xPercent: 6, opacity: 0.5 },
-        {
-          scale: 1.35, yPercent: -14, xPercent: -10, opacity: 1, ease: 'none',
-          scrollTrigger: { trigger: '.growth', start: 'top bottom', end: 'bottom top', scrub: 0.8 }
-        });
     }
     // 07 DOMAINS : each photo zooms inside its frame while the card is on screen
     gsap.utils.toArray('.domain').forEach((card) => {
@@ -543,24 +594,37 @@
     });
   }
 
-  /* ---------- 05 GAIN : centre-weighted horizontal slider ---------- */
+  /* ---------- 05 GAIN : centre-weighted slider that flows on its own and loops ----------
+     The nine cards are cloned before and after, so the strip can run forever: whenever the
+     scroll passes one full set it jumps back by exactly one set, which looks the same.
+     It pauses while the visitor hovers, drags, focuses or clicks, and resumes a moment later. */
   const slider = document.querySelector('.gain-slider');
   if (slider) {
     const vp = slider.querySelector('.gain-slider__viewport');
     const track = slider.querySelector('.gain-track');
-    const cards = Array.from(track.children);
+    const originals = Array.from(track.children);
+    const n = originals.length;
+    const clone = (c) => {
+      const k = c.cloneNode(true);
+      k.setAttribute('aria-hidden', 'true');
+      k.querySelectorAll('img').forEach((im) => { im.alt = ''; im.loading = 'eager'; });
+      return k;
+    };
+    originals.slice().reverse().forEach((c) => track.insertBefore(clone(c), track.firstChild));
+    originals.forEach((c) => track.appendChild(clone(c)));
+    const cards = Array.from(track.children); // 3n cards; the real ones are n..2n-1
     const dotsWrap = slider.querySelector('.gdots');
     const prevBtn = slider.querySelector('.gnav[data-dir="-1"]');
     const nextBtn = slider.querySelector('.gnav[data-dir="1"]');
     const chipVp = document.querySelector('.gain-row__viewport');
     const chips = Array.from(document.querySelectorAll('.gchip'));
-    let current = 0, ticking = false;
+    let current = n, shown = -1, ticking = false;
 
-    cards.forEach((c, i) => {
+    originals.forEach((c, i) => {
       const b = document.createElement('button');
       b.type = 'button';
       b.setAttribute('aria-label', (i + 1) + '枚目を表示');
-      b.addEventListener('click', () => goTo(i));
+      b.addEventListener('click', () => { hold(); goTo(nearest(i)); });
       dotsWrap.appendChild(b);
     });
     const dots = Array.from(dotsWrap.children);
@@ -576,6 +640,14 @@
     };
     const centerOf = (i, m) => m.pad + i * m.step + m.w / 2;
     const scrollFor = (i, m) => centerOf(i, m) - vp.clientWidth / 2;
+    // the copy of card k that is closest to where we are now
+    const nearest = (k) => { let best = k, d = Infinity; for (let j = k; j < 3 * n; j += n) { const dd = Math.abs(j - current); if (dd < d) { d = dd; best = j; } } return best; };
+    // stay inside the middle set so there is always room to run either way
+    const wrap = (m) => {
+      const set = n * m.step;
+      if (vp.scrollLeft > scrollFor(2 * n, m) - m.step / 2) vp.scrollLeft -= set;
+      else if (vp.scrollLeft < scrollFor(n, m) - m.step / 2) vp.scrollLeft += set;
+    };
 
     const paint = () => {
       ticking = false;
@@ -590,41 +662,65 @@
         c.style.zIndex = String(50 - Math.round(t * 50));
         if (d < bestD) { bestD = d; best = i; }
       });
-      if (best !== current || !cards[best].classList.contains('is-center')) {
-        current = best;
+      current = best;
+      const k = best % n;
+      if (k !== shown) {
+        shown = k;
         cards.forEach((c, i) => c.classList.toggle('is-center', i === best));
         dots.forEach((d, i) => {
-          d.classList.toggle('is-on', i === best);
-          d.setAttribute('aria-current', i === best ? 'true' : 'false');
+          d.classList.toggle('is-on', i === k);
+          d.setAttribute('aria-current', i === k ? 'true' : 'false');
         });
         // keep the upper "学ぶもの" row in step with the lower "得られるもの" slider
-        chips.forEach((c, i) => c.classList.toggle('is-on', i === best));
-        const on = chips[best];
+        chips.forEach((c, i) => c.classList.toggle('is-on', i === k));
+        const on = chips[k];
         if (on && chipVp) {
           const want = on.offsetLeft - (chipVp.clientWidth - on.offsetWidth) / 2;
           chipVp.scrollTo({ left: Math.max(0, want), behavior: reduceMotion ? 'auto' : 'smooth' });
         }
+      } else {
+        cards.forEach((c, i) => c.classList.toggle('is-center', i === best));
       }
-      prevBtn.disabled = vp.scrollLeft <= 2;
-      nextBtn.disabled = vp.scrollLeft >= vp.scrollWidth - vp.clientWidth - 2;
     };
     const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(paint); } };
     const goTo = (i) => {
-      const t = Math.max(0, Math.min(cards.length - 1, i));
-      const left = scrollFor(t, metrics());
+      const m = metrics();
+      const left = scrollFor(Math.max(0, Math.min(3 * n - 1, i)), m);
       vp.scrollTo({ left, behavior: reduceMotion ? 'auto' : 'smooth' });
-      // if the smooth scroll is throttled (background tab), land on the card anyway
-      setTimeout(() => { if (Math.abs(vp.scrollLeft - left) > 4) { vp.scrollLeft = left; paint(); } }, 700);
+      setTimeout(() => { if (Math.abs(vp.scrollLeft - left) > 4) vp.scrollLeft = left; wrap(metrics()); paint(); }, 700);
     };
 
-    chips.forEach((c, i) => c.addEventListener('click', () => goTo(i)));
+    /* auto flow: pauses on any manual interaction, resumes after a short rest */
+    const SPEED = 42; // px per second
+    let auto = !reduceMotion && !CAPTURE, restUntil = 0, visible = false, hovering = false, last = 0, carry = 0;
+    const hold = (ms = 3500) => { restUntil = performance.now() + ms; };
+    new IntersectionObserver((en) => { visible = en[0].isIntersecting; }).observe(slider);
+    const flow = (t) => {
+      requestAnimationFrame(flow);
+      const dt = last ? Math.min(t - last, 50) / 1000 : 0; last = t;
+      if (!auto || !visible || hovering || down || t < restUntil) return;
+      carry += SPEED * dt;
+      const px = Math.floor(carry);
+      if (!px) return;
+      carry -= px;
+      vp.scrollLeft += px;
+      wrap(metrics());
+    };
+    requestAnimationFrame(flow);
+    slider.addEventListener('mouseenter', () => { hovering = true; });
+    slider.addEventListener('mouseleave', () => { hovering = false; hold(1200); });
+    slider.addEventListener('focusin', () => hold(6000));
+    vp.addEventListener('wheel', () => hold(), { passive: true });
+    vp.addEventListener('touchstart', () => hold(5000), { passive: true });
+
+    chips.forEach((c, i) => c.addEventListener('click', () => { hold(); goTo(nearest(i)); }));
     vp.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', () => { vp.scrollLeft = scrollFor(current, metrics()); paint(); });
-    prevBtn.addEventListener('click', () => goTo(current - 1));
-    nextBtn.addEventListener('click', () => goTo(current + 1));
+    prevBtn.addEventListener('click', () => { hold(); goTo(current - 1); });
+    nextBtn.addEventListener('click', () => { hold(); goTo(current + 1); });
     vp.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1); }
-      if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); hold(); goTo(current + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); hold(); goTo(current - 1); }
     });
     // drag to scrub, for mouse users without a trackpad
     let down = false, sx = 0, sl = 0;
@@ -632,20 +728,18 @@
       if (e.pointerType === 'touch') return;
       down = true; sx = e.clientX; sl = vp.scrollLeft; vp.style.cursor = 'grabbing';
     });
-    const endDrag = () => { if (!down) return; down = false; vp.style.cursor = ''; goTo(current); };
+    const endDrag = () => { if (!down) return; down = false; vp.style.cursor = ''; hold(); goTo(current); };
     vp.addEventListener('pointermove', (e) => { if (down) vp.scrollLeft = sl - (e.clientX - sx); });
     vp.addEventListener('pointerup', endDrag);
     vp.addEventListener('pointerleave', endDrag);
 
-    // start with 感情を知る centred
-    const start = () => { vp.scrollLeft = scrollFor(0, metrics()); paint(); };
+    // start with 感情を知る (the first real card) centred
+    const start = () => { vp.scrollLeft = scrollFor(n, metrics()); paint(); };
     start();
     window.addEventListener('load', start);
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(start);
-    if (cards[0].querySelector('img')) {
-      const img0 = cards[0].querySelector('img');
-      if (!img0.complete) img0.addEventListener('load', start, { once: true });
-    }
+    const img0 = originals[0].querySelector('img');
+    if (img0 && !img0.complete) img0.addEventListener('load', start, { once: true });
   }
 
   /* ---------- 05 Domain stacking cards ---------- */
@@ -672,29 +766,53 @@
     box.addEventListener('mouseleave', () => { inner.style.transform = ''; });
   });
 
-  /* ---------- 08 Platform horizontal scroll ---------- */
+  /* ---------- 09 PLATFORM : curved gallery ----------
+     The stage cards stand on the inside of a large cylinder that surrounds the viewer, the way
+     the reference video did. The cylinder is pushed forward by its own radius, so the card in
+     front sits at normal size and the cards to either side lean in and grow, never shrink.
+     Scrolling through the pinned section turns the cylinder one card at a time. */
   const track = document.querySelector('.platform__track');
   if (track && mm && !reduceMotion) {
     mm.add('(min-width: 901px)', () => {
-      const getX = () => Math.min(0, -(track.scrollWidth - window.innerWidth));
+      const pin = document.querySelector('.platform__pin');
+      const stages = Array.from(track.querySelectorAll('.stage'));
       const bar = document.querySelector('.platform__bar i');
-      const tween = gsap.to(track, {
-        x: getX, ease: 'none',
+      pin.classList.add('is-curved');
+      let step = 20;
+      const layout = () => {
+        const w = stages[0].offsetWidth || 380;
+        const r = Math.max(1050, window.innerWidth * 0.9);
+        step = ((w + 40) / r) * (180 / Math.PI);
+        track.style.setProperty('--r', r + 'px');
+        stages.forEach((s, i) => s.style.setProperty('--a', (-i * step) + 'deg'));
+      };
+      const set = (p) => {
+        const rot = p * (stages.length - 1) * step;
+        track.style.setProperty('--rot', rot.toFixed(3) + 'deg');
+        stages.forEach((s, i) => {
+          const d = Math.abs(rot - i * step);
+          s.style.opacity = d > 60 ? 0 : d > 42 ? ((60 - d) / 18).toFixed(3) : 1;
+          s.classList.toggle('is-front', d < step / 2);
+        });
+        if (bar) bar.style.transform = `scaleX(${p})`;
+      };
+      layout(); set(0);
+      const proxy = { p: 0 };
+      const tween = gsap.to(proxy, {
+        p: 1, ease: 'none', onUpdate: () => set(proxy.p),
         scrollTrigger: {
-          trigger: '.platform__pin', start: 'top top',
-          end: () => '+=' + Math.max(400, track.scrollWidth - window.innerWidth + 200),
+          trigger: pin, start: 'top top',
+          end: () => '+=' + Math.round((stages.length - 1) * window.innerHeight * 0.6),
           pin: true, scrub: 0.8, anticipatePin: 1, invalidateOnRefresh: true, refreshPriority: 2,
-          onUpdate: (self) => { if (bar) bar.style.transform = `scaleX(${self.progress})`; }
+          onRefresh: layout
         }
       });
-      gsap.utils.toArray('.stage').forEach((s) => {
-        gsap.fromTo(s, { rotateY: 7, z: -50 }, {
-          rotateY: -7, z: 0, ease: 'none',
-          scrollTrigger: { trigger: s, containerAnimation: tween, start: 'left right', end: 'right left', scrub: true }
-        });
-      });
-      captureFns.push((p) => { track.style.transform = `translate3d(${getX() * p}px,0,0)`; if (bar) bar.style.transform = `scaleX(${p})`; });
-      return () => { track.style.transform = ''; };
+      captureFns.push(set);
+      return () => {
+        tween.scrollTrigger && tween.scrollTrigger.kill(); tween.kill();
+        pin.classList.remove('is-curved');
+        stages.forEach((s) => { s.style.opacity = ''; s.classList.remove('is-front'); });
+      };
     });
   }
 
