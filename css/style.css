@@ -273,11 +273,9 @@ body.menu-open .menu{clip-path:circle(150% at calc(100% - 52px) 52px);pointer-ev
 /* ---------- 00 PURPOSE strip ---------- */
 .purpose{background:var(--white);color:var(--ink-900)}
 .purpose__inner{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(30px,4vw,60px);align-items:center}
-/* the photo has no frame: its edges fade into the white page */
-.purpose__fig{margin:0 calc(var(--gutter) * -1) 0 0;position:relative}
-.purpose__fig img{width:100%;display:block;aspect-ratio:4/3.4;object-fit:cover;object-position:50% 50%;
-  -webkit-mask-image:radial-gradient(ellipse 72% 70% at 55% 50%,#000 42%,rgba(0,0,0,.55) 62%,transparent 80%);
-  mask-image:radial-gradient(ellipse 72% 70% at 55% 50%,#000 42%,rgba(0,0,0,.55) 62%,transparent 80%)}
+/* the whole photo is shown, uncropped, with soft corners and a light shadow so it sits on the white page */
+.purpose__fig{margin:0;position:relative}
+.purpose__fig img{width:100%;height:auto;display:block;border-radius:22px;box-shadow:0 40px 80px -50px rgba(11,27,82,.45)}
 .purpose__stmt{font-size:clamp(23px,2.9vw,46px);line-height:1.6;font-weight:600;margin-top:4px}
 .purpose__stmt strong{color:var(--blue-600)}
 .purpose__sub{margin-top:22px;font-size:15px;line-height:2.15;color:var(--ink-700);max-width:34em}
@@ -986,9 +984,7 @@ a.path:hover .arr{transform:translateX(5px)}
 .why::after,.eq::after,.experience::after,.vision::after,.nexus::after,.platform::after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(180deg,var(--navy-950) 0,rgba(4,8,22,0) 160px,rgba(4,8,22,0) calc(100% - 160px),var(--navy-950) 100%)}
 .platform__head,.platform__pin{position:relative;z-index:2}
-.gain,.corecard{background:linear-gradient(180deg,var(--navy-950) 0,#1b2c5c 40px,#6f86b8 90px,#c3d3f0 140px,var(--ice-100) 190px,var(--ice-100) calc(100% - 190px),#c3d3f0 calc(100% - 140px),#6f86b8 calc(100% - 90px),#1b2c5c calc(100% - 40px),var(--navy-950) 100%)}
-.gain{padding-top:clamp(130px,16vh,200px);padding-bottom:clamp(150px,18vh,220px)}.corecard{padding-top:clamp(130px,16vh,200px);padding-bottom:clamp(130px,16vh,200px)}
-@media (max-width:900px){.purpose__fig{margin:0 calc(var(--gutter) * -1);order:-1}.purpose__fig img{aspect-ratio:16/11}}
+@media (max-width:900px){.purpose__fig{order:-1}}
 
 /* ---------- 10 NEXUS icons ---------- */
 .nexus__list li{display:grid;grid-template-columns:84px minmax(0,1fr);column-gap:22px;align-items:center}
@@ -1015,14 +1011,16 @@ a.path:hover .arr{transform:translateX(5px)}
 .diag-band__btn:hover{transform:translateY(-3px);box-shadow:0 26px 50px -20px rgba(4,8,22,.55)}
 .diag-band__btn:hover i{transform:scale(1.8)}
 /* the photo is a parallelogram that runs slightly past the top and bottom of the band */
-.diag-band__photo{position:absolute;margin:0;right:0;top:-34px;bottom:-34px;width:52%;
-  clip-path:polygon(30% 0,100% 0,70% 100%,0 100%);overflow:hidden}
-.diag-band__photo img{width:100%;height:100%;object-fit:cover;object-position:50% 28%;transform:scale(1.08);transition:transform 1.6s var(--ease-out)}
-.diag-band:hover .diag-band__photo img{transform:scale(1.02)}
+.diag-band__photo{position:absolute;margin:0;right:5%;top:-34px;bottom:-34px;width:auto;aspect-ratio:2/3;
+  clip-path:polygon(16% 0,100% 0,84% 100%,0 100%);overflow:hidden}
+.diag-band__photo img{width:100%;height:100%;object-fit:cover;object-position:50% 50%}
 @media (max-width:900px){
   .diag-band{padding-bottom:0}
   .diag-band__inner{min-height:0}
   .diag-band__text{padding:56px 0 40px}
-  .diag-band__k{flex-wrap:wrap;row-gap:10px}.diag-band__k small{flex-basis:100%;padding-left:26px}
-  .diag-band__photo{position:relative;top:auto;bottom:auto;width:100%;height:clamp(260px,70vw,420px);clip-path:polygon(0 12%,100% 0,100% 100%,0 100%)}
+  .diag-band__photo{position:relative;top:auto;bottom:auto;right:auto;width:100%;height:auto;aspect-ratio:2/3;clip-path:polygon(0 6%,100% 0,100% 100%,0 100%)}
 }
+/* DIAGNOSIS heading uses the same eyebrow + h-1 as every other section */
+.diag-band .eyebrow{color:#fff}
+.diag-band__t{margin-top:0}
+.nexus__aim{color:#e6c67f;font-weight:600}
