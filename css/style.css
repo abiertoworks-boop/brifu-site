@@ -996,10 +996,10 @@ a.path:hover .arr{transform:translateX(5px)}
 @media (max-width:560px){.nexus__list li{grid-template-columns:60px minmax(0,1fr);column-gap:16px}.nexus__ico{width:60px;height:60px;padding:9px}}
 
 /* ---------- 13 DIAGNOSIS : bright-blue band with a slanted photo ---------- */
-.diag-band{background:var(--white);padding:clamp(80px,10vh,130px) 0}
+.diag-band{background:var(--white);padding:clamp(70px,9vh,110px) 0}
 .diag-band__panel{position:relative;background:linear-gradient(115deg,#2f7bff 0%,#3d95ff 55%,#5fb6ff 100%);color:#fff}
-.diag-band__inner{min-height:clamp(440px,48vw,640px);display:flex;align-items:center}
-.diag-band__text{width:min(100%,560px);padding:clamp(60px,7vw,100px) 0}
+.diag-band__inner{min-height:clamp(360px,34vw,480px);display:flex;align-items:center}
+.diag-band__text{width:min(46%,540px);padding:clamp(44px,5vw,70px) 0}
 .diag-band__k{display:flex;align-items:baseline;gap:14px;font-family:var(--font-en);font-weight:600;font-size:clamp(30px,3.4vw,48px);letter-spacing:.01em;line-height:1}
 .diag-band__k .sl{display:inline-block;width:6px;height:48px;align-self:center;background:#fff;transform:skewX(-20deg);font-size:0;margin-right:6px;box-shadow:0 0 18px rgba(255,255,255,.6)}
 .diag-band__k small{font-family:var(--font-jp);font-size:15px;font-weight:600;letter-spacing:.08em;opacity:.9}
@@ -1011,14 +1011,14 @@ a.path:hover .arr{transform:translateX(5px)}
 .diag-band__btn:hover{transform:translateY(-3px);box-shadow:0 26px 50px -20px rgba(4,8,22,.55)}
 .diag-band__btn:hover i{transform:scale(1.8)}
 /* the photo is a parallelogram that runs slightly past the top and bottom of the band */
-.diag-band__photo{position:absolute;margin:0;right:5%;top:-34px;bottom:-34px;width:auto;aspect-ratio:2/3;
-  clip-path:polygon(16% 0,100% 0,84% 100%,0 100%);overflow:hidden}
-.diag-band__photo img{width:100%;height:100%;object-fit:cover;object-position:50% 50%}
+.diag-band__photo{position:absolute;margin:0;right:0;top:-28px;bottom:-28px;width:58%;
+  clip-path:polygon(14% 0,100% 0,100% 100%,0 100%);overflow:hidden}
+.diag-band__photo img{width:100%;height:100%;object-fit:cover;object-position:62% 30%}
 @media (max-width:900px){
   .diag-band{padding-bottom:0}
   .diag-band__inner{min-height:0}
-  .diag-band__text{padding:56px 0 40px}
-  .diag-band__photo{position:relative;top:auto;bottom:auto;right:auto;width:100%;height:auto;aspect-ratio:2/3;clip-path:polygon(0 6%,100% 0,100% 100%,0 100%)}
+  .diag-band__text{width:100%;padding:56px 0 40px}
+  .diag-band__photo{position:relative;top:auto;bottom:auto;right:auto;width:100%;height:auto;aspect-ratio:3/2;clip-path:polygon(0 8%,100% 0,100% 100%,0 100%)}
 }
 /* DIAGNOSIS heading uses the same eyebrow + h-1 as every other section */
 .diag-band .eyebrow{color:#fff}
