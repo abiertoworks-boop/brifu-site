@@ -529,13 +529,26 @@
       items.forEach((it, k) => it.classList.toggle('is-active', k === i));
       dots.forEach((d, k) => d.classList.toggle('is-active', k === i));
     };
-    let lastP = 0;
+    let lastP = 0, phoneStep = 0;
+    // phone: the list does not turn, so the light walks down it, one card at a time, and loops
+    if (!reduceMotion && !CAPTURE) {
+      setInterval(() => {
+        if (isDesktop()) return;
+        const r = ring.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > window.innerHeight) return;
+        phoneStep = (phoneStep + 1) % n;
+        setActive(phoneStep);
+        const a = items[phoneStep];
+        ring.style.setProperty('--ly', (a.offsetTop + a.offsetHeight / 2) + 'px');
+        ring.classList.toggle('is-wrap', phoneStep === 0);
+      }, 1300);
+    }
     const updateRing = (p) => {
       lastP = p;
       if (!isDesktop()) {
         items.forEach((it) => { it.style.transform = ''; it.style.opacity = ''; it.style.zIndex = ''; });
         ring.style.transform = '';
-        setActive(0);
+        setActive(phoneStep);
         return;
       }
       const R = Math.min(330, Math.max(250, innerWidth * 0.23));
