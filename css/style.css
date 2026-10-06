@@ -995,32 +995,4 @@ a.path:hover .arr{transform:translateX(5px)}
 .nexus__list li:hover .nexus__ico{transform:scale(1.06);border-color:rgba(230,198,127,.8)}
 @media (max-width:560px){.nexus__list li{grid-template-columns:60px minmax(0,1fr);column-gap:16px}.nexus__ico{width:60px;height:60px;padding:9px}}
 
-/* ---------- 13 DIAGNOSIS : bright-blue band with a slanted photo ---------- */
-.diag-band{background:var(--white);padding:clamp(70px,9vh,110px) 0}
-.diag-band__panel{position:relative;background:linear-gradient(115deg,#2f7bff 0%,#3d95ff 55%,#5fb6ff 100%);color:#fff}
-.diag-band__inner{min-height:clamp(360px,34vw,480px);display:flex;align-items:center}
-.diag-band__text{width:min(46%,540px);padding:clamp(44px,5vw,70px) 0}
-.diag-band__k{display:flex;align-items:baseline;gap:14px;font-family:var(--font-en);font-weight:600;font-size:clamp(30px,3.4vw,48px);letter-spacing:.01em;line-height:1}
-.diag-band__k .sl{display:inline-block;width:6px;height:48px;align-self:center;background:#fff;transform:skewX(-20deg);font-size:0;margin-right:6px;box-shadow:0 0 18px rgba(255,255,255,.6)}
-.diag-band__k small{font-family:var(--font-jp);font-size:15px;font-weight:600;letter-spacing:.08em;opacity:.9}
-.diag-band__t{margin-top:clamp(32px,4vw,48px);font-size:clamp(24px,2.5vw,36px);font-weight:600;line-height:1.55}
-.diag-band__d{margin-top:22px;font-size:15px;line-height:2.1;color:rgba(255,255,255,.9)}
-.diag-band__btn{margin-top:36px;display:inline-flex;align-items:center;justify-content:space-between;gap:40px;min-width:260px;padding:20px 30px;border-radius:999px;
-  background:#fff;color:#1f5eff;font-weight:600;font-size:15px;box-shadow:0 20px 40px -20px rgba(4,8,22,.45);transition:transform .5s var(--ease-out),box-shadow .5s}
-.diag-band__btn i{width:8px;height:8px;border-radius:50%;background:#1f5eff;transition:transform .5s var(--ease-out)}
-.diag-band__btn:hover{transform:translateY(-3px);box-shadow:0 26px 50px -20px rgba(4,8,22,.55)}
-.diag-band__btn:hover i{transform:scale(1.8)}
-/* the photo is a parallelogram that runs slightly past the top and bottom of the band */
-.diag-band__photo{position:absolute;margin:0;right:0;top:-28px;bottom:-28px;width:58%;
-  clip-path:polygon(14% 0,100% 0,100% 100%,0 100%);overflow:hidden}
-.diag-band__photo img{width:100%;height:100%;object-fit:cover;object-position:62% 30%}
-@media (max-width:900px){
-  .diag-band{padding-bottom:0}
-  .diag-band__inner{min-height:0}
-  .diag-band__text{width:100%;padding:56px 0 40px}
-  .diag-band__photo{position:relative;top:auto;bottom:auto;right:auto;width:100%;height:auto;aspect-ratio:3/2;clip-path:polygon(0 8%,100% 0,100% 100%,0 100%)}
-}
-/* DIAGNOSIS heading uses the same eyebrow + h-1 as every other section */
-.diag-band .eyebrow{color:#fff}
-.diag-band__t{margin-top:0}
 .nexus__aim{color:#e6c67f;font-weight:600}
