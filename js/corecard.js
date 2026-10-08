@@ -122,7 +122,10 @@
       photoImgs.forEach((im) => {
         const r = im.parentElement.getBoundingClientRect();
         if (r.bottom < -200 || r.top > vh + 200) return;
-        im.style.setProperty('--z', (1 + clamp((vh - r.top) / (vh + r.height)) * 0.18).toFixed(4));
+        const p = clamp((vh - r.top) / (vh + r.height));
+        // 04 photos start large and shrink back to size; all others slowly zoom in
+        const z = im.parentElement.classList.contains('cc-photo--step') ? 1.3 - clamp((vh - r.top) / (vh * 0.7)) * 0.3 : 1 + p * 0.18;
+        im.style.setProperty('--z', z.toFixed(4));
       });
       const top = parseFloat(getComputedStyle(rows[0] || document.body).top) || 84;
       rows.forEach((row, i) => {
@@ -131,7 +134,7 @@
         const next = rows[i + 1];
         const cover = next ? clamp((vh - next.getBoundingClientRect().top) / (vh - top)) : 0;
         row.style.setProperty('--sc', (1 - cover * 0.06).toFixed(4));
-        row.style.setProperty('--br', (1 - cover * 0.1).toFixed(4));
+        row.style.setProperty('--dim', (cover * 0.12).toFixed(4));
         const enter = clamp((vh - r.top) / (vh - top));
         const im = row.querySelector('.cc-row__img img');
         if (im) im.style.setProperty('--z', (1 + (enter * 0.5 + cover * 0.5) * 0.16).toFixed(4));
