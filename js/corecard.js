@@ -110,21 +110,36 @@
   once(document.querySelectorAll('.cc-row'), 'is-lit', { threshold: 0.45 });
   once(document.querySelectorAll('.cc-photo'), 'is-in', { threshold: 0.15 });
 
-  /* ---------- 05: each photo zooms in a little as its row passes through the screen ---------- */
-  const rowImgs = Array.from(document.querySelectorAll('.cc-row__img img'));
-  if (rowImgs.length && !reduce && !CAPTURE) {
+  /* ---------- photos zoom in as you scroll; 05 rows stack, the covered one sinks back ---------- */
+  const photoImgs = Array.from(document.querySelectorAll('.cc-photo img'));
+  const rows = Array.from(document.querySelectorAll('.cc-row'));
+  if (!reduce && !CAPTURE) {
     let ticking = false;
-    const zoom = () => {
+    const clamp = (v) => Math.min(Math.max(v, 0), 1);
+    const update = () => {
       ticking = false;
       const vh = window.innerHeight;
-      rowImgs.forEach((im) => {
+      photoImgs.forEach((im) => {
         const r = im.parentElement.getBoundingClientRect();
-        const p = Math.min(Math.max((vh - r.top) / (vh + r.height), 0), 1);
-        im.style.setProperty('--z', (1 + p * 0.16).toFixed(4));
+        if (r.bottom < -200 || r.top > vh + 200) return;
+        im.style.setProperty('--z', (1 + clamp((vh - r.top) / (vh + r.height)) * 0.18).toFixed(4));
+      });
+      const top = parseFloat(getComputedStyle(rows[0] || document.body).top) || 84;
+      rows.forEach((row, i) => {
+        const r = row.getBoundingClientRect();
+        if (r.bottom < -400 || r.top > vh + 200) return;
+        const next = rows[i + 1];
+        const cover = next ? clamp((vh - next.getBoundingClientRect().top) / (vh - top)) : 0;
+        row.style.setProperty('--sc', (1 - cover * 0.06).toFixed(4));
+        row.style.setProperty('--br', (1 - cover * 0.1).toFixed(4));
+        const enter = clamp((vh - r.top) / (vh - top));
+        const im = row.querySelector('.cc-row__img img');
+        if (im) im.style.setProperty('--z', (1 + (enter * 0.5 + cover * 0.5) * 0.16).toFixed(4));
       });
     };
-    window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(zoom); } }, { passive: true });
-    zoom();
+    window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    window.addEventListener('resize', update);
+    update();
   }
   once(document.querySelectorAll('.cc-proc__list li'), 'is-lit', { rootMargin: '0px 0px -40% 0px' });
 
