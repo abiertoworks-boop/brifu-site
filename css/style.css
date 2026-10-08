@@ -996,3 +996,21 @@ a.path:hover .arr{transform:translateX(5px)}
 @media (max-width:560px){.nexus__list li{grid-template-columns:60px minmax(0,1fr);column-gap:16px}.nexus__ico{width:60px;height:60px;padding:9px}}
 
 .nexus__aim{color:#e6c67f;font-weight:600}
+
+/* ---------- お問い合わせフォーム ---------- */
+.cform{max-width:760px;margin-inline:auto;background:#fff;border-radius:24px;padding:clamp(28px,5vw,56px);box-shadow:0 40px 100px -60px rgba(11,27,82,.45);display:grid;gap:22px}
+.cform__row{display:grid;gap:10px}
+.cform__lb{font-size:14.5px;font-weight:600;color:var(--ink-900);letter-spacing:.04em}
+.cform__lb em{font-style:normal;font-size:11px;font-weight:600;color:#fff;background:var(--blue-600);padding:3px 8px;border-radius:4px;margin-right:10px;letter-spacing:.08em}
+.cform input[type=text],.cform input[type=email],.cform textarea{width:100%;font:inherit;font-size:15px;color:var(--ink-900);background:var(--ice-100);border:1px solid var(--ice-200);border-radius:10px;padding:15px 16px;transition:border-color .3s,background .3s,box-shadow .3s}
+.cform textarea{resize:vertical;min-height:170px;line-height:1.8}
+.cform input:focus,.cform textarea:focus{outline:none;background:#fff;border-color:var(--blue-500);box-shadow:0 0 0 4px rgba(47,123,255,.12)}
+.cform__check{display:flex;gap:10px;align-items:center;font-size:14px;color:var(--ink-700);cursor:pointer}
+.cform__check input{width:18px;height:18px;accent-color:var(--blue-600)}
+.cform__send{justify-self:stretch;justify-content:center}
+.cform__send:disabled{opacity:.5;pointer-events:none}
+.cform__err{color:#d03b4a;font-size:14px}
+.cform__note{font-size:13px;line-height:1.9;color:var(--ink-500);padding:16px 18px;border:1px solid var(--ice-200);border-radius:12px}
+.cform__done{max-width:760px;margin-inline:auto;text-align:center;background:#fff;border-radius:24px;padding:clamp(36px,6vw,70px)}
+.cform__done p{margin:18px 0 30px;line-height:2;color:var(--ink-700)}
+.ctable__link{margin-left:12px;color:var(--blue-600);font-size:13px}

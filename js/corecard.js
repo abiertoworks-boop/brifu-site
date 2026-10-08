@@ -11,7 +11,6 @@
   const CAPTURE = params.has('capture');
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const FRONTS = 8;
-  const NAMES = ['考える', '挑戦する', '言葉にする', '理解する', '責任を持つ', '競争する', '頼る', '共感する'];
   const front = (i) => `images/cards/front-${(i % FRONTS) + 1}.png`;
   const BACK = 'images/cards/back.jpg';
 
@@ -30,7 +29,8 @@
   if (wheel) {
     const N = 42;
     const small = window.matchMedia('(max-width: 900px)').matches;
-    const cw = small ? 70 : 104, ch = Math.round(cw * 1.4), r0 = small ? 110 : 168;
+    // 10% larger than the first version
+    const cw = small ? 77 : 114, ch = Math.round(cw * 1.4), r0 = small ? 121 : 185;
     wheel.style.setProperty('--cw', cw + 'px');
     wheel.style.setProperty('--ch', ch + 'px');
     const cards = [];
@@ -108,29 +108,7 @@
 
   /* ---------- 05 / 06: colour returns, the chain lights up ---------- */
   once(document.querySelectorAll('.cc-row'), 'is-lit', { threshold: 0.45 });
+  once(document.querySelectorAll('.cc-photo'), 'is-in', { threshold: 0.15 });
   once(document.querySelectorAll('.cc-proc__list li'), 'is-lit', { rootMargin: '0px 0px -40% 0px' });
 
-  /* ---------- 09: pick one of the face-down cards ---------- */
-  const fan = document.querySelector('.cc-pick__fan');
-  if (fan) {
-    const ask = document.querySelector('.cc-pick__ask');
-    const order = [0, 1, 2, 3, 4, 5, 6, 7].sort(() => Math.random() - 0.5);
-    for (let i = 0; i < 8; i++) {
-      const b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'cc-pick__card';
-      b.style.setProperty('--r', ((i - 3.5) * 8) + 'deg');
-      b.setAttribute('aria-label', `伏せたカード ${i + 1}枚目をめくる`);
-      b.innerHTML = `<span class="in"><img src="${BACK}" alt=""><img class="fr" src="${front(order[i])}" alt=""></span>`;
-      b.addEventListener('click', () => {
-        const was = b.classList.contains('is-picked');
-        fan.querySelectorAll('.cc-pick__card').forEach((c) => c.classList.remove('is-picked'));
-        fan.classList.toggle('has-pick', !was);
-        if (was) { ask.textContent = ''; return; }
-        b.classList.add('is-picked');
-        ask.innerHTML = `「${NAMES[order[i]]}」。<br>最近、この言葉を感じた場面はありましたか？`;
-      });
-      fan.appendChild(b);
-    }
-  }
 })();
