@@ -109,6 +109,23 @@
   /* ---------- 05 / 06: colour returns, the chain lights up ---------- */
   once(document.querySelectorAll('.cc-row'), 'is-lit', { threshold: 0.45 });
   once(document.querySelectorAll('.cc-photo'), 'is-in', { threshold: 0.15 });
+
+  /* ---------- 05: each photo zooms in a little as its row passes through the screen ---------- */
+  const rowImgs = Array.from(document.querySelectorAll('.cc-row__img img'));
+  if (rowImgs.length && !reduce && !CAPTURE) {
+    let ticking = false;
+    const zoom = () => {
+      ticking = false;
+      const vh = window.innerHeight;
+      rowImgs.forEach((im) => {
+        const r = im.parentElement.getBoundingClientRect();
+        const p = Math.min(Math.max((vh - r.top) / (vh + r.height), 0), 1);
+        im.style.setProperty('--z', (1 + p * 0.16).toFixed(4));
+      });
+    };
+    window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(zoom); } }, { passive: true });
+    zoom();
+  }
   once(document.querySelectorAll('.cc-proc__list li'), 'is-lit', { rootMargin: '0px 0px -40% 0px' });
 
 })();
