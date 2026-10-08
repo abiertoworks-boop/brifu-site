@@ -371,6 +371,17 @@
   mask-composite:intersect}
 /* 08: in-flow photo uses the inset shade instead of a mask (a mask hides in-flow figures in some renderers) */
 .cc-photo--seminar{-webkit-mask-image:none !important;mask-image:none !important;overflow:hidden}
-.cc-photo--seminar::after{content:"";position:absolute;inset:-50px;pointer-events:none;box-shadow:inset 0 0 clamp(70px,8vw,120px) clamp(60px,6.5vw,100px) var(--white)}
+.cc-photo--seminar::after{content:none}
+.cc-photo--seminar img{
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent),linear-gradient(180deg,transparent,#000 9%,#000 91%,transparent);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent),linear-gradient(180deg,transparent,#000 9%,#000 91%,transparent);
+  mask-composite:intersect}
 /* 05: a covered row dims under a thin veil (a CSS filter here blanks the photos in Chrome) */
 .cc-sec.cc-words>.cc-row::before{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;background:var(--ink);opacity:var(--dim,0)}
+/* 03: the card-back photo loses its rectangular edge into the night background; only a thin band is softened */
+.cc-what__cards .back{border-radius:0;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent),linear-gradient(180deg,transparent,#000 7%,#000 93%,transparent);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent),linear-gradient(180deg,transparent,#000 7%,#000 93%,transparent);
+  mask-composite:intersect}
