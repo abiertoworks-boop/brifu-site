@@ -385,3 +385,28 @@
   -webkit-mask-composite:source-in;
   mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent),linear-gradient(180deg,transparent,#000 7%,#000 93%,transparent);
   mask-composite:intersect}
+
+/* ---------- 2026-10-09b: the 05 and 08 photos arrive already feathered to white, so only a hairline blend remains ---------- */
+.cc-row--1 .cc-row__img::after,.cc-row--2 .cc-row__img::after,.cc-row--3 .cc-row__img::after{inset:0;box-shadow:inset 0 0 18px 6px var(--white)}
+.cc-photo--seminar img{
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent),linear-gradient(180deg,transparent,#000 3%,#000 97%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent),linear-gradient(180deg,transparent,#000 3%,#000 97%,transparent)}
+.cc-row--1 .cc-row__img img,.cc-row--2 .cc-row__img img,.cc-row--3 .cc-row__img img{object-position:50% 50%}
+/* 06: the woman behind the words is clearly visible; the dark feather around her stays */
+.cc-photo--proc{--po:.92}
+.cc-photo--proc img{filter:brightness(1.12) saturate(.95)}
+.cc-proc__list .w{text-shadow:0 2px 24px rgba(13,20,36,.55)}
+.cc-proc__list .d{text-shadow:0 1px 10px rgba(13,20,36,.8)}
+/* the new photos are 3:2 with their own white vignette: show them whole, never cropped */
+.cc-sec.cc-words .cc-row--1 .cc-row__img,.cc-sec.cc-words .cc-row--2 .cc-row__img,.cc-sec.cc-words .cc-row--3 .cc-row__img{aspect-ratio:3/2;height:auto !important;max-height:none}
+.cc-sec.cc-words .cc-row--1 .cc-row__img{grid-column:6 / 13}
+.cc-sec.cc-words .cc-row--2 .cc-row__img{grid-column:1 / 7}
+.cc-sec.cc-words .cc-row--3 .cc-row__img{grid-column:1 / 8;margin-left:calc(var(--gx) * -1)}
+.cc-sec.cc-words .cc-row--1 .cc-row__text{grid-column:1 / 6}
+.cc-sec.cc-words .cc-row--3 .cc-row__text{grid-column:8 / 13;padding-left:clamp(10px,2vw,30px)}
+.cc-photo--seminar{aspect-ratio:3/2}
+.cc-proc__list .d{text-shadow:0 0 6px rgba(13,20,36,.95),0 0 14px rgba(13,20,36,.85),0 1px 2px rgba(13,20,36,.9)}
+.cc-photo--proc img{filter:brightness(1.05) saturate(.95)}
+.cc-row--1 .cc-row__img::after,.cc-row--2 .cc-row__img::after,.cc-row--3 .cc-row__img::after{inset:0;box-shadow:inset 0 0 30px 12px var(--white)}
+/* 06 captions that sit on the brighter photo get a soft dark backing so they stay readable */
+.cc-proc__list .d{color:var(--paper);justify-self:start;padding:6px 12px;border-radius:8px;background:rgba(13,20,36,.5)}
