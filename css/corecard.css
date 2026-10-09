@@ -410,3 +410,4 @@
 .cc-row--1 .cc-row__img::after,.cc-row--2 .cc-row__img::after,.cc-row--3 .cc-row__img::after{inset:0;box-shadow:inset 0 0 30px 12px var(--white)}
 /* 06 captions that sit on the brighter photo get a soft dark backing so they stay readable */
 .cc-proc__list .d{color:var(--paper);justify-self:start;padding:6px 12px;border-radius:8px;background:rgba(13,20,36,.5)}
+.cc-photo--seminar{aspect-ratio:1400/901}
