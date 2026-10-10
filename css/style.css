@@ -1014,3 +1014,8 @@ a.path:hover .arr{transform:translateX(5px)}
 .cform__done{max-width:760px;margin-inline:auto;text-align:center;background:#fff;border-radius:24px;padding:clamp(36px,6vw,70px)}
 .cform__done p{margin:18px 0 30px;line-height:2;color:var(--ink-700)}
 .ctable__link{margin-left:12px;color:var(--blue-600);font-size:13px}
+
+/* PLATFORM: the whole card opens its page (the button is the visible label of one stretched link) */
+.stage .stage__link{position:static}
+.stage .stage__link::after{content:"";position:absolute;inset:0;z-index:2;cursor:pointer}
+.stage:has(.stage__link):hover{border-color:rgba(190,245,255,.9)}
