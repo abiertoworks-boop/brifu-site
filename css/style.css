@@ -655,7 +655,7 @@ body.menu-open .menu{clip-path:circle(150% at calc(100% - 52px) 52px);pointer-ev
 .platform__pin.is-curved .platform__track{position:absolute;left:50%;top:50%;width:0;height:0;padding:0;gap:0;display:block;
   transform-style:preserve-3d;transform:translateZ(var(--r,1200px)) rotateY(var(--rot,0deg));will-change:transform}
 .platform__pin.is-curved .stage{--w:min(27vw,410px);--h:min(66vh,570px);position:absolute;left:0;top:0;width:var(--w);height:var(--h);min-height:0;
-  margin:calc(var(--h) / -2) 0 0 calc(var(--w) / -2);transform:rotateY(var(--a,0deg)) translateZ(calc(var(--r,1200px) * -1));backface-visibility:hidden}
+  margin:calc(var(--h) / -2) 0 0 calc(var(--w) / -2);transform:rotateY(var(--a,0deg)) translateZ(calc(var(--r,1200px) * -1))}
 .platform__pin.is-curved .stage img{transition:opacity .6s}
 .platform__pin.is-curved .stage.is-front img{opacity:.72}
 @media (max-width:900px){

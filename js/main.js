@@ -797,15 +797,20 @@
         const r = Math.max(1050, window.innerWidth * 0.9);
         step = ((w + 40) / r) * (180 / Math.PI);
         track.style.setProperty('--r', r + 'px');
-        stages.forEach((s, i) => s.style.setProperty('--a', (-i * step) + 'deg'));
       };
       const set = (p) => {
         const rot = p * (stages.length - 1) * step;
-        track.style.setProperty('--rot', rot.toFixed(3) + 'deg');
+        // each card carries its own angle relative to the front, so a visible card never has to turn past 90 degrees
+        // (Chrome stops hit-testing cards whose own rotation passes 90 degrees, which made the last card unclickable)
+        track.style.setProperty('--rot', '0deg');
         stages.forEach((s, i) => {
-          const d = Math.abs(rot - i * step);
+          const rel = rot - i * step;
+          s.style.setProperty('--a', rel.toFixed(3) + 'deg');
+          const d = Math.abs(rel);
           s.style.opacity = d > 60 ? 0 : d > 42 ? ((60 - d) / 18).toFixed(3) : 1;
           s.classList.toggle('is-front', d < step / 2);
+          // only cards that are actually visible take clicks (the hidden far side would otherwise sit on top)
+          s.style.pointerEvents = d > 42 ? 'none' : '';
         });
         if (bar) bar.style.transform = `scaleX(${p})`;
       };
@@ -817,14 +822,14 @@
           trigger: pin, start: 'top top',
           end: () => '+=' + Math.round((stages.length - 1) * window.innerHeight * 0.6),
           pin: true, scrub: 0.8, anticipatePin: 1, invalidateOnRefresh: true, refreshPriority: 2,
-          onRefresh: layout
+          onRefresh: () => { layout(); set(proxy.p); }
         }
       });
       captureFns.push(set);
       return () => {
         tween.scrollTrigger && tween.scrollTrigger.kill(); tween.kill();
         pin.classList.remove('is-curved');
-        stages.forEach((s) => { s.style.opacity = ''; s.classList.remove('is-front'); });
+        stages.forEach((s) => { s.style.opacity = ''; s.style.pointerEvents = ''; s.classList.remove('is-front'); });
       };
     });
   }
