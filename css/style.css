@@ -1043,10 +1043,10 @@ a.path:hover .arr{transform:translateX(5px)}
 .profile .stats li b{font-size:clamp(22px,2.2vw,30px)}
 @media (max-width:560px){.profile .stats{grid-template-columns:1fr}}
 
-/* ---------- HERO background video ---------- */
-.hero__video{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;opacity:0;pointer-events:none;
-  transform:scaleX(-1);transition:opacity 1.6s var(--ease-out)} /* mirrored: the mesh sits on the right, the dark open space behind the words */
-.hero.has-video .hero__video{opacity:1}
-.hero.has-video .hero__photo,.hero.has-video #hero-canvas{opacity:0;transition:opacity 1.6s var(--ease-out)}
-.hero.has-video .hero__glow{background:linear-gradient(90deg,rgba(4,8,22,.55) 0%,rgba(4,8,22,.15) 45%,transparent 70%)}
-.hero.has-video .hero__orbit{opacity:.45}
+/* ---------- subhero background video (会社概要) ---------- */
+.subhero__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;pointer-events:none;transition:opacity 1.6s var(--ease-out)}
+.subhero--video.has-video .subhero__video{opacity:.62}
+.subhero--video.has-video .subhero__photo{opacity:0;transition:opacity 1.6s var(--ease-out)}
+/* a navy veil keeps the white headline readable over the bright circuitry */
+.subhero--video::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(90deg,rgba(4,8,22,.78) 0%,rgba(6,16,51,.5) 55%,rgba(6,16,51,.28) 100%)}

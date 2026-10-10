@@ -254,31 +254,6 @@
     });
   }
 
-  /* ---------- HERO : background video ----------
-     The 11 MB loop is only fetched on desktop-size screens, after the page has loaded, and never with
-     reduced motion or data saving. Until it plays (and everywhere it is skipped) the particle field shows. */
-  const heroEl = document.getElementById('top');
-  const heroVideo = document.querySelector('.hero__video');
-  let heroVideoOn = false;
-  if (heroVideo && heroEl && !reduceMotion) {
-    const conn = navigator.connection || {};
-    if (isDesktop() && !conn.saveData && !/(^|-)2g$/.test(conn.effectiveType || '')) {
-      const start = () => {
-        heroVideo.src = heroVideo.dataset.src;
-        heroVideo.addEventListener('playing', () => { heroVideoOn = true; heroEl.classList.add('has-video'); }, { once: true });
-        if (CAPTURE) { // QA: show one still frame instead of streaming, so a screenshot can finish
-          heroVideo.addEventListener('loadeddata', () => { heroVideo.currentTime = 4; }, { once: true });
-          heroVideo.addEventListener('seeked', () => { heroVideoOn = true; heroEl.classList.add('has-video'); }, { once: true });
-          return;
-        }
-        const p = heroVideo.play(); if (p && p.catch) p.catch(() => {});
-      };
-      if (document.readyState === 'complete') start(); else window.addEventListener('load', start, { once: true });
-      // pause while the hero is off screen
-      new IntersectionObserver((en) => { if (!heroVideoOn) return; en[0].isIntersecting ? heroVideo.play().catch(() => {}) : heroVideo.pause(); }).observe(heroEl);
-    }
-  }
-
   /* ---------- HERO : Three.js depth field ---------- */
   const heroCanvas = document.getElementById('hero-canvas');
   if (heroCanvas && hasThree && !reduceMotion) {
@@ -345,7 +320,7 @@
       new IntersectionObserver((en) => { visible = en[0].isIntersecting; }).observe(heroCanvas.parentElement);
       const tick = () => {
         requestAnimationFrame(tick);
-        if (!visible || heroVideoOn) return; // the particle field rests while the video plays
+        if (!visible) return;
         const t = clock.getElapsedTime();
         mouse.x += (target.x - mouse.x) * 0.04; mouse.y += (target.y - mouse.y) * 0.04;
         points.rotation.y = t * 0.03 + mouse.x * 0.15;
@@ -925,6 +900,32 @@
       const rt = document.querySelector('.ripple__text'); if (rt) rt.style.opacity = 1;
     }
   }
+
+  /* ---------- Page-top background video (会社概要) ----------
+     Loaded after the page itself, only on desktop-size screens, never with reduced motion or data saving;
+     elsewhere the still background stays. It pauses when scrolled out of view. */
+  document.querySelectorAll('.subhero__video').forEach((video) => {
+    const host = video.closest('.subhero');
+    const conn = navigator.connection || {};
+    if (!host || reduceMotion || !isDesktop() || conn.saveData || /(^|-)2g$/.test(conn.effectiveType || '')) return;
+    let on = false;
+    const show = () => { on = true; host.classList.add('has-video'); };
+    const start = () => {
+      video.src = video.dataset.src;
+      if (CAPTURE) { // QA: one still frame, so a screenshot can finish
+        video.addEventListener('loadeddata', () => { video.currentTime = 3; }, { once: true });
+        video.addEventListener('seeked', show, { once: true });
+        video.preload = 'auto'; video.load();
+        return;
+      }
+      video.addEventListener('playing', show, { once: true });
+      const p = video.play(); if (p && p.catch) p.catch(() => {});
+    };
+    if (document.readyState === 'complete') start(); else window.addEventListener('load', start, { once: true });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver((en) => { if (!on || CAPTURE) return; en[0].isIntersecting ? video.play().catch(() => {}) : video.pause(); }).observe(host);
+    }
+  });
 
   /* ---------- Nav active state ---------- */
   if (hasGSAP) {
