@@ -651,7 +651,7 @@ body.menu-open .menu{clip-path:circle(150% at calc(100% - 52px) 52px);pointer-ev
 }
 @media (prefers-reduced-motion:reduce){.stage{animation:none;box-shadow:0 0 0 1px rgba(157,239,255,.4),0 0 40px -4px var(--c,#5fe0ff)}}
 /* curved gallery (desktop, set by main.js): cards on the inside of a cylinder around the viewer */
-.platform__pin.is-curved{perspective:1500px;perspective-origin:50% 46%}
+.platform__pin.is-curved{perspective:var(--persp,1500px);perspective-origin:50% 46%}
 .platform__pin.is-curved .platform__track{position:absolute;left:50%;top:50%;width:0;height:0;padding:0;gap:0;display:block;
   transform-style:preserve-3d;transform:translateZ(var(--r,1200px)) rotateY(var(--rot,0deg));will-change:transform}
 .platform__pin.is-curved .stage{--w:min(27vw,410px);--h:min(66vh,570px);position:absolute;left:0;top:0;width:var(--w);height:var(--h);min-height:0;

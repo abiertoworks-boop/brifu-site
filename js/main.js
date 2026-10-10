@@ -797,6 +797,9 @@
         const r = Math.max(1050, window.innerWidth * 0.9);
         step = ((w + 40) / r) * (180 / Math.PI);
         track.style.setProperty('--r', r + 'px');
+        // the camera must stay in front of the cylinder: if the cylinder radius passes the perspective distance
+        // (screens wider than about 1670px), Chrome and Edge stop hit-testing the cards and the links never fire
+        pin.style.setProperty('--persp', Math.max(1500, r + 220) + 'px');
       };
       const set = (p) => {
         const rot = p * (stages.length - 1) * step;
@@ -829,6 +832,7 @@
       return () => {
         tween.scrollTrigger && tween.scrollTrigger.kill(); tween.kill();
         pin.classList.remove('is-curved');
+        pin.style.removeProperty('--persp');
         stages.forEach((s) => { s.style.opacity = ''; s.style.pointerEvents = ''; s.classList.remove('is-front'); });
       };
     });
