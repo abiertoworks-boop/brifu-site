@@ -1,0 +1,32 @@
+/* プライバシーポリシー・特定商取引法に基づく表記（legal） */
+.legal-section .container { max-width: 960px; }
+.legal { background: var(--white); border-radius: 20px; padding: 56px 60px; box-shadow: 0 30px 80px rgba(10,18,48,.08); font-size: 15px; line-height: 2; color: var(--ink-700); }
+.legal-lead { margin-bottom: 36px; color: var(--ink-900); }
+.legal-sec + .legal-sec { margin-top: 40px; }
+.legal h2 { font-size: 18px; font-weight: 700; color: var(--ink-900); padding: 0 0 12px 16px; margin-bottom: 16px; border-bottom: 1px solid var(--ice-300); position: relative; }
+.legal h2::before { content: ""; position: absolute; left: 0; top: .35em; width: 4px; height: 1.1em; border-radius: 2px; background: linear-gradient(var(--blue-600), var(--cyan-400)); }
+.legal ol, .legal ul { padding-left: 1.6em; margin: 8px 0; }
+.legal ol { list-style: decimal; }
+.legal ul { list-style: disc; }
+.legal ol ol { list-style: lower-roman; }
+.legal li { margin: 4px 0; }
+.legal b { color: var(--ink-900); }
+.legal-contact { display: grid; grid-template-columns: max-content 1fr; gap: 6px 24px; margin: 16px 0 0; padding: 20px 24px; background: var(--ice-100); border-radius: 12px; }
+.legal-contact dt { font-weight: 700; color: var(--ink-900); }
+.legal-contact dd { margin: 0; }
+.legal-table { width: 100%; border-collapse: collapse; }
+.legal-table th, .legal-table td { padding: 20px 16px; border-bottom: 1px solid var(--ice-300); text-align: left; vertical-align: top; }
+.legal-table tr:first-child th, .legal-table tr:first-child td { border-top: 1px solid var(--ice-300); }
+.legal-table th { width: 30%; font-weight: 700; color: var(--ink-900); font-size: 14px; background: var(--ice-100); }
+.legal-table td p { margin: 0; }
+.legal-table td p + p { margin-top: 14px; }
+.legal-table small { color: var(--ink-500); }
+.legal-date { margin: 36px 0 0; text-align: right; color: var(--ink-500); font-size: 13px; }
+@media (max-width: 700px) {
+  .legal { padding: 32px 22px; font-size: 14px; }
+  .legal-table th, .legal-table td { display: block; width: 100%; padding: 12px; }
+  .legal-table th { border-bottom: 0; }
+  .legal-table tr:first-child td { border-top: 0; }
+  .legal-contact { grid-template-columns: 1fr; gap: 0; }
+  .legal-contact dd { margin-bottom: 8px; }
+}
