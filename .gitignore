@@ -12,3 +12,6 @@ node_modules/
 
 # local QA harness
 _qa*.html
+
+# old version kept for comparison (not published)
+_old-*.html

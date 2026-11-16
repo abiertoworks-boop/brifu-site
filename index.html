@@ -15,6 +15,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;600;700&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/site.css">
+<link rel="stylesheet" href="css/motion.css">
 <script>document.documentElement.classList.add('js');</script>
 </head>
 <body class="page-top">
@@ -48,7 +49,7 @@
   <div class="hero__media" aria-hidden="true"><img src="images/society.jpg" alt="" width="1500" height="1000" fetchpriority="high"></div>
   <div class="container hero__inner">
     <p class="eyebrow eyebrow--gold">INNOVATION IN THE HEART</p>
-    <h1 class="hero__title">自分を活かす。<br>人を活かす。<br>そして、その力を社会へ。</h1>
+    <h1 class="hero__title" data-split>自分を活かす。<br>人を活かす。<br>そして、その力を社会へ。</h1>
     <p class="hero__lead">「人の心にイノベーション」を起こし、<br class="pc">社会に「真のイノベーション」を創り出す。</p>
     <div class="btn-row">
       <a class="btn btn--light" href="service.html">サービス内容を見る<span class="arr" aria-hidden="true">→</span></a>
@@ -61,7 +62,7 @@
   <div class="container split">
     <div class="sec-head" data-reveal>
       <p class="eyebrow">ABOUT US</p>
-      <h2 class="sec-title" id="about-title">人の心に、<br>イノベーションを起こす。</h2>
+      <h2 class="sec-title" id="about-title" data-split>人の心に、<br>イノベーションを起こす。</h2>
     </div>
     <div class="prose" data-reveal style="--d:.1s">
       <p>株式会社Brifuは、EQ（自分と人の可能性を活かす力）を軸に、人材育成・教育事業・組織づくりの支援を行う会社です。</p>
@@ -72,11 +73,12 @@
   </div>
 </section>
 
-<section class="section section--navy" aria-labelledby="eq-title">
+<section class="section section--navy depth" aria-labelledby="eq-title">
+  <canvas class="depth__canvas" data-depth="tunnel" aria-hidden="true"></canvas>
   <div class="container split split--center">
     <div data-reveal>
       <p class="eyebrow">WHAT IS EQ</p>
-      <h2 class="sec-title" id="eq-title">EQとは、<br>自分と人の可能性を<br>活かす力。</h2>
+      <h2 class="sec-title" id="eq-title" data-split>EQとは、<br>自分と人の可能性を<br>活かす力。</h2>
       <p class="sec-lead">EQ（Emotional Intelligence）は「感情をコントロールする力」だと思われがちです。私たちは、感情・認識・行動を、自分と相手の可能性を活かすために使う力だと考えています。</p>
       <div class="btn-row">
         <a class="btn btn--light" href="eq.html">EQについて詳しく<span class="arr" aria-hidden="true">→</span></a>
@@ -133,8 +135,105 @@
       </li>
     </ul>
     <p class="note center">※ 番号は分類を示すもので、受講の順序ではありません。</p>
+
+    <!-- 学びで得られる変化を、横に流れる画像で見せる -->
+    <div class="flow-lead sec-head sec-head--center" data-reveal>
+      <p class="eyebrow">WHAT YOU GAIN</p>
+      <h3 class="flow-lead__title">EQを学ぶと、何が得られるのか。</h3>
+    </div>
+    <div class="flow-slider" data-reveal>
+      <div class="flow-slider__viewport" tabindex="0" role="region" aria-label="EQを学んで得られる変化（横スクロール）">
+        <div class="flow-track">
+          <figure class="flow-card"><span class="flow-card__no">01</span><img src="images/gain-1-emotion.jpg" alt="感情を知る。自分の本当の状態に気づける。" decoding="async"></figure>
+          <figure class="flow-card"><span class="flow-card__no">02</span><img src="images/gain-2-articulate.jpg" alt="感情を言語化する。自分の気持ちを相手に伝えられる。" decoding="async"></figure>
+          <figure class="flow-card"><span class="flow-card__no">03</span><img src="images/gain-3-values.jpg" alt="価値観を知る。自分が何を大切にしているか分かる。" loading="lazy" decoding="async"></figure>
+          <figure class="flow-card"><span class="flow-card__no">04</span><img src="images/gain-4-perception.jpg" alt="認識を見直す。「こうに違いない」以外の可能性が見える。" loading="lazy" decoding="async"></figure>
+          <figure class="flow-card"><span class="flow-card__no">05</span><img src="images/gain-5-others.jpg" alt="他者を理解する。相手を決めつけずに見られる。" loading="lazy" decoding="async"></figure>
+          <figure class="flow-card"><span class="flow-card__no">06</span><img src="images/gain-6-dialogue.jpg" alt="対話する。すれ違いを減らせる。" loading="lazy" decoding="async"></figure>
+          <figure class="flow-card"><span class="flow-card__no">07</span><img src="images/gain-7-purpose.jpg" alt="目的から考える。感情だけでなく、目的から選べる。" loading="lazy" decoding="async"></figure>
+          <figure class="flow-card"><span class="flow-card__no">08</span><img src="images/gain-8-practice.jpg" alt="実践する。自分で行動を変えられる。" loading="lazy" decoding="async"></figure>
+          <figure class="flow-card"><span class="flow-card__no">09</span><img src="images/gain-9-reflect.jpg" alt="振り返る。経験を次の成長につなげられる。" decoding="async"></figure>
+        </div>
+      </div>
+      <div class="flow-slider__nav">
+        <button class="flow-nav" type="button" data-dir="-1" aria-label="前へ"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <div class="flow-dots" role="group" aria-label="スライド選択"></div>
+        <button class="flow-nav" type="button" data-dir="1" aria-label="次へ"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+
     <div class="btn-row btn-row--center">
       <a class="btn" href="service.html">サービス内容を見る<span class="arr" aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="growth" aria-labelledby="growth-title">
+  <div class="container">
+    <div class="sec-head sec-head--center" data-reveal>
+      <p class="eyebrow">TWO KINDS OF GROWTH</p>
+      <h2 class="sec-title" id="growth-title" data-split>2つの成長と、<br class="sp">それを支える4つの学び</h2>
+      <p class="sec-lead">知識を増やし、一人で実践して広げていく<strong>横成長</strong>。<br class="pc">人と関わり、自分では見えない自分に気づいて深めていく<strong>縦成長</strong>。<br class="pc">Brifuの学びは、この2つを掛け合わせます。</p>
+    </div>
+
+    <figure class="gmap" data-reveal aria-label="横成長と縦成長、それぞれの身に付け方の見取り図">
+      <div class="gmap__lanes">
+        <div class="gmap__lane gmap__lane--h">
+          <div class="gmap__head"><span class="k">HORIZONTAL GROWTH</span><b>横成長</b><small>自分自身で広げる</small></div>
+          <div class="gmap__prog">
+            <span class="gmap__role">学ぶ・知る</span>
+            <span class="gmap__name">EQ Skills</span>
+            <p>感情の扱い方、思考の癖、行動の選び方を基礎から学ぶ。</p>
+          </div>
+          <div class="gmap__prog">
+            <span class="gmap__role">実践する・経験する</span>
+            <span class="gmap__name">EQTM</span>
+            <p>仲間と日常で実践し、振り返りながら習慣にする。</p>
+          </div>
+          <p class="gmap__gain">できることが増える</p>
+        </div>
+        <span class="gmap__x" aria-hidden="true">×</span>
+        <div class="gmap__lane gmap__lane--v">
+          <div class="gmap__head"><span class="k">VERTICAL GROWTH</span><b>縦成長</b><small>人と関わり、内側を深める</small></div>
+          <div class="gmap__prog">
+            <span class="gmap__role">気づく・認識が変わる</span>
+            <span class="gmap__name">EIA</span>
+            <p>対話とフィードバックの中で思い込みに気づき、認識を自覚して更新する。</p>
+          </div>
+          <div class="gmap__prog">
+            <span class="gmap__role">あり方が変わる</span>
+            <span class="gmap__name">EQ Humanity</span>
+            <p>他者理解と関係づくりを深め、視座を広げて、人としてのあり方を育てる。</p>
+          </div>
+          <p class="gmap__gain">自分のあり方が変わる</p>
+        </div>
+      </div>
+      <figcaption class="gmap__foot">横成長で「できること」を増やし、縦成長で「あり方」を深める。<br class="pc">2つが重なったとき、人は変わっていきます。</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section section--navy depth" id="cycle" aria-labelledby="cycle-title">
+  <canvas class="depth__canvas" data-depth="spiral" aria-hidden="true"></canvas>
+  <div class="container">
+    <div class="sec-head" data-reveal>
+      <p class="eyebrow">LEARNING CYCLE</p>
+      <h2 class="sec-title" id="cycle-title" data-split>学んで終わり、ではない。</h2>
+      <p class="sec-lead">学びが日常に降りてきて、はじめて認識が動きます。<br class="pc">Brifuの学びは、この循環を回し続けるための設計です。</p>
+    </div>
+    <div class="cycle__grid">
+      <ol class="cycle__flow" aria-label="学びの循環" data-reveal>
+        <li><span class="s">01</span>学ぶ</li>
+        <li><span class="s">02</span>人と関わる</li>
+        <li><span class="s">03</span>気づく</li>
+        <li><span class="s">04</span>実践する</li>
+        <li><span class="s">05</span>振り返る</li>
+        <li><span class="s">06</span>認識を更新する</li>
+        <li><span class="s">07</span>また行動する</li>
+      </ol>
+      <figure class="cycle__fig" data-reveal style="--d:.1s">
+        <img src="images/learning-cycle.jpg" alt="Brifuの実践学習サイクル。学ぶ、日常で実践する、感情と結果を振り返る、認識を自覚する、次の行動を選ぶ、の5段階が円環になり、それぞれにEQ Skills・EQTM・EIA・EQ Humanityが対応している" width="1200" height="900" loading="lazy" decoding="async">
+      </figure>
     </div>
   </div>
 </section>
@@ -161,22 +260,6 @@
         <span class="more">物販・書籍を見る<span class="arr" aria-hidden="true">→</span></span>
       </div>
     </a>
-  </div>
-</section>
-
-<section class="section" aria-labelledby="message-title">
-  <div class="container message">
-    <figure class="message__photo" data-reveal><img src="images/profile-hatano.jpg" alt="株式会社Brifu 代表 波多野 輝未" width="683" height="1024" loading="lazy"></figure>
-    <div data-reveal style="--d:.1s">
-      <p class="eyebrow">REPRESENTATIVE</p>
-      <h2 class="sec-title" id="message-title">「社会に出て成功するかどうかは、<br class="pc">EQがカギ。」</h2>
-      <div class="prose mt-m">
-        <p>延べ2,000人以上の人材育成とコンサルティング、数千人規模の組織づくりの現場で、成果を左右する本質的な要因として見えてきたのが「非認知能力」でした。</p>
-        <p>「なぜ、人は変われないのか」という問いから、感情を入口に認識を自覚し更新する「EQ認識理論」を体系化。人と組織の変化を支えています。</p>
-      </div>
-      <p class="message__name">株式会社Brifu 代表<strong>波多野 輝未</strong></p>
-      <a class="more" href="company.html#profile">代表プロフィールを見る<span class="arr" aria-hidden="true">→</span></a>
-    </div>
   </div>
 </section>
 
@@ -246,5 +329,8 @@
 </footer>
 
 <script src="js/site.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+<script src="js/motion.js" defer></script>
 </body>
 </html>
