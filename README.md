@@ -1,42 +1,50 @@
 # 株式会社Brifu コーポレートサイト
 
-静的サイト（HTML / CSS / JS）です。ビルド工程はありません。`burif/` フォルダごとサーバーに置けば公開できます。
+静的サイト（HTML / CSS / JS）です。ビルド工程はありません。
 
-## ファイル構成
+2026年11月にコーポレートサイトとしてシンプルな構成へ作り直しました。
+EQ Platform の内容は「EQ_Platform_Guide_20261113」（4領域：EQ Academy／EQ Humanity／EQTM／EQ Business Nexus、EQ Gate は外部のフロントサイト）に合わせています。
 
-```
-burif/
-├─ index.html        トップ（HERO → PURPOSE → 01 WHY … 11 DIAGNOSIS）
-├─ diagnosis.html    変化の入口診断（8問 → TYPE A〜E）
-├─ company.html      理念・代表プロフィール・会社概要
-├─ css/style.css     全ページ共通スタイル（青系トーン）
-├─ js/main.js        モーション（Lenis / GSAP ScrollTrigger / Three.js）
-├─ js/diagnosis.js   診断の設問・重み付け・結果文
-├─ images/           写真・バナー・アイコン
-└─ video/eq-bg.mp4   EQ定義ブロックの背景動画
-```
+## メニューとファイル
 
-### 外部サイトへのリンク
-
-| リンク先 | URL | 置き場所 |
+| メニュー | ファイル | 内容 |
 | --- | --- | --- |
-| EQ Platform | `https://brifu-eq-platform-ixrklwz.gamma.site/` | メニュー、フッター、STAGE末尾、診断結果 |
-| EQ Gate（EQコアカード体験） | `https://abiertoworks-boop.github.io/EQ2/eqgate-transparent-v2#cards8` | メニュー、07 EQコアカード、STAGE 01 |
-| EIA | `https://eia-gate-qbwot3x.gamma.site` | STAGE 03 |
+| トップ | `index.html` | メッセージ、私たちについて、EQの紹介、4領域、法人向け支援・物販への入口、代表 |
+| EQ | `eq.html` | EQの定義、なぜ「人の心」か、EQ認識理論（7ステップ）、横成長と縦成長、5つの変化 |
+| サービス内容 | `service.html` | EQ Platform の全体像（EQ Gate／4領域／基盤）、目的から選ぶ、各領域の詳細、つながる学び |
+| 会社概要 | `company.html` | 理念（目的・使命・目指す理想の姿・価値観）、代表プロフィール、会社情報 |
+| 法人向け支援 | `business.html` | EQ Business Nexus：お悩み、特徴、No.2育成、10の支援内容、進め方、対象 |
+| 物販・書籍 | `shop.html` | EQコアカード®、著書2冊、ご購入について |
+| お問い合わせ | `contact.html` | フォーム（FormSubmit 経由で info@brifu.co.jp へ送信、自動返信あり） |
 
-### 背景動画について
+そのほか `privacy.html`（プライバシーポリシー）と `tokushoho.html`（特定商取引法に基づく表記）も同じレイアウトです。
 
-`video/eq-bg.mp4` は **5.0MB（640×360 / 40秒）** です。
-セクションが近づいてから読み込む遅延方式なので、初回表示は妨げません。
-離れると一時停止し、タブに戻ると再開します。
-差し替えるときは同じファイル名で上書きしてください。
+```
+css/site.css     上記9ページの共通スタイル（色・文字・レイアウト・各ページの部品）
+js/site.js       ヘッダーの影、スマホメニュー、スクロール時のフェードイン
+js/contact.js    お問い合わせフォームの送信
+images/          写真・アイコン
+```
 
-3ページは互いにリンクし合っています。`index.html` から `../index.html` へのリンクだけは
-親フォルダの EQ Platform サイトを指しているので、`burif/` だけを単体で公開する場合は
-このリンク先も一緒にアップロードしてください。
+### 旧デザインのまま残しているページ
 
-外部ライブラリは CDN から読み込みます（GSAP 3.12.5, Lenis 1.1.18, Three.js r128）。
-オフラインや CDN 読込失敗時もコンテンツは表示され、モーションだけが無効になります。
+`corecard.html`（EQコアカードの詳細LP）、`diagnosis.html`（変化の入口診断）、`nexus.html` は
+旧サイトの `css/style.css` と `js/main.js` を使っています。メニューとフッターのリンクだけ新しい構成に合わせました。
+
+### お問い合わせフォームへのリンク
+
+`contact.html` は URL パラメータで種別とタイトルを入力済みにできます。
+
+| パラメータ | 例 | 入力される内容 |
+| --- | --- | --- |
+| `type` | `contact.html?type=business` | 種別：法人向け支援（`academy` / `business` / `shop` / `media` / `other`） |
+| `topic` | `contact.html?topic=no2` | 種別とタイトル（`no2` / `nexus` / `corecard` / `bulk` / `academy` / `humanity` / `eqtm`） |
+| `subject` | `contact.html?subject=...` | タイトルを直接入力（旧リンク互換） |
+
+### 書籍の表紙
+
+`shop.html` の書籍は CSS で描いた仮の表紙です。表紙画像を `images/` に置き、
+`.book-cover` の中に `<img src="images/ファイル名.jpg" alt="">` を入れると画像に置き換わります。
 
 ## 公開（GitHub Pages）
 
@@ -57,74 +65,3 @@ powershell -NoProfile -ExecutionPolicy Bypass -File tools/serve.ps1 -Port 8791
 ```
 
 ブラウザで `http://localhost:8791/` を開きます。
-動画を扱うため HTTP Range に対応させてあります。
-
-## 主なモーション
-
-ページは「人が変わっていくストーリー」の順に並んでいます。
-EQを知らない人が読み進めるうちに、自分ごとになっていく流れです。
-
-01 PURPOSE → 02 WHY → 03 QUESTION → 04 DISCOVERY → 05 WHY EQ → 06 GAIN →
-07 DOMAINS → 08 GROWTH → 09 EXPERIENCE → 10 EQ CORE CARD → 11 EQ PLATFORM →
-12 RIPPLE → 13 TRUE INNOVATION → 14 DIAGNOSIS
-
-| セクション | 実装 |
-| --- | --- |
-| 見出し全般 | 1文字ずつ下から立ち上がる（`main.js` の `splitTitles`）。`.split-group` を付けた見出しが対象 |
-| HERO | Three.js のパーティクルとワイヤーフレームによる奥行き。マウスとスクロールでカメラが動く |
-| 02 WHY | 奥行きのあるパーティクルのトンネルが手前に流れてくる。右端の同心円オブジェクトはスクロールに合わせて拡大し、迫ってくるように動く。「考え方・感じ方・選択・行動・人との関係」の5つの円はホバーで発光する |
-| 03 QUESTION | 4つの課題それぞれに写真。スクロールで青いワイプが引いて写真が現れる |
-| 04 DISCOVERY | 感情→認識→…→認識の更新 の7枚を3Dリングに配置し、スクロールで回転（ピン留め）。カードは全て同じ寸法で、アイコン・番号・太字・説明を段で分けている。手前に来たカードは枠が発光する |
-| 05 WHY EQ | HEROとは別パターンの奥行き背景（漂う粒とリング）。「EQとは、自分と人の可能性を活かす力。」の枠には動画を敷いている。セクションが近づいてから読み込み、離れると一時停止する |
-| 06 GAIN | 上段に「学ぶもの」9項目のチップ、下段に「得られるもの」9枚のバナー。どちらも横スライドし、上下は連動する。中央のカードだけが大きくなり、両隣から順に小さく薄くなる |
-| 07 DOMAINS | 5領域のカードが重なりながら奥へ沈む。枠の高さは写真の高さ（3:2）に揃え、スクロールに合わせて写真が枠の中で拡大する |
-| 08 GROWTH | 白背景に同心円のオブジェクトが浮かび、スクロールで拡大しながら移動する。横成長・縦成長の枠の右側には、それぞれのシンボルを約2/3だけ見せている |
-| 09 EXPERIENCE | 学びの循環7ステップと、実践学習サイクル図 |
-| 11 EQ PLATFORM | 6ステージの横スクロール（ピン留め）＋カードの微妙な回転 |
-| 12 RIPPLE | 一人の変化→人との関係→チーム→組織→社会 の同心円が奥から手前に広がる。円が届いた瞬間に発光し、その後やわらかい光に落ち着く |
-| 13 TRUE INNOVATION | 4つの理念カードにホバーすると枠が発光して浮き上がる |
-| 14 DIAGNOSIS | 自分・人・チーム・組織・未来の5つの入口カード |
-
-`prefers-reduced-motion` が有効な環境ではピン留めと大きな動きを止めます。
-900px 以下ではピン留めを解除し、縦に積む表示になります。
-
-### ピン留めの安定性について
-
-3つのピン留めセクションは `gsap.matchMedia()` で管理し、アニメーションは全て `fromTo` で
-開始値を明示しています。ScrollTrigger が再計測（refresh）しても開始値が変わらないため、
-リング同士がずれることがありません。RIPPLE の円は transform を使わず負のマージンだけで
-中央に置いているので、GSAP の scale と中央寄せが競合しません。
-
-## 診断ロジック（js/diagnosis.js）
-
-- 各設問の選択肢に TYPE A〜E への加点を持たせています（`w` プロパティ）。
-- TYPE D（人との関わりから深める）は「できると答えている（know）のに、関係の中では
-  うまくいっていない（struggle）」というギャップが大きいときに加点されます。
-- どのタイプも 3 点未満なら TYPE D を返します。
-- 結果には点数を出しません。「変化の入口」と、横成長・縦成長それぞれの学びの案内を出します。
-- 設問文・結果文は `QUESTIONS` と `TYPES` を編集するだけで差し替えられます。
-
-## 画像の差し替え
-
-`images/` のファイル名を変えずに上書きすれば、HTML/CSS の変更は不要です。
-
-| ファイル名 | 使いどころ |
-| --- | --- |
-| `q-personal / q-relation / q-team / q-organization` | 02 QUESTION の4枚 |
-| `gain-1-emotion` 〜 `gain-9-reflect` | 05 GAIN のスライダー9枚（正方形・文字は画像に焼き込み済み） |
-| `icon-yoko` / `icon-tate` | 06 GROWTH の横成長・縦成長シンボル（白の線画＋透過PNG） |
-| `woman-green / hands / team-casual / two-men / society` | 05 DOMAINS の5枚 |
-| `corecard-circle` | 07 EQコアカード |
-| `mountain-path / notebook / leaves / yoga-sunset / team-office / business-pair` | 08 PLATFORM の6ステージ |
-| `learning-cycle` | 09 EXPERIENCE の実践学習サイクル図 |
-| `dia-philosophy` | company.html の理念ピラミッド |
-
-DOMAINS の写真を差し替えるときは、`index.html` の `domain__blur` の
-`style="background-image:url(...)"` も同じファイルに合わせてください。
-
-## 表示確認用パラメータ（開発用）
-
-`index.html?capture=1&isolate=1&sec=.platform&off=400&p=0.5` のように付けると、
-ローダーとスムーススクロールを止め、指定セクションだけを先頭に表示します。
-`p` はピン留めアニメーションの進捗（0〜1）です。
-ヘッドレスブラウザでのスクリーンショット確認に使うもので、通常の閲覧では使いません。
