@@ -265,7 +265,7 @@
       <p class="lead" data-reveal style="margin-top:22px">学びが日常に降りてきて、はじめて認識が動きます。<span class="pgap"></span>Brifuの学びは、この循環を回し続けるための設計です。</p>
     </div>
 
-    <div class="exp__grid">
+    <div class="exp__grid exp__grid--solo">
       <ol class="exp__flow" aria-label="学びの循環">
         <li data-reveal><span class="s">01</span>学ぶ</li>
         <li data-reveal data-delay=".06"><span class="s">02</span>人と関わる</li>
@@ -275,49 +275,44 @@
         <li data-reveal data-delay=".3"><span class="s">06</span>認識を更新する</li>
         <li data-reveal data-delay=".36"><span class="s">07</span>また行動する</li>
       </ol>
-      <figure class="exp__fig" data-reveal="scale">
-        <img src="images/learning-cycle.jpg" alt="Brifuの実践学習サイクル。学ぶ、日常で実践する、感情と結果を振り返る、認識を自覚する、次の行動を選ぶ、の5段階が円環になり、それぞれにEQ Skills・EQTM・EIA・EQ Humanityが対応している" loading="lazy" decoding="async">
-      </figure>
+    </div>
+
+    <!-- 3Dの関連マップ：中心がEQ Platform、4つの領域とその中身がつながっている -->
+    <div class="holo" id="holo" data-reveal="scale">
+        <canvas class="holo__canvas" role="img" aria-label="EQ Platformと4つの領域のつながりを表す3D図。ドラッグで回転できます。"></canvas>
+        <div class="holo__labels" aria-hidden="true"></div>
+        <div class="holo__info" aria-live="polite">
+          <p class="holo__info-k">HOVER A NODE</p>
+          <p class="holo__info-name">カーソルを合わせてください</p>
+          <p class="holo__info-desc">つながっている学びが光ります。球をクリック（タップ）すると、その球へ近づきます。</p>
+          <div class="holo__info-links" hidden><p>つながり</p><ul></ul></div>
+        </div>
+        <ul class="holo__legend" aria-hidden="true">
+          <li class="is-academy">EQ Academy｜学ぶ・教える</li>
+          <li class="is-humanity">EQ Humanity｜EQプロを目指す</li>
+          <li class="is-eqtm">EQTM｜学びと実践</li>
+          <li class="is-nexus">EQ Business Nexus｜ビジネス</li>
+        </ul>
+        <p class="holo__hint" aria-hidden="true"><span class="holo__hint-ico"></span>ドラッグ・スワイプで回転</p>
+        <div class="holo__tools">
+          <button class="holo__back" type="button" aria-label="全体の眺めに戻る"><span>全体に戻る</span></button>
+          <button class="holo__fs" type="button" aria-label="全画面で見る"><span>全画面</span></button>
+        </div>
+        <p class="holo__note" aria-hidden="true">※ 4領域の番号は分類を示すもので、受講の順序ではありません。</p>
+        <!-- 3D図の代わりに読み上げる一覧（画面には出ません） -->
+        <ul class="holo__a11y">
+          <li>EQ Platform：4つの領域の中心</li>
+          <li>① EQ Academy：EQ知識実践スキルコース（EQ活用スキル講座／EQ育成スキル講座）、EQ認定事業（ナビゲーター認定／インストラクター認定／コーチ認定）</li>
+          <li>② EQ Humanity：EQプロ育成コース</li>
+          <li>③ EQTM：学ぶ（EQ Skills／EIA）、実践する：EQ Growth（理念実践プログラムコース／自己能力実践プログラムコース）</li>
+          <li>④ EQ Business Nexus：事業・組織に合わせた個別コンサルティング</li>
+        </ul>
     </div>
 
     <p class="exp__closing" data-reveal>積み重ねることで、<b>認識が更新され、行動が変わっていく。</b></p>
   </div>
 </section>
 
-
-<!-- ===================== 10 EQ CORE CARD ===================== -->
-<section class="section corecard" id="corecard">
-  <div class="container">
-    <div class="corecard__grid">
-      <div class="tilt" data-reveal>
-        <div class="tilt__inner">
-          <img src="images/corecard-circle.jpg" alt="EQコアカード。考える・挑戦する・言葉にする・理解する・責任を持つ・競争する・頼る・共感するの8色のカードが、EQ Total managementのデッキを囲んで円形に並んでいる" decoding="async">
-          <div class="shine"></div>
-        </div>
-      </div>
-      <div>
-        <div class="eyebrow"><span class="num">07</span> EQ CORE CARD</div>
-        <h2 class="h-1 split-group">
-          <span class="split-line"><span>EQコアカードは、</span></span>
-          <span class="split-line"><span>「自分を知る」ための入口。</span></span>
-        </h2>
-        <p class="lead" data-reveal style="margin-top:26px">見えなかった4つを、目に見える言葉にする道具。<br>それがEQコアカードです。</p>
-        <ul class="words4" data-reveal>
-          <li><small>EMOTION</small><span>感情</span></li>
-          <li><small>VALUE</small><span>価値観</span></li>
-          <li><small>PERCEPTION</small><span>認識</span></li>
-          <li><small>ACTION</small><span>行動</span></li>
-        </ul>
-        <p class="corecard__note" data-reveal>
-          EQコアカードは、商品として生まれたものではありません。<br><b>「人の心を理解するには、まず自分の感情・価値観・認識を知る必要がある」</b>——その必然から生まれた、この4つを日常で見つめるための実践ツールです。<span class="pgap"></span>目に見えないEQを、より具体的に、より分かりやすく言語化し、表現する方法として開発されました。
-        </p>
-        <div class="corecard__cta" data-reveal>
-          <a class="btn" href="corecard.html">EQコアカードについて詳しく <span class="arr">→</span></a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ===================== 08 CONTACT ===================== -->
 <section class="section diag-cta" id="contact">
@@ -382,6 +377,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 <script src="js/main.js"></script>
+<script src="js/holomap.js"></script>
 </body>
 </html>
