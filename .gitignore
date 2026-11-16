@@ -15,3 +15,6 @@ _qa*.html
 
 # old version kept for comparison (not published)
 _old-*.html
+
+# 原本バックアップ（公開しない）
+_backup/

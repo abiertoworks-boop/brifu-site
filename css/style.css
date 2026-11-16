@@ -1050,3 +1050,25 @@ a.path:hover .arr{transform:translateX(5px)}
 /* a navy veil keeps the white headline readable over the bright circuitry */
 .subhero--video::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(90deg,rgba(4,8,22,.78) 0%,rgba(6,16,51,.5) 55%,rgba(6,16,51,.28) 100%)}
+
+/* ---------- 05 法人向け支援・物販（コーポレートサイトから引き継いだ2枚） ---------- */
+.offer__head{max-width:40em}
+.offer__grid{margin-top:clamp(36px,5vw,64px);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(20px,2.6vw,34px)}
+@media (max-width:860px){.offer__grid{grid-template-columns:1fr}}
+.offer__card{display:flex;flex-direction:column;border-radius:24px;overflow:hidden;background:#fff;
+  border:1px solid var(--ice-200);box-shadow:0 24px 60px -44px rgba(11,27,82,.5);
+  transition:transform .6s var(--ease-out),box-shadow .6s,border-color .5s}
+.offer__img{display:block;aspect-ratio:16/9;overflow:hidden}
+.offer__img img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease-out)}
+.offer__body{display:block;padding:clamp(22px,2.6vw,34px)}
+.offer__k{display:block;font-family:var(--font-en);font-size:11px;letter-spacing:.3em;color:var(--blue-600)}
+.offer__t{display:block;margin-top:10px;font-size:clamp(21px,2.2vw,30px);font-weight:600;letter-spacing:.04em;color:var(--ink-900)}
+.offer__catch{display:block;margin-top:10px;font-size:clamp(15px,1.4vw,18px);font-weight:600;color:var(--blue-600)}
+.offer__desc{display:block;margin-top:12px;font-size:14.5px;line-height:2;color:var(--ink-700)}
+.offer__more{display:inline-flex;align-items:center;gap:10px;margin-top:20px;font-size:14px;font-weight:600;color:var(--ink-900)}
+.offer__more .arr{transition:transform .5s var(--ease-out)}
+@media (hover:hover){
+  .offer__card:hover{transform:translateY(-6px);border-color:var(--blue-400);box-shadow:0 40px 80px -46px rgba(31,94,255,.6)}
+  .offer__card:hover .offer__img img{transform:scale(1.06)}
+  .offer__card:hover .offer__more .arr{transform:translateX(6px)}
+}
