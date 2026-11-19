@@ -209,29 +209,108 @@
     vertexShader: 'varying vec3 vN; varying vec3 vV; void main(){ vec4 mv = modelViewMatrix * vec4(position,1.0); vN = normalize(normalMatrix * normal); vV = normalize(-mv.xyz); gl_Position = projectionMatrix * mv; }',
     fragmentShader: 'uniform vec3 uColor; uniform float uPower; varying vec3 vN; varying vec3 vV; void main(){ float f = pow(1.0 - abs(dot(vN, vV)), 2.0); gl_FragColor = vec4(uColor, (f * 1.15 + 0.06) * uPower); }',
   });
+  /* ---------- 中心：虹色に光るガラスのキューブ（ゆっくり回りながら形が揺れる） ---------- */
+  const iridMat = () => new THREE.ShaderMaterial({
+    transparent: true, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending,
+    uniforms: { uTime: { value: 0 }, uPower: { value: 1 } },
+    vertexShader: 'varying vec3 vN; varying vec3 vV; varying vec3 vP; void main(){ vec4 mv = modelViewMatrix * vec4(position,1.0); vN = normalize(normalMatrix * normal); vV = normalize(-mv.xyz); vP = position; gl_Position = projectionMatrix * mv; }',
+    fragmentShader: [
+      'uniform float uTime; uniform float uPower;',
+      'varying vec3 vN; varying vec3 vV; varying vec3 vP;',
+      'vec3 iris(float t){ return 0.55 + 0.45 * cos(6.2831 * (t + vec3(0.0, 0.33, 0.67))); }',
+      'void main(){',
+      '  float f = pow(1.0 - abs(dot(vN, vV)), 2.2);',
+      '  vec3 c = iris(f * 0.9 + vP.y * 0.9 + vP.x * 0.35 + uTime * 0.08);',
+      '  gl_FragColor = vec4(c * (0.75 + f * 0.8), (f * 1.15 + 0.035) * uPower);',
+      '}',
+    ].join('\n'),
+  });
+  function makeCube(size) {
+    const grp = new THREE.Group();
+    const outMat = iridMat(), inMat = iridMat();
+    const outer = new THREE.Mesh(new THREE.BoxGeometry(size, size, size), outMat);
+    const inner = new THREE.Mesh(new THREE.BoxGeometry(size * 0.52, size * 0.52, size * 0.52), inMat);
+    const edge = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(size, size, size)), lineMat(new THREE.Color('#eaf7ff'), 0.85));
+    const edgeIn = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(size * 0.52, size * 0.52, size * 0.52)), lineMat(new THREE.Color('#cfe9ff'), 0.55));
+    inner.add(edgeIn);
+    grp.add(outer, inner, edge);
+    return { grp, outer, inner, edge, mats: [outMat, inMat] };
+  }
+
+  /* ---------- 4つの領域：ガラスの球の中で、光の粒が漂う ---------- */
+  function nebula(color, radius) {
+    const N = COMPACT ? 110 : 200;
+    const pos = new Float32Array(N * 3), ph = new Float32Array(N), sz = new Float32Array(N);
+    for (let i = 0; i < N; i++) {
+      // 球の内側に、中心ほど密に
+      const u = Math.random(), v = Math.random(), r = radius * Math.pow(Math.random(), 0.6);
+      const th = u * Math.PI * 2, ph2 = Math.acos(2 * v - 1);
+      pos[i * 3] = r * Math.sin(ph2) * Math.cos(th);
+      pos[i * 3 + 1] = r * Math.sin(ph2) * Math.sin(th) * 0.9;
+      pos[i * 3 + 2] = r * Math.cos(ph2);
+      ph[i] = Math.random() * Math.PI * 2;
+      sz[i] = 1.2 + Math.random() * 2.6;
+    }
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    geo.setAttribute('aPhase', new THREE.BufferAttribute(ph, 1));
+    geo.setAttribute('aSize', new THREE.BufferAttribute(sz, 1));
+    const mat = new THREE.ShaderMaterial({
+      transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+      uniforms: { uTime: { value: 0 }, uTex: { value: dot }, uPx: { value: renderer.getPixelRatio() }, uColor: { value: color }, uPower: { value: 1 } },
+      vertexShader: 'attribute float aPhase; attribute float aSize; uniform float uTime; uniform float uPx; varying float vA; void main(){ vec3 p = position; p += 0.012 * vec3(sin(uTime*0.6+aPhase), cos(uTime*0.5+aPhase*1.7), sin(uTime*0.4+aPhase*2.3)) * 3.0; vec4 mv = modelViewMatrix * vec4(p,1.0); vA = 0.3 + 0.7 * pow(0.5 + 0.5 * sin(uTime * 2.0 + aPhase * 3.0), 2.0); gl_PointSize = aSize * uPx * (15.0 / -mv.z); gl_Position = projectionMatrix * mv; }',
+      fragmentShader: 'uniform sampler2D uTex; uniform vec3 uColor; uniform float uPower; varying float vA; void main(){ vec4 t = texture2D(uTex, gl_PointCoord); vec3 c = mix(uColor, vec3(1.0), 0.45); gl_FragColor = vec4(c, t.a * vA * uPower * 1.25); }',
+    });
+    return new THREE.Points(geo, mat);
+  }
+
+  /* ---------- 下の階層：輪をまとったガラスの球 ---------- */
+  function planetRing(color, r) {
+    const g = new THREE.Group();
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(r, r * 0.045, 8, 72), glowMat(color, 0.85));
+    const ringGlow = new THREE.Mesh(new THREE.TorusGeometry(r, r * 0.16, 8, 72), glowMat(color, 0.1));
+    g.add(ring, ringGlow);
+    g.rotation.x = Math.PI / 2 - 0.42;
+    g.rotation.z = 0.35;
+    return { g, ring, ringGlow };
+  }
+
   const SIZE = { 0: 1.15, 1: 0.85, 2: 0.6, 3: 0.44 };
   const pickables = [];
   NODES.forEach((n) => {
     const k = SIZE[n.depth];
     const g = new THREE.Group();
     g.position.copy(n.pos);
-    const shell = new THREE.Mesh(new THREE.SphereGeometry(0.3 * k, 36, 24), fresnel(n.c));
-    const dotMesh = new THREE.Mesh(new THREE.SphereGeometry(0.085 * k, 18, 12), new THREE.MeshBasicMaterial({ color: 0xffffff }));
-    const glow = halo(n.c, 1.5 * k, 0.45);
-    const orbit = new THREE.Line(
-      new THREE.BufferGeometry().setFromPoints(Array.from({ length: 65 }, (_, i) => { const t = (i / 64) * Math.PI * 2; return new THREE.Vector3(Math.cos(t) * 0.46 * k, Math.sin(t) * 0.46 * k, 0); })),
-      lineMat(n.c, 0.55),
-    );
-    const hit = new THREE.Mesh(new THREE.SphereGeometry(0.46 * Math.max(k, 0.8), 12, 8), new THREE.MeshBasicMaterial({ visible: false }));
+    const hit = new THREE.Mesh(new THREE.SphereGeometry(0.5 * Math.max(k, 0.8), 12, 8), new THREE.MeshBasicMaterial({ visible: false }));
     hit.userData.node = n;
-    g.add(shell, dotMesh, glow, orbit, hit);
+    let shell = null, neb = null, ring = null;
+    const glowBase = n.depth === 0 ? 0.95 : 1.5;
+    const glow = halo(n.c, glowBase * k, n.depth === 0 ? 0.3 : 0.45);
+
+    if (n.depth === 0) {
+      const cube = makeCube(0.74);
+      g.add(cube.grp, glow, hit);
+      n.cube = cube;
+    } else {
+      shell = new THREE.Mesh(new THREE.SphereGeometry(0.3 * k, 36, 24), fresnel(n.c));
+      g.add(shell, glow, hit);
+      if (n.depth === 1) {
+        neb = nebula(n.c, 0.26 * k);
+        // 中心のほうは濃く光らせて、星雲らしく見せる
+        const inner = halo(n.c, 0.62 * k, 0.5);
+        const innerW = halo(new THREE.Color(0xffffff), 0.3 * k, 0.45);
+        g.add(neb, inner, innerW);
+        n.nebCore = inner;
+      } else {
+        g.add(new THREE.Mesh(new THREE.SphereGeometry(0.075 * k, 14, 10), new THREE.MeshBasicMaterial({ color: 0xffffff })));
+        ring = planetRing(n.c, 0.52 * k);
+        g.add(ring.g);
+      }
+    }
     add(g);
     pickables.push(hit);
-    Object.assign(n, { g, shell, glow, orbit, k });
+    Object.assign(n, { g, shell, glow, glowBase, neb, ring, k });
   });
-  // 中心だけ、骨組みの多面体を重ねる
-  const coreWire = add(new THREE.LineSegments(new THREE.WireframeGeometry(new THREE.IcosahedronGeometry(0.62, 1)), lineMat(CORE_C, 0.5)));
-  coreWire.position.copy(core.pos);
 
   /* ---------- つながりの線と、流れる光 ---------- */
   function curveOf(A, B) {
@@ -267,7 +346,7 @@
   for (let i = 0; i < PN; i++) {
     const r = Math.sqrt(Math.random()) * (R3 + 1.2), t = Math.random() * Math.PI * 2;
     pPos[i * 3] = Math.cos(t) * r; pPos[i * 3 + 1] = BASE + Math.random() * 4.6; pPos[i * 3 + 2] = Math.sin(t) * r;
-    pPhase[i] = Math.random() * Math.PI * 2; pSize[i] = 0.6 + Math.random() * 1.4;
+    pPhase[i] = Math.random() * Math.PI * 2; pSize[i] = 0.3 + Math.random() * 0.7;
   }
   const pGeo = new THREE.BufferGeometry();
   pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
@@ -276,10 +355,25 @@
   const pMat = new THREE.ShaderMaterial({
     transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
     uniforms: { uTime: { value: 0 }, uTex: { value: dot }, uPx: { value: renderer.getPixelRatio() } },
-    vertexShader: 'attribute float aPhase; attribute float aSize; uniform float uTime; uniform float uPx; varying float vA; void main(){ vec3 p = position; p.y += sin(uTime * 0.3 + aPhase) * 0.12; vec4 mv = modelViewMatrix * vec4(p,1.0); vA = 0.25 + 0.75 * pow(0.5 + 0.5 * sin(uTime * 1.5 + aPhase * 3.0), 3.0); gl_PointSize = aSize * uPx * (13.0 / -mv.z); gl_Position = projectionMatrix * mv; }',
-    fragmentShader: 'uniform sampler2D uTex; varying float vA; void main(){ vec4 t = texture2D(uTex, gl_PointCoord); gl_FragColor = vec4(vec3(0.62, 0.95, 1.0), t.a * vA * 0.75); }',
+    vertexShader: 'attribute float aPhase; attribute float aSize; uniform float uTime; uniform float uPx; varying float vA; void main(){ vec3 p = position; p.y += sin(uTime * 0.3 + aPhase) * 0.12; vec4 mv = modelViewMatrix * vec4(p,1.0); vA = 0.25 + 0.75 * pow(0.5 + 0.5 * sin(uTime * 1.5 + aPhase * 3.0), 3.0); gl_PointSize = aSize * uPx * (9.0 / -mv.z); gl_Position = projectionMatrix * mv; }',
+    fragmentShader: 'uniform sampler2D uTex; varying float vA; void main(){ vec4 t = texture2D(uTex, gl_PointCoord); gl_FragColor = vec4(vec3(0.62, 0.95, 1.0), t.a * vA * 0.9); }',
   });
   add(new THREE.Points(pGeo, pMat));
+
+  /* ---------- 背景の幾何学（トップの冒頭と同じ、骨組みの多面体と輪） ---------- */
+  const geoFrame = new THREE.Group();
+  geoFrame.add(new THREE.Mesh(
+    new THREE.IcosahedronGeometry(R3 + 1.6, 2),
+    new THREE.MeshBasicMaterial({ color: 0x5fe0ff, wireframe: true, transparent: true, opacity: 0.035, blending: THREE.AdditiveBlending, depthWrite: false }),
+  ));
+  const halos = [
+    new THREE.Mesh(new THREE.TorusGeometry(R3 + 2.6, 0.02, 8, 160), glowMat(new THREE.Color('#9defff'), 0.16)),
+    new THREE.Mesh(new THREE.TorusGeometry(R3 + 4.0, 0.016, 8, 160), glowMat(new THREE.Color('#9defff'), 0.1)),
+  ];
+  halos[0].rotation.set(1.15, 0.3, 0.2);
+  halos[1].rotation.set(0.75, -0.4, -0.3);
+  halos.forEach((h) => geoFrame.add(h));
+  add(geoFrame);
 
   /* ---------- 名前（HTML） ---------- */
   NODES.forEach((n) => {
@@ -453,12 +547,36 @@
       const on = n === focus ? (hover === n ? 1 : 0.72) : related.has(n.id) && focus ? 0.3 : 0;
       n.heat = lerp(n.heat, on, 1 - Math.pow(0.001, dt));
       n.g.scale.setScalar(1 + n.heat * 0.34 + Math.sin(t * 2 + n.i) * 0.02);
-      n.shell.material.uniforms.uPower.value = 0.85 + n.heat * 1.1;
-      n.glow.material.opacity = 0.38 + n.heat * 0.5;
-      n.glow.scale.setScalar((1.5 + n.heat * 1.1) * n.k);
-      n.orbit.quaternion.copy(camera.quaternion);
-      n.orbit.rotateX(1.1); n.orbit.rotateZ(t * 0.6 + n.i);
-      n.orbit.material.opacity = 0.3 + n.heat * 0.6;
+      n.glow.material.opacity = (n.depth === 0 ? 0.26 : 0.38) + n.heat * 0.5;
+      n.glow.scale.setScalar((n.glowBase + n.heat * 1.1) * n.k);
+      if (n.shell) n.shell.material.uniforms.uPower.value = 0.85 + n.heat * 1.1;
+      // 中心のキューブ：回りながら、ゆっくり形が伸び縮みする
+      if (n.cube) {
+        const c = n.cube;
+        c.grp.rotation.y = t * 0.3;
+        c.grp.rotation.x = Math.sin(t * 0.22) * 0.5 + 0.35;
+        const w = 1 + Math.sin(t * 0.9) * 0.12, h = 1 + Math.sin(t * 0.9 + 2.1) * 0.12;
+        c.outer.scale.set(w, h, 2 - (w + h) / 2);
+        c.edge.scale.copy(c.outer.scale);
+        c.inner.rotation.y = -t * 0.55;
+        c.inner.rotation.z = t * 0.3;
+        c.inner.scale.setScalar(1 + Math.sin(t * 1.3) * 0.1);
+        c.mats.forEach((m) => { m.uniforms.uTime.value = t; m.uniforms.uPower.value = 0.9 + n.heat * 0.8; });
+        c.edge.material.opacity = 0.75 + n.heat * 0.25;
+      }
+      // 4つの領域：球の中の光の粒が漂う
+      if (n.neb) {
+        n.neb.material.uniforms.uTime.value = t;
+        n.neb.material.uniforms.uPower.value = 0.75 + n.heat * 0.6;
+        n.neb.rotation.y = t * 0.12 + n.i;
+        n.neb.rotation.x = Math.sin(t * 0.18 + n.i) * 0.3;
+      }
+      // 下の階層：輪がゆっくり回る
+      if (n.ring) {
+        n.ring.g.rotation.y = t * 0.35 + n.i;
+        n.ring.ring.material.opacity = 0.6 + n.heat * 0.4;
+        n.ring.ringGlow.material.opacity = 0.08 + n.heat * 0.16;
+      }
     });
 
     links.forEach((l) => {
@@ -474,7 +592,9 @@
       });
     });
 
-    coreWire.rotation.y = t * 0.3; coreWire.rotation.x = t * 0.15;
+    geoFrame.rotation.y = t * 0.02;
+    halos[0].rotation.z = 0.2 + t * 0.03;
+    halos[1].rotation.z = -0.3 - t * 0.02;
     emitter.material.opacity = 0.35 + Math.sin(t * 2.1) * 0.1;
     rings.forEach((r, i) => { r.material.opacity = (0.14 - i * 0.03) + Math.sin(t * 1.2 + i) * 0.03; });
     pMat.uniforms.uTime.value = t;
