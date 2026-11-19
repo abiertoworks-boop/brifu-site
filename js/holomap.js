@@ -23,6 +23,7 @@
   const infoLinks = infoLinksWrap.querySelector('ul');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const COMPACT = window.matchMedia('(max-width:820px)').matches;
+  const COARSE = window.matchMedia('(pointer: coarse)').matches; // 指で操作する端末か
   const FEW_LABELS = window.matchMedia('(max-width:820px)');
 
   /* ---------- 色：4つの領域をそれぞれの色で ---------- */
@@ -195,12 +196,85 @@
     return add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), lineMat(color, opacity)));
   };
 
-  /* ---------- 土台のリングと中心の光 ---------- */
+  /* ---------- 土台（EQ Platform）：この上に4つの領域が建っている ---------- */
   const BASE = -2.4;
+  const PLAT_R = R1 * 1.08;
+
+  // 土台の床面：中心から外へ光が薄れる円盤。同心円と放射線を焼き込んで「面」として見せる
+  const deckTex = (() => {
+    const c = document.createElement('canvas'); c.width = c.height = 512;
+    const g = c.getContext('2d');
+    const grd = g.createRadialGradient(256, 256, 0, 256, 256, 256);
+    grd.addColorStop(0, 'rgba(198,238,255,.42)');
+    grd.addColorStop(0.38, 'rgba(126,198,242,.17)');
+    grd.addColorStop(0.78, 'rgba(92,170,226,.07)');
+    grd.addColorStop(1, 'rgba(92,170,226,0)');
+    g.fillStyle = grd; g.fillRect(0, 0, 512, 512);
+    g.lineWidth = 2;
+    g.strokeStyle = 'rgba(206,242,255,.17)';
+    [0.26, 0.46, 0.66, 0.86].forEach((r) => { g.beginPath(); g.arc(256, 256, 256 * r, 0, Math.PI * 2); g.stroke(); });
+    g.strokeStyle = 'rgba(196,236,255,.08)';
+    for (let i = 0; i < 16; i++) {
+      const a = (i / 16) * Math.PI * 2;
+      g.beginPath();
+      g.moveTo(256 + Math.cos(a) * 44, 256 + Math.sin(a) * 44);
+      g.lineTo(256 + Math.cos(a) * 252, 256 + Math.sin(a) * 252);
+      g.stroke();
+    }
+    return new THREE.CanvasTexture(c);
+  })();
+  const deck = add(new THREE.Mesh(
+    new THREE.CircleGeometry(PLAT_R, 96),
+    new THREE.MeshBasicMaterial({ map: deckTex, transparent: true, opacity: 0.55, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide }),
+  ));
+  deck.rotation.x = -Math.PI / 2; deck.position.y = BASE;
+
+  // 床の縁（＝土台の輪郭）
+  const rimMat = glowMat(CORE_C, 0.22);
+  const rim = add(new THREE.Mesh(new THREE.TorusGeometry(PLAT_R, 0.018, 8, 160), rimMat));
+  rim.rotation.x = Math.PI / 2; rim.position.y = BASE;
+  const rimGlow = add(new THREE.Mesh(new THREE.TorusGeometry(PLAT_R, 0.13, 8, 160), glowMat(CORE_C, 0.045)));
+  rimGlow.rotation.x = Math.PI / 2; rimGlow.position.y = BASE;
+
+  // 土台の外枠（八角形）：自然物ではなく「つくられた基盤」に見せる
+  const octa = [];
+  for (let i = 0; i <= 8; i++) {
+    const a = (i / 8) * Math.PI * 2 + Math.PI / 8;
+    octa.push(new THREE.Vector3(Math.cos(a) * PLAT_R * 1.11, BASE, Math.sin(a) * PLAT_R * 1.11));
+  }
+  add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(octa), lineMat(FRAME, 0.26)));
   [0.5, 0.85, 1.25].forEach((r, i) => circle(r, BASE, FRAME, 0.5 - i * 0.12));
+
   const rings = [circle(R1, 0.95, FRAME, 0.14), circle(R2, -0.25, FRAME, 0.1), circle(R3, -1.6, FRAME, 0.07)];
-  const emitter = add(halo(CORE_C, 2.2, 0.4)); emitter.position.set(0, BASE, 0);
+  const emitter = add(halo(CORE_C, 1.7, 0.26)); emitter.position.set(0, BASE, 0);
+
+  // 土台から中心の球へ立ちのぼる光の柱
+  const COL_H = 2.5;
+  const column = add(new THREE.Mesh(
+    new THREE.CylinderGeometry(0.1, 0.4, COL_H, 28, 1, true),
+    new THREE.MeshBasicMaterial({ color: CORE_C, transparent: true, opacity: 0.1, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide }),
+  ));
+  column.position.y = BASE + COL_H / 2;
   add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, BASE, 0), new THREE.Vector3(0, 1.6, 0)]), lineMat(CORE_C, 0.32)));
+
+  // 4つの領域の「脚」：土台の縁から、それぞれの領域の球へ伸びる支柱
+  const feet = [];
+  AREAS.forEach((area) => {
+    const col = C[area.c];
+    const dir = rad(area.deg);
+    const top = place(area.deg, R1, 0.95);
+    const foot = new THREE.Vector3(top.x, BASE, top.z);
+    // 支柱（真下に下ろす）
+    add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([foot, top]), lineMat(col, 0.55)));
+    // 土台の中心から足元へ伸びる床の線（「この台の上に建っている」ことを示す）
+    add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([
+      new THREE.Vector3(Math.cos(dir) * 0.3, BASE, Math.sin(dir) * 0.3), foot,
+    ]), lineMat(col, 0.32)));
+    // 土台に落ちる足元の光
+    const mark = add(halo(col, 0.7, 0.4));
+    mark.position.copy(foot).setY(BASE + 0.012);
+    feet.push(mark);
+  });
 
   /* ---------- 球（縁が光るフレネル） ---------- */
   const fresnel = (color) => new THREE.ShaderMaterial({
@@ -209,7 +283,7 @@
     vertexShader: 'varying vec3 vN; varying vec3 vV; void main(){ vec4 mv = modelViewMatrix * vec4(position,1.0); vN = normalize(normalMatrix * normal); vV = normalize(-mv.xyz); gl_Position = projectionMatrix * mv; }',
     fragmentShader: 'uniform vec3 uColor; uniform float uPower; varying vec3 vN; varying vec3 vV; void main(){ float f = pow(1.0 - abs(dot(vN, vV)), 2.0); gl_FragColor = vec4(uColor, (f * 1.15 + 0.06) * uPower); }',
   });
-  /* ---------- 中心：虹色に光るガラスのキューブ（ゆっくり回りながら形が揺れる） ---------- */
+  /* ---------- 中心：虹色に光るガラスの球（土台の上でゆっくり回る） ---------- */
   const iridMat = () => new THREE.ShaderMaterial({
     transparent: true, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending,
     uniforms: { uTime: { value: 0 }, uPower: { value: 1 } },
@@ -220,21 +294,37 @@
       'vec3 iris(float t){ return 0.55 + 0.45 * cos(6.2831 * (t + vec3(0.0, 0.33, 0.67))); }',
       'void main(){',
       '  float f = pow(1.0 - abs(dot(vN, vV)), 2.2);',
-      '  vec3 c = iris(f * 0.9 + vP.y * 0.9 + vP.x * 0.35 + uTime * 0.08);',
+      '  vec3 c = mix(vec3(0.72, 0.92, 1.0), iris(f * 0.9 + vP.y * 0.9 + vP.x * 0.35 + uTime * 0.08), 0.58);',
       '  gl_FragColor = vec4(c * (0.75 + f * 0.8), (f * 1.15 + 0.035) * uPower);',
       '}',
     ].join('\n'),
   });
-  function makeCube(size) {
+  function makeCore(size) {
     const grp = new THREE.Group();
     const outMat = iridMat(), inMat = iridMat();
-    const outer = new THREE.Mesh(new THREE.BoxGeometry(size, size, size), outMat);
-    const inner = new THREE.Mesh(new THREE.BoxGeometry(size * 0.52, size * 0.52, size * 0.52), inMat);
-    const edge = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(size, size, size)), lineMat(new THREE.Color('#eaf7ff'), 0.85));
-    const edgeIn = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(size * 0.52, size * 0.52, size * 0.52)), lineMat(new THREE.Color('#cfe9ff'), 0.55));
-    inner.add(edgeIn);
-    grp.add(outer, inner, edge);
-    return { grp, outer, inner, edge, mats: [outMat, inMat] };
+    // ガラスの球（面として光る。ワイヤーだけにしない）
+    const outer = new THREE.Mesh(new THREE.SphereGeometry(size, 56, 36), outMat);
+    // 経線・緯線：球であることを読み取りやすくする骨組み
+    const wire = new THREE.LineSegments(
+      new THREE.WireframeGeometry(new THREE.SphereGeometry(size * 1.012, 15, 9)),
+      lineMat(new THREE.Color('#dff2ff'), 0.1),
+    );
+    const inner = new THREE.Mesh(new THREE.SphereGeometry(size * 0.54, 36, 24), inMat);
+    const innerWire = new THREE.LineSegments(
+      new THREE.WireframeGeometry(new THREE.IcosahedronGeometry(size * 0.57, 1)),
+      lineMat(new THREE.Color('#cfe9ff'), 0.16),
+    );
+    inner.add(innerWire);
+    const seed = new THREE.Mesh(
+      new THREE.SphereGeometry(size * 0.11, 18, 12),
+      new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.75, blending: THREE.AdditiveBlending, depthWrite: false }),
+    );
+    // 赤道の輪：土台と同じ向きに寝かせて、球が台に据えられて見えるようにする
+    const eq = new THREE.Mesh(new THREE.TorusGeometry(size * 1.06, size * 0.018, 8, 128), glowMat(new THREE.Color('#eaf7ff'), 0.45));
+    eq.rotation.x = Math.PI / 2;
+    const neb = nebula(CORE_C, size * 0.8);
+    grp.add(outer, wire, inner, seed, eq, neb);
+    return { grp, outer, inner, wire, eq, neb, mats: [outMat, inMat] };
   }
 
   /* ---------- 4つの領域：ガラスの球の中で、光の粒が漂う ---------- */
@@ -288,9 +378,9 @@
     const glow = halo(n.c, glowBase * k, n.depth === 0 ? 0.3 : 0.45);
 
     if (n.depth === 0) {
-      const cube = makeCube(0.74);
-      g.add(cube.grp, glow, hit);
-      n.cube = cube;
+      const orb = makeCore(0.78);
+      g.add(orb.grp, glow, hit);
+      n.orb = orb;
     } else {
       shell = new THREE.Mesh(new THREE.SphereGeometry(0.3 * k, 36, 24), fresnel(n.c));
       g.add(shell, glow, hit);
@@ -393,12 +483,18 @@
   if (THREE.OrbitControls) {
     controls = new THREE.OrbitControls(camera, canvas);
     Object.assign(controls, {
-      enableZoom: false, enablePan: false, enableDamping: true, dampingFactor: 0.07, rotateSpeed: 0.75,
-      autoRotate: !reduceMotion, autoRotateSpeed: 0.5, minPolarAngle: COMPACT ? 0.45 : 0.35, maxPolarAngle: COMPACT ? 1.15 : 1.32,
+      // 指・マウスで上下左右とも一周できるようにする（真上・真下だけは反転を避けて少し残す）
+      enablePan: false, enableDamping: true, dampingFactor: 0.08,
+      rotateSpeed: COMPACT ? 0.95 : 0.8, zoomSpeed: 0.85,
+      autoRotate: !reduceMotion, autoRotateSpeed: 0.5,
+      minPolarAngle: 0.06, maxPolarAngle: Math.PI - 0.06,
+      // 拡大縮小：指が使える端末では常に、マウスの端末は全画面のときだけ（ページのスクロールを奪わないため）
+      enableZoom: COARSE,
     });
+    if (THREE.TOUCH) controls.touches = { ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_ROTATE };
     controls.target.set(0, -0.15, 0);
     let idle = 0;
-    controls.addEventListener('start', () => { clearTimeout(idle); controls.autoRotate = false; root.classList.add('is-touched'); });
+    controls.addEventListener('start', () => { clearTimeout(idle); controls.autoRotate = false; fly = null; root.classList.add('is-touched'); });
     controls.addEventListener('end', () => { clearTimeout(idle); idle = setTimeout(() => { controls.autoRotate = !reduceMotion && !zoomed; }, 4000); });
   }
 
@@ -433,7 +529,12 @@
 
   /* ---------- 寄る・戻る ---------- */
   const HOME = new THREE.Vector3(0, 0, 0);
-  let baseDist = 14, fly = null, zoomed = false;
+  let baseDist = 14, fly = null, zoomed = false, userZoomed = false;
+  // 指で拡大縮小したあとは、画面サイズが変わっても勝手に戻さない
+  if (controls) controls.addEventListener('change', () => {
+    if (fly) return;
+    userZoomed = Math.abs(camera.position.distanceTo(controls.target) - baseDist) > 0.6;
+  });
   function flyToNode(n) {
     const p = new THREE.Vector3(); n.g.getWorldPosition(p);
     fly = { target: p, dist: baseDist * 0.5 };
@@ -443,7 +544,7 @@
   }
   function goHome() {
     fly = { target: HOME.clone(), dist: baseDist };
-    zoomed = false; pinned = false;
+    zoomed = false; pinned = false; userZoomed = false;
     if (controls) controls.autoRotate = !reduceMotion;
     root.classList.remove('is-zoomed');
   }
@@ -464,7 +565,7 @@
       fsBtn.setAttribute('aria-label', on ? '全画面を閉じる' : '全画面で見る');
       fsBtn.querySelector('span').textContent = on ? '閉じる' : '全画面';
     }
-    if (controls) controls.enableZoom = on;
+    if (controls) controls.enableZoom = on || COARSE;
     resize();
   }
   if (fsBtn) fsBtn.addEventListener('click', () => setFull(!full));
@@ -501,12 +602,12 @@
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     const tanV = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
-    const halfW = R3 + 1.1;
-    baseDist = Math.max(halfW / (tanV * camera.aspect), (R3 * 0.62) / tanV) + 1.2;
+    const halfW = COMPACT ? R3 * 0.74 : R3 + 1.1;
+    baseDist = Math.max(halfW / (tanV * camera.aspect), (R3 * (COMPACT ? 0.5 : 0.62)) / tanV) + 1.2;
     if (controls) {
-      controls.minDistance = baseDist * 0.3;
-      controls.maxDistance = baseDist * 1.6;
-      if (!zoomed) {
+      controls.minDistance = baseDist * (COARSE ? 0.22 : 0.3);
+      controls.maxDistance = baseDist * (COARSE ? 1.95 : 1.6);
+      if (!zoomed && !userZoomed) {
         const off = camera.position.clone().sub(controls.target).setLength(baseDist);
         camera.position.copy(controls.target).add(off);
       }
@@ -550,19 +651,20 @@
       n.glow.material.opacity = (n.depth === 0 ? 0.26 : 0.38) + n.heat * 0.5;
       n.glow.scale.setScalar((n.glowBase + n.heat * 1.1) * n.k);
       if (n.shell) n.shell.material.uniforms.uPower.value = 0.85 + n.heat * 1.1;
-      // 中心のキューブ：回りながら、ゆっくり形が伸び縮みする
-      if (n.cube) {
-        const c = n.cube;
-        c.grp.rotation.y = t * 0.3;
-        c.grp.rotation.x = Math.sin(t * 0.22) * 0.5 + 0.35;
-        const w = 1 + Math.sin(t * 0.9) * 0.12, h = 1 + Math.sin(t * 0.9 + 2.1) * 0.12;
-        c.outer.scale.set(w, h, 2 - (w + h) / 2);
-        c.edge.scale.copy(c.outer.scale);
-        c.inner.rotation.y = -t * 0.55;
-        c.inner.rotation.z = t * 0.3;
-        c.inner.scale.setScalar(1 + Math.sin(t * 1.3) * 0.1);
-        c.mats.forEach((m) => { m.uniforms.uTime.value = t; m.uniforms.uPower.value = 0.9 + n.heat * 0.8; });
-        c.edge.material.opacity = 0.75 + n.heat * 0.25;
+      // 中心の球：土台の上で、軸を保ったままゆっくり回る
+      if (n.orb) {
+        const c = n.orb;
+        c.grp.rotation.y = t * 0.16;
+        c.wire.rotation.y = t * 0.09;
+        c.wire.rotation.x = Math.sin(t * 0.17) * 0.1;
+        c.inner.rotation.y = -t * 0.34;
+        c.inner.rotation.z = t * 0.17;
+        c.inner.scale.setScalar(1 + Math.sin(t * 1.1) * 0.06);
+        c.eq.rotation.z = t * 0.2;
+        c.neb.material.uniforms.uTime.value = t;
+        c.neb.material.uniforms.uPower.value = 0.55 + n.heat * 0.5;
+        c.mats.forEach((m) => { m.uniforms.uTime.value = t; m.uniforms.uPower.value = 0.72 + n.heat * 0.7; });
+        c.wire.material.opacity = 0.09 + n.heat * 0.16;
       }
       // 4つの領域：球の中の光の粒が漂う
       if (n.neb) {
@@ -613,7 +715,7 @@
     };
     NODES.forEach((n) => {
       n.g.getWorldPosition(tmp);
-      put(n.label, tmp.clone(), (0.4 + n.heat * 0.16) * n.k);
+      put(n.label, tmp.clone(), ((n.depth === 0 ? 1.18 : 0.4) + n.heat * 0.16) * n.k);
       n.label.classList.toggle('is-on', n === focus);
       // 下の階層は、その領域を照らしているときだけ名前を出す（重なりを防ぐ）
       if (n.depth >= 2 && !(focus && focus.area === n.area)) n.label.style.opacity = '0';

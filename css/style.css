@@ -1143,9 +1143,9 @@ html.holo-open,html.holo-open body{overflow:hidden}
   background:radial-gradient(60% 55% at 50% 55%,rgba(95,224,255,.08),rgba(95,224,255,0) 70%),#040a16}
 /* スマホ：地図を大きく、説明は下、凡例は右上に小さく */
 @media (max-width:900px){
-  .holo{height:clamp(480px,96vw,620px)}
-  .holo__note{left:14px;top:12px;max-width:60%;font-size:9.5px;line-height:1.7}
-  .holo__legend{top:12px;right:12px;gap:2px;font-size:9.5px;max-width:36%;justify-items:end}
+  .holo{height:clamp(520px,118vw,680px)}
+  .holo__note{left:14px;top:12px;max-width:58%;font-size:9.5px;line-height:1.7}
+  .holo__legend{top:12px;right:12px;gap:2px;font-size:9.5px;max-width:40%;justify-items:end}
   .holo__legend li{gap:5px}
   .holo__legend li::before{width:12px}
   .holo__info{left:12px;right:12px;bottom:12px;width:auto;padding:9px 11px 11px}
@@ -1160,4 +1160,28 @@ html.holo-open,html.holo-open body{overflow:hidden}
   .holo__legend li::before{margin-top:7px}
   .holo__label b{font-size:11.5px}
   .holo__label--d0 b{font-size:12.5px}
+}
+/* スマホ（狭い幅）：地図そのものを主役にする。凡例と説明は最小限に畳む */
+@media (max-width:560px){
+  /* 凡例は名前だけ（説明は畳む）。1行に収まるので上の領域を奪わない */
+  .holo__legend{top:10px;right:10px;left:auto;max-width:46%;gap:3px;font-size:9px}
+  .holo__legend small{display:none}
+  .holo__legend li{grid-template-columns:10px 1fr;line-height:1.3;white-space:nowrap}
+  .holo__legend li::before{width:10px;margin-top:5px}
+  .holo__note{left:10px;top:10px;max-width:48%;font-size:9px;line-height:1.6}
+  /* 説明は2行までに抑え、地図を隠す面積を減らす */
+  .holo__info{left:10px;right:10px;bottom:10px;padding:8px 10px 9px;border-radius:12px}
+  .holo__info-k{font-size:8.5px;letter-spacing:.16em}
+  .holo__info-name{font-size:13.5px}
+  .holo__info-desc{margin-top:3px;font-size:10.5px;line-height:1.65;
+    display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+  /* ボタンは地図のいちばん空いている左上（注記の下）へ。球の名前とぶつからない */
+  .holo__tools{top:auto;bottom:auto;right:auto;left:10px;top:66px;transform:none;justify-items:start}
+  .holo__tools button{padding:6px 10px;font-size:10px}
+  .holo__label--d0 b{font-size:12px}
+  .holo__label--d1 b,.holo__label b{font-size:10.5px}
+  .holo__label{padding:3px 7px 4px}
+  /* 長い英字名が画面の外にはみ出さないよう、2行まで折り返す */
+  .holo__label--d1{white-space:normal;max-width:104px}
+  .holo__label--d1 b{line-height:1.3}
 }
