@@ -431,12 +431,12 @@
   });
 
   /* ---------- 漂う光の粒 ---------- */
-  const PN = COMPACT ? 300 : 560;
+  const PN = COMPACT ? 760 : 1500;
   const pPos = new Float32Array(PN * 3), pPhase = new Float32Array(PN), pSize = new Float32Array(PN);
   for (let i = 0; i < PN; i++) {
     const r = Math.sqrt(Math.random()) * (R3 + 1.2), t = Math.random() * Math.PI * 2;
     pPos[i * 3] = Math.cos(t) * r; pPos[i * 3 + 1] = BASE + Math.random() * 4.6; pPos[i * 3 + 2] = Math.sin(t) * r;
-    pPhase[i] = Math.random() * Math.PI * 2; pSize[i] = 0.3 + Math.random() * 0.7;
+    pPhase[i] = Math.random() * Math.PI * 2; pSize[i] = 0.13 + Math.random() * 0.3;
   }
   const pGeo = new THREE.BufferGeometry();
   pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
@@ -445,8 +445,8 @@
   const pMat = new THREE.ShaderMaterial({
     transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
     uniforms: { uTime: { value: 0 }, uTex: { value: dot }, uPx: { value: renderer.getPixelRatio() } },
-    vertexShader: 'attribute float aPhase; attribute float aSize; uniform float uTime; uniform float uPx; varying float vA; void main(){ vec3 p = position; p.y += sin(uTime * 0.3 + aPhase) * 0.12; vec4 mv = modelViewMatrix * vec4(p,1.0); vA = 0.25 + 0.75 * pow(0.5 + 0.5 * sin(uTime * 1.5 + aPhase * 3.0), 3.0); gl_PointSize = aSize * uPx * (9.0 / -mv.z); gl_Position = projectionMatrix * mv; }',
-    fragmentShader: 'uniform sampler2D uTex; varying float vA; void main(){ vec4 t = texture2D(uTex, gl_PointCoord); gl_FragColor = vec4(vec3(0.62, 0.95, 1.0), t.a * vA * 0.9); }',
+    vertexShader: 'attribute float aPhase; attribute float aSize; uniform float uTime; uniform float uPx; varying float vA; void main(){ vec3 p = position; p.y += sin(uTime * 0.3 + aPhase) * 0.12; vec4 mv = modelViewMatrix * vec4(p,1.0); vA = 0.25 + 0.75 * pow(0.5 + 0.5 * sin(uTime * 1.5 + aPhase * 3.0), 3.0); gl_PointSize = aSize * uPx * (7.0 / -mv.z); gl_Position = projectionMatrix * mv; }',
+    fragmentShader: 'uniform sampler2D uTex; varying float vA; void main(){ vec4 t = texture2D(uTex, gl_PointCoord); gl_FragColor = vec4(vec3(0.62, 0.95, 1.0), t.a * vA * 0.62); }',
   });
   add(new THREE.Points(pGeo, pMat));
 
