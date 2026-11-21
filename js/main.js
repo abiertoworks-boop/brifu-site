@@ -349,7 +349,7 @@
       const camera = new THREE.PerspectiveCamera(62, 1, 0.1, 120);
       camera.position.set(0, 0, 12);
 
-      const N = isDesktop() ? 1700 : 700;
+      const N = variant === 'spiral' ? (isDesktop() ? 4600 : 2000) : (isDesktop() ? 1700 : 700);
       const pos = new Float32Array(N * 3);
       const col = new Float32Array(N * 3);
       const cA = new THREE.Color(0x5fe0ff), cB = new THREE.Color(0x2f7bff), cW = new THREE.Color(0xffffff);
@@ -397,8 +397,8 @@
         return new THREE.CanvasTexture(cv);
       })();
       const points = new THREE.Points(geo, new THREE.PointsMaterial({
-        size: variant === 'tunnel' ? 0.3 : variant === 'spiral' ? 0.26 : 0.24, map: sprite, vertexColors: true, transparent: true,
-        opacity: 0.9, depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true
+        size: variant === 'tunnel' ? 0.3 : variant === 'spiral' ? 0.1 : 0.24, map: sprite, vertexColors: true, transparent: true,
+        opacity: variant === 'spiral' ? 0.78 : 0.9, depthWrite: false, blending: THREE.AdditiveBlending, sizeAttenuation: true
       }));
       scene.add(points);
       if (variant === 'spiral') { points.position.set(5, -3, -14); points.rotation.x = 0.55; }

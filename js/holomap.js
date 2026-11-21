@@ -365,7 +365,8 @@
     return { g, ring, ringGlow };
   }
 
-  const SIZE = { 0: 1.15, 1: 0.85, 2: 0.6, 3: 0.44 };
+  // 大きさの段差：中心 ＞ 4つの学び場 ＞ そこから伸びる学び（メリハリをつける）
+  const SIZE = { 0: 1.15, 1: 1.22, 2: 0.72, 3: 0.53 };
   const pickables = [];
   NODES.forEach((n) => {
     const k = SIZE[n.depth];
