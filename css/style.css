@@ -790,6 +790,54 @@ body.menu-open .menu{clip-path:circle(150% at calc(100% - 52px) 52px);pointer-ev
 .diag-cta__meta li::before{content:'';flex:none;width:7px;height:7px;border-radius:50%;background:var(--cyan-300);box-shadow:0 0 12px rgba(157,239,255,.8)}
 @media (max-width:900px){.diag-cta__box{grid-template-columns:1fr}}
 
+/* ---------- 08 CONTACT（枠なし・全幅） ---------- */
+.contact-cta{position:relative;overflow:hidden;color:#fff;
+  background:radial-gradient(90% 80% at 85% 30%,#0f2f8f 0%,rgba(11,27,82,0) 60%),
+             linear-gradient(160deg,var(--navy-900) 0%,var(--navy-950) 100%)}
+.contact-cta::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(50% 60% at 10% 100%,rgba(95,224,255,.10),transparent 70%)}
+.contact-cta .eyebrow{color:var(--cyan-400)}
+.contact-cta__grid{position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(36px,5vw,80px);align-items:center}
+.contact-cta .h-1{font-size:clamp(26px,3.1vw,46px);line-height:1.45}
+.contact-cta__lead{margin-top:24px;font-size:clamp(15px,1.25vw,17px);line-height:2.1;color:rgba(255,255,255,.86);max-width:34em}
+.contact-cta__topics{margin-top:26px;display:grid;gap:10px}
+.contact-cta__topics li{position:relative;padding-left:30px;font-size:15px;line-height:1.8;color:rgba(255,255,255,.92)}
+.contact-cta__topics li::before{content:'';position:absolute;left:0;top:.42em;width:18px;height:18px;border-radius:50%;
+  background:rgba(95,224,255,.16) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239defff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center/11px no-repeat}
+.contact-cta__actions{margin-top:38px;display:flex;flex-wrap:wrap;gap:14px}
+.contact-cta__mail{margin-top:18px;font-size:13.5px;color:rgba(255,255,255,.66);letter-spacing:.04em}
+.contact-cta__mail a{color:#fff;text-decoration:underline;text-underline-offset:4px;text-decoration-color:rgba(255,255,255,.4)}
+.contact-cta__photo{margin:0;border-radius:28px;overflow:hidden;aspect-ratio:3/2;
+  box-shadow:0 50px 100px -50px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.08)}
+.contact-cta__photo img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* ボタン：大きく・はっきり・押せる面がわかる（白地×濃紺文字でいちばん読みやすい組み合わせ） */
+.cta-btn{display:inline-flex;align-items:center;justify-content:center;gap:14px;min-height:64px;padding:10px 12px 10px 30px;
+  border-radius:999px;font-size:16.5px;font-weight:700;letter-spacing:.05em;line-height:1.3;text-decoration:none;
+  transition:transform .45s var(--ease-out),box-shadow .45s var(--ease-out),background-color .3s,border-color .3s,color .3s}
+.cta-btn__ico{flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;transition:transform .45s var(--ease-out),background-color .3s}
+.cta-btn__ico svg{width:20px;height:20px}
+.cta-btn--primary{background:#fff;color:var(--navy-900);box-shadow:0 18px 40px -16px rgba(95,224,255,.55),0 0 0 0 rgba(95,224,255,0)}
+.cta-btn--primary .cta-btn__ico{background:var(--blue-600);color:#fff}
+.cta-btn--secondary{padding:10px 30px 10px 12px;background:rgba(255,255,255,.06);color:#fff;border:1.5px solid rgba(255,255,255,.6)}
+.cta-btn--secondary .cta-btn__ico{width:40px;height:40px;background:rgba(255,255,255,.12)}
+@media (hover:hover){
+  .cta-btn--primary:hover{transform:translateY(-3px);box-shadow:0 26px 50px -18px rgba(95,224,255,.75),0 0 0 6px rgba(95,224,255,.16)}
+  .cta-btn--primary:hover .cta-btn__ico{transform:translateX(4px);background:var(--blue-500)}
+  .cta-btn--secondary:hover{background:rgba(255,255,255,.14);border-color:#fff;transform:translateY(-3px)}
+}
+.cta-btn:focus-visible{outline:3px solid var(--cyan-400);outline-offset:4px}
+.cta-btn:active{transform:translateY(0) scale(.98)}
+@media (max-width:900px){
+  .contact-cta__grid{grid-template-columns:1fr}
+  .contact-cta__photo{order:-1;border-radius:20px}
+}
+@media (max-width:560px){
+  .contact-cta__actions{flex-direction:column;align-items:stretch}
+  .cta-btn{width:100%;justify-content:space-between;font-size:16px}
+  .cta-btn--secondary{justify-content:flex-start}
+}
+
 /* ---------- FOOTER ---------- */
 .footer{background:var(--navy-950);color:#fff;padding:clamp(70px,10vh,120px) 0 40px;border-top:1px solid rgba(255,255,255,.08)}
 .footer__top{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:40px}
@@ -1058,8 +1106,9 @@ a.path:hover .arr{transform:translateX(5px)}
 .offer__card{display:flex;flex-direction:column;border-radius:24px;overflow:hidden;background:#fff;
   border:1px solid var(--ice-200);box-shadow:0 24px 60px -44px rgba(11,27,82,.5);
   transition:transform .6s var(--ease-out),box-shadow .6s,border-color .5s}
-.offer__img{display:block;aspect-ratio:16/9;overflow:hidden}
-.offer__img img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease-out)}
+/* 画像は切らずに全体を見せる：枠は写真と同じ3:2、正方形の画像は白地の余白で収める */
+.offer__img{display:block;aspect-ratio:3/2;overflow:hidden;background:#fff}
+.offer__img img{width:100%;height:100%;object-fit:contain;transition:filter .8s var(--ease-out)}
 .offer__body{display:block;padding:clamp(22px,2.6vw,34px)}
 .offer__k{display:block;font-family:var(--font-en);font-size:11px;letter-spacing:.3em;color:var(--blue-600)}
 .offer__t{display:block;margin-top:10px;font-size:clamp(21px,2.2vw,30px);font-weight:600;letter-spacing:.04em;color:var(--ink-900)}
@@ -1069,7 +1118,7 @@ a.path:hover .arr{transform:translateX(5px)}
 .offer__more .arr{transition:transform .5s var(--ease-out)}
 @media (hover:hover){
   .offer__card:hover{transform:translateY(-6px);border-color:var(--blue-400);box-shadow:0 40px 80px -46px rgba(31,94,255,.6)}
-  .offer__card:hover .offer__img img{transform:scale(1.06)}
+  .offer__card:hover .offer__img img{filter:brightness(1.06) saturate(1.08)}
   .offer__card:hover .offer__more .arr{transform:translateX(6px)}
 }
 

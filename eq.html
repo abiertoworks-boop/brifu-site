@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EQとは｜株式会社Brifu</title>
 <meta name="description" content="EQとは、自分と人の可能性を活かす力。Brifuが大切にするEQの考え方、EQ認識理論、横成長と縦成長、EQを学ぶことで起きる5つの変化をご紹介します。">
 <meta property="og:type" content="website">
@@ -10,57 +10,83 @@
 <meta property="og:title" content="EQとは｜株式会社Brifu">
 <meta property="og:description" content="EQとは、自分と人の可能性を活かす力。Brifuが大切にするEQの考え方、EQ認識理論、横成長と縦成長、EQを学ぶことで起きる5つの変化をご紹介します。">
 <meta property="og:locale" content="ja_JP">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M20 3l17 17-17 17L3 20z' fill='%2317345C'/%3E%3Cpath d='M20 11l9 9-9 9-9-9z' fill='none' stroke='%23fff' stroke-width='1.6'/%3E%3Ccircle cx='20' cy='20' r='3' fill='%23E6C57F'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;600;700&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/site.css">
-<script>document.documentElement.classList.add('js');</script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/sub.css">
 </head>
-<body class="page-eq">
-<a class="skip" href="#main">本文へスキップ</a>
-<header class="site-header" id="top">
-  <div class="site-header__inner">
-    <a class="logo" href="index.html" aria-label="株式会社Brifu トップページ">
-      <svg class="logo__mark" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 4l16 16-16 16L4 20z"/><path d="M20 10l10 10-10 10-10-10z" opacity=".6"/><circle cx="20" cy="20" r="3" fill="currentColor" stroke="none"/></svg>
-      <span class="logo__text">Brifu<small>株式会社Brifu</small></span>
-    </a>
-    <button class="menu-toggle" type="button" aria-controls="gnav" aria-expanded="false" aria-label="メニューを開く">
-      <span class="menu-toggle__bars" aria-hidden="true"><i></i><i></i><i></i></span>MENU
-    </button>
-    <nav class="gnav" id="gnav" aria-label="メインメニュー">
-      <ul class="gnav__list">
-        <li><a href="index.html" data-nav="top">トップ</a></li>
-        <li><a href="eq.html" data-nav="eq" aria-current="page">EQ</a></li>
-        <li><a href="service.html" data-nav="service">サービス内容</a></li>
-        <li><a href="company.html" data-nav="company">会社概要</a></li>
-        <li><a href="business.html" data-nav="business">法人向け支援</a></li>
-        <li><a href="shop.html" data-nav="shop">物販・書籍</a></li>
-        <li class="gnav__cta-item"><a class="gnav__cta" href="contact.html" data-nav="contact">お問い合わせ</a></li>
-      </ul>
-    </nav>
+<body>
+
+<div id="loader" aria-hidden="true">
+  <div class="word"><span>B</span><span>r</span><span>i</span><span>f</span><span>u</span></div>
+  <div class="bar"><i></i></div>
+  <div class="pct">000</div>
+  <div class="curtain"></div>
+</div>
+<div id="transition"></div>
+<div id="cursor"><div class="ring"></div><div class="dot"></div></div>
+
+<header class="header">
+  <a class="logo" href="index.html" aria-label="Brifu">
+    <span class="mark"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 4l16 16-16 16L4 20z"/><path d="M20 10l10 10-10 10-10-10z" opacity=".6"/><circle cx="20" cy="20" r="3" fill="currentColor" stroke="none"/></svg></span>
+    <span>Brifu<small>株式会社Brifu</small></span>
+  </a>
+  <nav class="nav-links" aria-label="主要ナビゲーション">
+    <a href="index.html">トップ</a><a href="eq.html" aria-current="page">BrifuのEQ</a><a href="service.html">サービス内容</a><a href="company.html">会社概要</a><a href="business.html">法人向け支援</a><a href="shop.html">物販・書籍</a>
+  </nav>
+  <div class="nav-right">
+    <a class="nav-cta" href="contact.html">お問い合わせ</a>
+    <button class="menu-btn" aria-label="メニュー" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
 
-<main id="main">
+<div class="menu" aria-hidden="true" data-lenis-prevent>
+  <div class="menu__bg"></div>
+  <div class="menu__inner">
+    <ul class="menu__list">
+      <li><a href="index.html"><small>01</small>トップ</a></li>
+      <li><a href="eq.html" aria-current="page"><small>02</small>BrifuのEQ</a></li>
+      <li><a href="service.html"><small>03</small>サービス内容</a></li>
+      <li><a href="company.html"><small>04</small>会社概要</a></li>
+      <li><a href="business.html"><small>05</small>法人向け支援</a></li>
+      <li><a href="shop.html"><small>06</small>物販・書籍</a></li>
+      <li><a href="contact.html"><small>07</small>お問い合わせ</a></li>
+    </ul>
+    <div class="menu__sub">
+      <a href="corecard.html">EQコアカードを見る</a>
+      <a href="company.html">会社概要・理念・代表プロフィール</a>
+      <a href="https://abiertoworks-boop.github.io/EQ2/" target="_blank" rel="noopener">EQコアカードを体験する</a>
+      <a href="contact.html">お問い合わせフォーム</a>
+    </div>
+  </div>
+</div>
 
-<section class="page-hero">
+<main class="sp-body">
+<section class="subhero subhero--video" id="top">
+  <video class="subhero__video" data-src="video/eq-bg.mp4" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
+  <div class="subhero__photo"></div>
   <div class="container">
-    <nav class="breadcrumb" aria-label="パンくずリスト"><ol><li><a href="index.html">TOP</a></li><li aria-current="page">EQ</li></ol></nav>
-    <p class="eyebrow">EQ — EMOTIONAL INTELLIGENCE</p>
-    <h1>EQとは、<br class="sp">自分と人の可能性を<br class="pc">活かす力。</h1>
-    <p class="page-hero__lead">Brifuが大切にしているEQの考え方と、その土台となる「EQ認識理論」、EQを学ぶことで起きる変化をご紹介します。</p>
+    <div class="breadcrumb"><a href="index.html">TOP</a><span>/</span><span aria-current="page">BRIFU'S EQ</span></div>
+    <div class="eyebrow">BRIFU'S EQ — EMOTIONAL INTELLIGENCE</div>
+    <h1 class="h-display split-group">
+    <span class="split-line"><span>EQとは、</span></span>
+    <span class="split-line"><span>自分と人の可能性を活かす力。</span></span>
+    </h1>
+    <p class="lead" data-reveal style="margin-top:30px">Brifuが大切にしているEQの考え方と、その土台となる「EQ認識理論」、EQを学ぶことで起きる変化をご紹介します。</p>
   </div>
 </section>
 
-<section class="section section--navy" id="definition" aria-labelledby="def-title">
+
+
+<section class="section s-sec section--navy" id="definition" aria-labelledby="def-title">
   <div class="container">
     <div class="split split--center">
       <div data-reveal>
         <p class="eyebrow">DEFINITION</p>
         <h2 class="sec-title" id="def-title">EQは「感情をコントロールする力」<br class="pc">ではありません。</h2>
       </div>
-      <div class="prose" data-reveal style="--d:.1s">
+      <div class="prose" data-reveal data-delay=".1">
         <p>EQ（Emotional Intelligence）は、「感情をコントロールする力」だと思われがちです。私たちの定義は少し違います。<strong style="color:#fff">感情を、認識を、行動を、自分と相手の可能性を活かすために使う力。</strong>それがEQです。</p>
         <p>自分の感情に気づき、認識を見直し、目的から選び、行動する。相手の感情に目を向け、認識の違いを確かめ、本音で対話する。この往復が、自分にも相手にも「可能性」を残します。</p>
       </div>
@@ -74,7 +100,7 @@
   </div>
 </section>
 
-<section class="section section--mist" id="why" aria-labelledby="why-title">
+<section class="section s-sec section--mist" id="why" aria-labelledby="why-title">
   <div class="container">
     <div class="sec-head sec-head--center" data-reveal>
       <p class="eyebrow">WHY THE HEART</p>
@@ -92,7 +118,7 @@
   </div>
 </section>
 
-<section class="section" id="theory" aria-labelledby="theory-title">
+<section class="section s-sec" id="theory" aria-labelledby="theory-title">
   <div class="container">
     <div class="sec-head sec-head--center" data-reveal>
       <p class="eyebrow">EQ RECOGNITION THEORY</p>
@@ -113,7 +139,7 @@
   </div>
 </section>
 
-<section class="section section--navy" id="growth" aria-labelledby="growth-title">
+<section class="section s-sec section--navy" id="growth" aria-labelledby="growth-title">
   <div class="container">
     <div class="sec-head" data-reveal>
       <p class="eyebrow">TWO WAYS TO GROW</p>
@@ -128,7 +154,7 @@
           <p>感情リテラシー、コミュニケーション、自己理解・他者理解など、EQの知識とスキルを身につける成長です。</p>
         </div>
       </div>
-      <div class="growth__card" data-reveal style="--d:.1s">
+      <div class="growth__card" data-reveal data-delay=".1">
         <img src="images/icon-tate.png" alt="" width="84" height="84" loading="lazy">
         <div>
           <p class="growth__en">VERTICAL GROWTH</p>
@@ -144,49 +170,49 @@
   </div>
 </section>
 
-<section class="section section--mist" id="change" aria-labelledby="change-title">
+<section class="section s-sec section--mist" id="change" aria-labelledby="change-title">
   <div class="container">
     <div class="sec-head sec-head--center" data-reveal>
       <p class="eyebrow">WHAT CHANGES</p>
       <h2 class="sec-title" id="change-title">EQを学ぶと、<br class="sp">変化は5つの領域で起きる。</h2>
       <p class="sec-lead">自分から始まり、人へ、チームへ、組織へ、社会へ。一つの変化が、次の変化を生みます。</p>
     </div>
-    <ul class="domain-list">
+    <ul class="eqd-list">
       <li data-reveal>
-        <article class="domain">
-          <div class="domain__img"><img src="images/woman-green.jpg" alt="" loading="lazy"></div>
-          <div class="domain__body"><p class="domain__en">01 — SELF</p><h3 class="domain__ttl">自分</h3><p class="domain__lead">自分の心が分かる。</p><p class="domain__result">自分で、自分の一歩を選べる。</p></div>
+        <article class="eqd">
+          <div class="eqd__img"><img src="images/woman-green.jpg" alt="" loading="lazy"></div>
+          <div class="eqd__body"><p class="eqd__en">01 — SELF</p><h3 class="eqd__ttl">自分</h3><p class="eqd__lead">自分の心が分かる。</p><p class="eqd__result">自分で、自分の一歩を選べる。</p></div>
         </article>
       </li>
-      <li data-reveal style="--d:.08s">
-        <article class="domain">
-          <div class="domain__img"><img src="images/hands.jpg" alt="" loading="lazy"></div>
-          <div class="domain__body"><p class="domain__en">02 — RELATIONSHIP</p><h3 class="domain__ttl">人との関係</h3><p class="domain__lead">相手の心にも、目を向けられる。</p><p class="domain__result">すれ違いを減らし、本音で対話できる。</p></div>
+      <li data-reveal data-delay=".08">
+        <article class="eqd">
+          <div class="eqd__img"><img src="images/hands.jpg" alt="" loading="lazy"></div>
+          <div class="eqd__body"><p class="eqd__en">02 — RELATIONSHIP</p><h3 class="eqd__ttl">人との関係</h3><p class="eqd__lead">相手の心にも、目を向けられる。</p><p class="eqd__result">すれ違いを減らし、本音で対話できる。</p></div>
         </article>
       </li>
-      <li data-reveal style="--d:.16s">
-        <article class="domain">
-          <div class="domain__img"><img src="images/team-casual.jpg" alt="" loading="lazy"></div>
-          <div class="domain__body"><p class="domain__en">03 — TEAM</p><h3 class="domain__ttl">チーム</h3><p class="domain__lead">一人ひとりの可能性を活かせる。</p><p class="domain__result">人が活きるチームへ。</p></div>
+      <li data-reveal data-delay=".16">
+        <article class="eqd">
+          <div class="eqd__img"><img src="images/team-casual.jpg" alt="" loading="lazy"></div>
+          <div class="eqd__body"><p class="eqd__en">03 — TEAM</p><h3 class="eqd__ttl">チーム</h3><p class="eqd__lead">一人ひとりの可能性を活かせる。</p><p class="eqd__result">人が活きるチームへ。</p></div>
         </article>
       </li>
       <li data-reveal>
-        <article class="domain">
-          <div class="domain__img"><img src="images/two-men.jpg" alt="" loading="lazy"></div>
-          <div class="domain__body"><p class="domain__en">04 — ORGANIZATION</p><h3 class="domain__ttl">組織</h3><p class="domain__lead">人の成長と、組織の目的がつながる。</p><p class="domain__result">理念が、人の行動に表れる組織へ。</p></div>
+        <article class="eqd">
+          <div class="eqd__img"><img src="images/two-men.jpg" alt="" loading="lazy"></div>
+          <div class="eqd__body"><p class="eqd__en">04 — ORGANIZATION</p><h3 class="eqd__ttl">組織</h3><p class="eqd__lead">人の成長と、組織の目的がつながる。</p><p class="eqd__result">理念が、人の行動に表れる組織へ。</p></div>
         </article>
       </li>
-      <li data-reveal style="--d:.08s">
-        <article class="domain">
-          <div class="domain__img"><img src="images/society.jpg" alt="" loading="lazy"></div>
-          <div class="domain__body"><p class="domain__en">05 — SOCIETY</p><h3 class="domain__ttl">社会</h3><p class="domain__lead">一人の変化が、次の人へ伝わる。</p><p class="domain__result">「お互いを大切にする社会」をつくる。</p></div>
+      <li data-reveal data-delay=".08">
+        <article class="eqd">
+          <div class="eqd__img"><img src="images/society.jpg" alt="" loading="lazy"></div>
+          <div class="eqd__body"><p class="eqd__en">05 — SOCIETY</p><h3 class="eqd__ttl">社会</h3><p class="eqd__lead">一人の変化が、次の人へ伝わる。</p><p class="eqd__result">「お互いを大切にする社会」をつくる。</p></div>
         </article>
       </li>
     </ul>
   </div>
 </section>
 
-<section class="section" aria-labelledby="next-title">
+<section class="section s-sec" aria-labelledby="next-title">
   <div class="container">
     <div class="sec-head sec-head--center" data-reveal>
       <p class="eyebrow">NEXT STEP</p>
@@ -202,7 +228,7 @@
           <span class="more">サービス内容を見る<span class="arr" aria-hidden="true">→</span></span>
         </div>
       </a>
-      <a class="feature-card" href="shop.html#corecard" data-reveal style="--d:.1s">
+      <a class="feature-card" href="shop.html#corecard" data-reveal data-delay=".1">
         <div class="feature-card__img"><img src="images/cc-cards-ring.jpg" alt="" loading="lazy"></div>
         <div class="feature-card__body">
           <p class="eyebrow">EQ CORE CARD</p>
@@ -215,71 +241,82 @@
   </div>
 </section>
 
-<section class="cta" aria-labelledby="cta-title">
-  <div class="container cta__inner">
-    <div>
-      <p class="eyebrow eyebrow--gold">CONTACT</p>
-      <h2 class="cta__title" id="cta-title">講座・研修・法人向け支援・商品について、<br class="pc">お気軽にご相談ください。</h2>
-      <p class="cta__text">ご相談内容がまだ整理できていなくても大丈夫です。いまの状況をお聞きするところから始めます。</p>
+<!-- ===================== 08 CONTACT ===================== -->
+<section class="section contact-cta" id="contact">
+  <div class="container contact-cta__grid">
+    <div class="contact-cta__text">
+      <div class="eyebrow"><span class="num">08</span> CONTACT</div>
+      <h2 class="h-1 split-group">
+        <span class="split-line"><span>講座・研修・法人向け支援・</span></span>
+        <span class="split-line"><span>商品について、</span></span>
+        <span class="split-line"><span>お気軽にご相談ください。</span></span>
+      </h2>
+      <p class="contact-cta__lead" data-reveal>ご相談内容がまだ整理できていなくても大丈夫です。<span class="pgap"></span>いまの状況をお聞きするところから始めます。</p>
+      <ul class="contact-cta__topics" data-reveal data-delay=".08">
+        <li>EQ Academy・EQTMなどの講座について</li>
+        <li>法人向けの研修・組織づくりのご相談</li>
+        <li>EQコアカード・書籍のご購入について</li>
+      </ul>
+      <div class="contact-cta__actions" data-reveal data-delay=".14">
+        <a class="cta-btn cta-btn--primary" href="contact.html">
+          <span class="cta-btn__label">お問い合わせフォームへ</span>
+          <span class="cta-btn__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="cta-btn cta-btn--secondary" href="mailto:info@brifu.co.jp">
+          <span class="cta-btn__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M4 7l8 6 8-6"/></svg></span>
+          <span class="cta-btn__label">メールで相談する</span>
+        </a>
+      </div>
+      <p class="contact-cta__mail" data-reveal data-delay=".18">メール：<a href="mailto:info@brifu.co.jp">info@brifu.co.jp</a></p>
     </div>
-    <div class="cta__actions">
-      <a class="btn btn--light btn--lg" href="contact.html">お問い合わせフォーム<span class="arr" aria-hidden="true">→</span></a>
-      <p class="cta__sub">メール：<a href="mailto:info@brifu.co.jp">info@brifu.co.jp</a></p>
-    </div>
+    <figure class="contact-cta__photo" data-reveal="scale">
+      <img src="images/contact-consult.jpg" width="1600" height="1067" alt="高層ビルの窓辺で、街を見ながら話し合う二人のビジネスパーソン" loading="lazy" decoding="async">
+    </figure>
   </div>
 </section>
 
 </main>
 
-<footer class="site-footer">
+<footer class="footer">
   <div class="container">
-    <div class="site-footer__top">
-      <div class="site-footer__brand">
-        <a class="logo" href="index.html" aria-label="株式会社Brifu トップページ">
-          <svg class="logo__mark" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 4l16 16-16 16L4 20z"/><path d="M20 10l10 10-10 10-10-10z" opacity=".6"/><circle cx="20" cy="20" r="3" fill="currentColor" stroke="none"/></svg>
-          <span class="logo__text">Brifu<small>株式会社Brifu</small></span>
-        </a>
-        <p>「人の心にイノベーション」を起こし、<br>社会に「真のイノベーション」を創り出す。</p>
-        <address>〒150-0046 東京都渋谷区松濤1-5-1-804<br>info@brifu.co.jp</address>
+    <div class="footer__top">
+      <div class="footer__brand">
+        <a class="logo" href="index.html"><span class="mark"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 4l16 16-16 16L4 20z"/><path d="M20 10l10 10-10 10-10-10z" opacity=".6"/><circle cx="20" cy="20" r="3" fill="currentColor" stroke="none"/></svg></span><span>Brifu<small>株式会社Brifu</small></span></a>
+        <p>「人の心にイノベーション」を起こし、社会に「真のイノベーション」を創り出す。<span class="pgap"></span>EQを学び、つながり、実践することで、自分らしく生きる力を育て、より良い人生と社会を創造していきます。</p>
       </div>
-      <nav class="site-footer__nav" aria-label="フッターメニュー">
-        <div>
-          <h2>MENU</h2>
-          <ul>
-            <li><a href="index.html">トップ</a></li>
-            <li><a href="eq.html">EQ</a></li>
-            <li><a href="service.html">サービス内容</a></li>
-            <li><a href="company.html">会社概要</a></li>
-            <li><a href="business.html">法人向け支援</a></li>
-            <li><a href="shop.html">物販・書籍</a></li>
-            <li><a href="contact.html">お問い合わせ</a></li>
-          </ul>
-        </div>
-        <div>
-          <h2>RELATED</h2>
-          <ul>
-            <li><a href="https://abiertoworks-boop.github.io/EQ2/" target="_blank" rel="noopener">EQ Gate<span aria-hidden="true"> ↗</span></a></li>
-            <li><a href="https://abiertoworks-boop.github.io/eq-business-nexus/" target="_blank" rel="noopener">EQ Business Nexus<span aria-hidden="true"> ↗</span></a></li>
-            <li><a href="https://eqtm.jimdofree.com/course/" target="_blank" rel="noopener">EQTM 講座案内<span aria-hidden="true"> ↗</span></a></li>
-            <li><a href="corecard.html">EQコアカード</a></li>
-          </ul>
-        </div>
-        <div>
-          <h2>POLICY</h2>
-          <ul>
-            <li><a href="privacy.html">プライバシーポリシー</a></li>
-            <li><a href="tokushoho.html">特定商取引法に基づく表記</a></li>
-          </ul>
-        </div>
-      </nav>
+      <div>
+        <h4>SITE</h4>
+        <ul>
+          <li><a href="index.html#purpose">私たちの目的</a></li>
+          <li><a href="eq.html">BrifuのEQ</a></li>
+          <li><a href="service.html">サービス内容</a></li>
+          <li><a href="business.html">法人向け支援</a></li>
+          <li><a href="shop.html">物販・書籍</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>COMPANY</h4>
+        <ul>
+          <li><a href="company.html">会社概要・理念</a></li>
+          <li><a href="company.html#profile">代表プロフィール</a></li>
+          <li><a href="corecard.html">EQコアカード</a></li>
+          <li><a href="contact.html">お問い合わせ</a></li>
+          <li><a href="privacy.html">プライバシーポリシー</a></li>
+          <li><a href="tokushoho.html">特定商取引法に基づく表記</a></li>
+          <li>〒150-0046 東京都渋谷区松濤1-5-1-804</li>
+        </ul>
+      </div>
     </div>
-    <div class="site-footer__bottom">
-      <small>© 株式会社Brifu</small>
-      <a href="#top">ページの先頭へ ↑</a>
+    <div class="footer__bottom">
+      <span>© 株式会社Brifu — Innovation in the Heart</span>
+      <a href="#top">BACK TO TOP ↑</a>
     </div>
   </div>
 </footer>
 
-<script src="js/site.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>

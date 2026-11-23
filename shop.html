@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>物販・書籍｜株式会社Brifu</title>
 <meta name="description" content="感情・価値観・認識・行動を言葉にするカード型ツール「EQコアカード」と、代表・波多野輝未の著書をご紹介します。">
 <meta property="og:type" content="website">
@@ -10,53 +10,77 @@
 <meta property="og:title" content="物販・書籍｜株式会社Brifu">
 <meta property="og:description" content="感情・価値観・認識・行動を言葉にするカード型ツール「EQコアカード」と、代表・波多野輝未の著書をご紹介します。">
 <meta property="og:locale" content="ja_JP">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M20 3l17 17-17 17L3 20z' fill='%2317345C'/%3E%3Cpath d='M20 11l9 9-9 9-9-9z' fill='none' stroke='%23fff' stroke-width='1.6'/%3E%3Ccircle cx='20' cy='20' r='3' fill='%23E6C57F'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;600;700&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/site.css">
-<script>document.documentElement.classList.add('js');</script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/sub.css">
 </head>
-<body class="page-shop">
-<a class="skip" href="#main">本文へスキップ</a>
-<header class="site-header" id="top">
-  <div class="site-header__inner">
-    <a class="logo" href="index.html" aria-label="株式会社Brifu トップページ">
-      <svg class="logo__mark" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 4l16 16-16 16L4 20z"/><path d="M20 10l10 10-10 10-10-10z" opacity=".6"/><circle cx="20" cy="20" r="3" fill="currentColor" stroke="none"/></svg>
-      <span class="logo__text">Brifu<small>株式会社Brifu</small></span>
-    </a>
-    <button class="menu-toggle" type="button" aria-controls="gnav" aria-expanded="false" aria-label="メニューを開く">
-      <span class="menu-toggle__bars" aria-hidden="true"><i></i><i></i><i></i></span>MENU
-    </button>
-    <nav class="gnav" id="gnav" aria-label="メインメニュー">
-      <ul class="gnav__list">
-        <li><a href="index.html" data-nav="top">トップ</a></li>
-        <li><a href="eq.html" data-nav="eq">EQ</a></li>
-        <li><a href="service.html" data-nav="service">サービス内容</a></li>
-        <li><a href="company.html" data-nav="company">会社概要</a></li>
-        <li><a href="business.html" data-nav="business">法人向け支援</a></li>
-        <li><a href="shop.html" data-nav="shop" aria-current="page">物販・書籍</a></li>
-        <li class="gnav__cta-item"><a class="gnav__cta" href="contact.html" data-nav="contact">お問い合わせ</a></li>
-      </ul>
-    </nav>
+<body>
+
+<div id="loader" aria-hidden="true">
+  <div class="word"><span>B</span><span>r</span><span>i</span><span>f</span><span>u</span></div>
+  <div class="bar"><i></i></div>
+  <div class="pct">000</div>
+  <div class="curtain"></div>
+</div>
+<div id="transition"></div>
+<div id="cursor"><div class="ring"></div><div class="dot"></div></div>
+
+<header class="header">
+  <a class="logo" href="index.html" aria-label="Brifu">
+    <span class="mark"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 4l16 16-16 16L4 20z"/><path d="M20 10l10 10-10 10-10-10z" opacity=".6"/><circle cx="20" cy="20" r="3" fill="currentColor" stroke="none"/></svg></span>
+    <span>Brifu<small>株式会社Brifu</small></span>
+  </a>
+  <nav class="nav-links" aria-label="主要ナビゲーション">
+    <a href="index.html">トップ</a><a href="eq.html">BrifuのEQ</a><a href="service.html">サービス内容</a><a href="company.html">会社概要</a><a href="business.html">法人向け支援</a><a href="shop.html" aria-current="page">物販・書籍</a>
+  </nav>
+  <div class="nav-right">
+    <a class="nav-cta" href="contact.html">お問い合わせ</a>
+    <button class="menu-btn" aria-label="メニュー" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
 
-<main id="main">
+<div class="menu" aria-hidden="true" data-lenis-prevent>
+  <div class="menu__bg"></div>
+  <div class="menu__inner">
+    <ul class="menu__list">
+      <li><a href="index.html"><small>01</small>トップ</a></li>
+      <li><a href="eq.html"><small>02</small>BrifuのEQ</a></li>
+      <li><a href="service.html"><small>03</small>サービス内容</a></li>
+      <li><a href="company.html"><small>04</small>会社概要</a></li>
+      <li><a href="business.html"><small>05</small>法人向け支援</a></li>
+      <li><a href="shop.html" aria-current="page"><small>06</small>物販・書籍</a></li>
+      <li><a href="contact.html"><small>07</small>お問い合わせ</a></li>
+    </ul>
+    <div class="menu__sub">
+      <a href="corecard.html">EQコアカードを見る</a>
+      <a href="company.html">会社概要・理念・代表プロフィール</a>
+      <a href="https://abiertoworks-boop.github.io/EQ2/" target="_blank" rel="noopener">EQコアカードを体験する</a>
+      <a href="contact.html">お問い合わせフォーム</a>
+    </div>
+  </div>
+</div>
 
-<section class="page-hero">
+<main class="sp-body">
+<section class="subhero subhero--photo" id="top">
+  <div class="subhero__photo" style="background-image:url('images/corecard-circle.jpg')"></div>
   <div class="container">
-    <nav class="breadcrumb" aria-label="パンくずリスト"><ol><li><a href="index.html">TOP</a></li><li aria-current="page">PRODUCTS &amp; BOOKS</li></ol></nav>
-    <p class="eyebrow">PRODUCTS &amp; BOOKS</p>
-    <h1>物販・書籍</h1>
-    <p class="page-hero__lead">EQを日常で実践するためのツール「EQコアカード®」と、代表・波多野輝未の著書をご紹介します。</p>
+    <div class="breadcrumb"><a href="index.html">TOP</a><span>/</span><span aria-current="page">PRODUCTS &amp; BOOKS</span></div>
+    <div class="eyebrow">PRODUCTS &amp; BOOKS</div>
+    <h1 class="h-display split-group">
+    <span class="split-line"><span>物販・書籍</span></span>
+    </h1>
+    <p class="lead" data-reveal style="margin-top:30px">EQを日常で実践するためのツール「EQコアカード®」と、代表・波多野輝未の著書をご紹介します。</p>
   </div>
 </section>
 
-<section class="section" id="corecard" aria-labelledby="corecard-title">
+
+
+<section class="section s-sec" id="corecard" aria-labelledby="corecard-title">
   <div class="container product">
     <figure class="product__img" data-reveal><img src="images/cc-cards-ring.jpg" alt="EQコアカード。8色のカードが、カードの束を囲むように並んでいる" width="1200" height="1200" loading="lazy"></figure>
-    <div data-reveal style="--d:.1s">
+    <div data-reveal data-delay=".1">
       <p class="eyebrow">PRODUCT</p>
       <h2 class="product__name" id="corecard-title">EQコアカード®</h2>
       <p class="product__catch">言葉にならない気持ちを、カードで言葉にする。</p>
@@ -79,7 +103,7 @@
   </div>
 </section>
 
-<section class="section section--mist" id="books" aria-labelledby="books-title">
+<section class="section s-sec section--mist" id="books" aria-labelledby="books-title">
   <div class="container">
     <div class="sec-head sec-head--center" data-reveal>
       <p class="eyebrow">BOOKS</p>
@@ -100,7 +124,7 @@
           <a class="btn btn--ghost" href="https://www.amazon.co.jp/s?k=%E8%AA%B0%E3%81%A7%E3%82%82%E4%BD%95%E6%AD%B3%E3%81%8B%E3%82%89%E3%81%A7%E3%82%82%E9%AB%98%E3%82%81%E3%82%89%E3%82%8C%E3%82%8BEQ%20%E5%BF%83%E3%81%AE%E3%83%90%E3%82%A4%E3%83%96%E3%83%AB" target="_blank" rel="noopener">Amazonで見る<span aria-hidden="true">↗</span></a>
         </div>
       </li>
-      <li class="book" data-reveal style="--d:.1s">
+      <li class="book" data-reveal data-delay=".1">
         <!-- 表紙画像があれば <img src="images/book-eq-organization.jpg" alt=""> を .book-cover の中に入れると差し替わります -->
         <div class="book-cover book-cover--b" aria-hidden="true">
           <p class="book-cover__ttl">EQの<br>組織づくり</p>
@@ -118,7 +142,7 @@
   </div>
 </section>
 
-<section class="section" id="purchase" aria-labelledby="purchase-title">
+<section class="section s-sec" id="purchase" aria-labelledby="purchase-title">
   <div class="container">
     <div class="sec-head sec-head--center" data-reveal>
       <p class="eyebrow">HOW TO BUY</p>
@@ -129,7 +153,7 @@
         <h3>Amazonでのご購入</h3>
         <p>EQコアカード・書籍は、Amazonからご購入いただけます。各商品の「Amazonで購入する」「Amazonで見る」ボタンからお進みください。</p>
       </div>
-      <div class="info-card" data-reveal style="--d:.1s">
+      <div class="info-card" data-reveal data-delay=".1">
         <h3>当社からの直接販売</h3>
         <p>法人でのまとめ買い、研修・講座でのご利用などは、お問い合わせフォームからご相談ください。</p>
         <dl>
@@ -140,77 +164,88 @@
         <div class="btn-row" style="margin-top:22px">
           <a class="btn" href="contact.html?topic=bulk">購入について問い合わせる<span class="arr" aria-hidden="true">→</span></a>
         </div>
-        <p class="note">返品・交換などの条件は<a href="tokushoho.html">特定商取引法に基づく表記</a>をご確認ください。</p>
+        <p class="s-note">返品・交換などの条件は<a href="tokushoho.html">特定商取引法に基づく表記</a>をご確認ください。</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="cta" aria-labelledby="cta-title">
-  <div class="container cta__inner">
-    <div>
-      <p class="eyebrow eyebrow--gold">CONTACT</p>
-      <h2 class="cta__title" id="cta-title">講座・研修・法人向け支援・商品について、<br class="pc">お気軽にご相談ください。</h2>
-      <p class="cta__text">ご相談内容がまだ整理できていなくても大丈夫です。いまの状況をお聞きするところから始めます。</p>
+<!-- ===================== 08 CONTACT ===================== -->
+<section class="section contact-cta" id="contact">
+  <div class="container contact-cta__grid">
+    <div class="contact-cta__text">
+      <div class="eyebrow"><span class="num">08</span> CONTACT</div>
+      <h2 class="h-1 split-group">
+        <span class="split-line"><span>講座・研修・法人向け支援・</span></span>
+        <span class="split-line"><span>商品について、</span></span>
+        <span class="split-line"><span>お気軽にご相談ください。</span></span>
+      </h2>
+      <p class="contact-cta__lead" data-reveal>ご相談内容がまだ整理できていなくても大丈夫です。<span class="pgap"></span>いまの状況をお聞きするところから始めます。</p>
+      <ul class="contact-cta__topics" data-reveal data-delay=".08">
+        <li>EQ Academy・EQTMなどの講座について</li>
+        <li>法人向けの研修・組織づくりのご相談</li>
+        <li>EQコアカード・書籍のご購入について</li>
+      </ul>
+      <div class="contact-cta__actions" data-reveal data-delay=".14">
+        <a class="cta-btn cta-btn--primary" href="contact.html">
+          <span class="cta-btn__label">お問い合わせフォームへ</span>
+          <span class="cta-btn__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="cta-btn cta-btn--secondary" href="mailto:info@brifu.co.jp">
+          <span class="cta-btn__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M4 7l8 6 8-6"/></svg></span>
+          <span class="cta-btn__label">メールで相談する</span>
+        </a>
+      </div>
+      <p class="contact-cta__mail" data-reveal data-delay=".18">メール：<a href="mailto:info@brifu.co.jp">info@brifu.co.jp</a></p>
     </div>
-    <div class="cta__actions">
-      <a class="btn btn--light btn--lg" href="contact.html">お問い合わせフォーム<span class="arr" aria-hidden="true">→</span></a>
-      <p class="cta__sub">メール：<a href="mailto:info@brifu.co.jp">info@brifu.co.jp</a></p>
-    </div>
+    <figure class="contact-cta__photo" data-reveal="scale">
+      <img src="images/contact-consult.jpg" width="1600" height="1067" alt="高層ビルの窓辺で、街を見ながら話し合う二人のビジネスパーソン" loading="lazy" decoding="async">
+    </figure>
   </div>
 </section>
 
 </main>
 
-<footer class="site-footer">
+<footer class="footer">
   <div class="container">
-    <div class="site-footer__top">
-      <div class="site-footer__brand">
-        <a class="logo" href="index.html" aria-label="株式会社Brifu トップページ">
-          <svg class="logo__mark" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 4l16 16-16 16L4 20z"/><path d="M20 10l10 10-10 10-10-10z" opacity=".6"/><circle cx="20" cy="20" r="3" fill="currentColor" stroke="none"/></svg>
-          <span class="logo__text">Brifu<small>株式会社Brifu</small></span>
-        </a>
-        <p>「人の心にイノベーション」を起こし、<br>社会に「真のイノベーション」を創り出す。</p>
-        <address>〒150-0046 東京都渋谷区松濤1-5-1-804<br>info@brifu.co.jp</address>
+    <div class="footer__top">
+      <div class="footer__brand">
+        <a class="logo" href="index.html"><span class="mark"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 4l16 16-16 16L4 20z"/><path d="M20 10l10 10-10 10-10-10z" opacity=".6"/><circle cx="20" cy="20" r="3" fill="currentColor" stroke="none"/></svg></span><span>Brifu<small>株式会社Brifu</small></span></a>
+        <p>「人の心にイノベーション」を起こし、社会に「真のイノベーション」を創り出す。<span class="pgap"></span>EQを学び、つながり、実践することで、自分らしく生きる力を育て、より良い人生と社会を創造していきます。</p>
       </div>
-      <nav class="site-footer__nav" aria-label="フッターメニュー">
-        <div>
-          <h2>MENU</h2>
-          <ul>
-            <li><a href="index.html">トップ</a></li>
-            <li><a href="eq.html">EQ</a></li>
-            <li><a href="service.html">サービス内容</a></li>
-            <li><a href="company.html">会社概要</a></li>
-            <li><a href="business.html">法人向け支援</a></li>
-            <li><a href="shop.html">物販・書籍</a></li>
-            <li><a href="contact.html">お問い合わせ</a></li>
-          </ul>
-        </div>
-        <div>
-          <h2>RELATED</h2>
-          <ul>
-            <li><a href="https://abiertoworks-boop.github.io/EQ2/" target="_blank" rel="noopener">EQ Gate<span aria-hidden="true"> ↗</span></a></li>
-            <li><a href="https://abiertoworks-boop.github.io/eq-business-nexus/" target="_blank" rel="noopener">EQ Business Nexus<span aria-hidden="true"> ↗</span></a></li>
-            <li><a href="https://eqtm.jimdofree.com/course/" target="_blank" rel="noopener">EQTM 講座案内<span aria-hidden="true"> ↗</span></a></li>
-            <li><a href="corecard.html">EQコアカード</a></li>
-          </ul>
-        </div>
-        <div>
-          <h2>POLICY</h2>
-          <ul>
-            <li><a href="privacy.html">プライバシーポリシー</a></li>
-            <li><a href="tokushoho.html">特定商取引法に基づく表記</a></li>
-          </ul>
-        </div>
-      </nav>
+      <div>
+        <h4>SITE</h4>
+        <ul>
+          <li><a href="index.html#purpose">私たちの目的</a></li>
+          <li><a href="eq.html">BrifuのEQ</a></li>
+          <li><a href="service.html">サービス内容</a></li>
+          <li><a href="business.html">法人向け支援</a></li>
+          <li><a href="shop.html">物販・書籍</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>COMPANY</h4>
+        <ul>
+          <li><a href="company.html">会社概要・理念</a></li>
+          <li><a href="company.html#profile">代表プロフィール</a></li>
+          <li><a href="corecard.html">EQコアカード</a></li>
+          <li><a href="contact.html">お問い合わせ</a></li>
+          <li><a href="privacy.html">プライバシーポリシー</a></li>
+          <li><a href="tokushoho.html">特定商取引法に基づく表記</a></li>
+          <li>〒150-0046 東京都渋谷区松濤1-5-1-804</li>
+        </ul>
+      </div>
     </div>
-    <div class="site-footer__bottom">
-      <small>© 株式会社Brifu</small>
-      <a href="#top">ページの先頭へ ↑</a>
+    <div class="footer__bottom">
+      <span>© 株式会社Brifu — Innovation in the Heart</span>
+      <a href="#top">BACK TO TOP ↑</a>
     </div>
   </div>
 </footer>
 
-<script src="js/site.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
