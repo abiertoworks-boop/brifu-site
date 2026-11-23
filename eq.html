@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EQとは｜株式会社Brifu</title>
-<meta name="description" content="EQとは、自分と人の可能性を活かす力。Brifuが大切にするEQの考え方、EQ認識理論、横成長と縦成長、EQを学ぶことで起きる5つの変化をご紹介します。">
+<title>BrifuのEQ｜EQとは、自分と人の可能性を活かす力｜株式会社Brifu</title>
+<meta name="description" content="EQとは、自分と人の可能性を活かす力。Brifuが大切にするEQの考え方と、独自のメソッド「EQ認識理論」、横成長と縦成長、EQを学ぶことで起きる5つの変化をご紹介します。">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="株式会社Brifu">
-<meta property="og:title" content="EQとは｜株式会社Brifu">
-<meta property="og:description" content="EQとは、自分と人の可能性を活かす力。Brifuが大切にするEQの考え方、EQ認識理論、横成長と縦成長、EQを学ぶことで起きる5つの変化をご紹介します。">
+<meta property="og:title" content="BrifuのEQ｜株式会社Brifu">
+<meta property="og:description" content="EQとは、自分と人の可能性を活かす力。Brifuが大切にするEQの考え方と、独自のメソッド「EQ認識理論」、横成長と縦成長、EQを学ぶことで起きる5つの変化をご紹介します。">
 <meta property="og:locale" content="ja_JP">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/sub.css">
+<link rel="stylesheet" href="css/eq.css">
 </head>
 <body>
 
@@ -62,180 +62,267 @@
   </div>
 </div>
 
-<main class="sp-body">
-<section class="subhero subhero--video" id="top">
-  <video class="subhero__video" data-src="video/eq-bg.mp4" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"></video>
-  <div class="subhero__photo"></div>
-  <div class="container">
+<main class="eqx">
+<!-- 背景色の切り替え（background color change）：各区画の data-theme に合わせて地の色がゆっくり替わる -->
+<div class="eqx-bg" aria-hidden="true"></div>
+
+<!-- ===================== HERO：オーロラ背景 × テキストリビール ===================== -->
+<section class="eqx-hero" id="top" data-theme="night">
+  <div class="eqx-aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="container eqx-hero__inner">
     <div class="breadcrumb"><a href="index.html">TOP</a><span>/</span><span aria-current="page">BRIFU'S EQ</span></div>
-    <div class="eyebrow">BRIFU'S EQ — EMOTIONAL INTELLIGENCE</div>
-    <h1 class="h-display split-group">
-    <span class="split-line"><span>EQとは、</span></span>
-    <span class="split-line"><span>自分と人の可能性を活かす力。</span></span>
+    <p class="eqx-kicker">BRIFU'S EQ</p>
+    <h1 class="eqx-display tr">
+      <span class="tr-line"><span>EQとは、</span></span>
+      <span class="tr-line"><span>自分と人の可能性を</span></span>
+      <span class="tr-line"><span>活かす力。</span></span>
     </h1>
-    <p class="lead" data-reveal style="margin-top:30px">Brifuが大切にしているEQの考え方と、その土台となる「EQ認識理論」、EQを学ぶことで起きる変化をご紹介します。</p>
+    <p class="eqx-hero__lead" data-reveal data-delay=".5">Brifuが大切にしているEQの考え方と、その土台となる独自のメソッド「EQ認識理論」、EQを学ぶことで起きる変化をご紹介します。</p>
+    <ul class="eqx-toc" data-reveal data-delay=".7" aria-label="このページの内容">
+      <li><a href="#definition">定義</a></li>
+      <li><a href="#heart">なぜ「人の心」か</a></li>
+      <li><a href="#theory">EQ認識理論</a></li>
+      <li><a href="#growth">横成長と縦成長</a></li>
+      <li><a href="#change">5つの変化</a></li>
+    </ul>
   </div>
 </section>
 
-
-
-<section class="section s-sec section--navy" id="definition" aria-labelledby="def-title">
+<!-- ===================== 01 DEFINITION：テキストスクランブル（誤解 → 定義） ===================== -->
+<section class="eqx-sec" id="definition" data-theme="night">
   <div class="container">
-    <div class="split split--center">
+    <p class="eqx-kicker">01 — DEFINITION</p>
+    <h2 class="eqx-h2 tr">
+      <span class="tr-line"><span>EQは「感情をコントロールする力」</span></span>
+      <span class="tr-line"><span>ではありません。</span></span>
+    </h2>
+    <div class="eqx-redefine" aria-live="polite">
+      <p class="eqx-redefine__label"><span class="is-before">よくある誤解</span><span class="is-after">Brifuの定義</span></p>
+      <p class="eqx-redefine__word"><span class="eqx-scramble" data-scramble="可能性を活かすために、感情を使う力">感情をコントロールする力</span></p>
+    </div>
+    <div class="eqx-prose" data-reveal>
+      <p>EQ（Emotional Intelligence）は、「感情をコントロールする力」だと思われがちです。私たちの定義は少し違います。<strong>感情を、認識を、行動を、自分と相手の可能性を活かすために使う力。</strong>それがEQです。</p>
+      <p>自分の感情に気づき、認識を見直し、目的から選び、行動する。相手の感情に目を向け、認識の違いを確かめ、本音で対話する。この往復が、自分にも相手にも「可能性」を残します。</p>
+    </div>
+    <ul class="eqx-four">
+      <li data-reveal><img src="images/eq-self.png" alt="" width="64" height="64" loading="lazy"><p class="en">SELF</p><p class="t">自己理解</p><p class="d">感情・価値観・認識を知る</p></li>
+      <li data-reveal data-delay=".08"><img src="images/eq-express.png" alt="" width="64" height="64" loading="lazy"><p class="en">EXPRESS</p><p class="t">感情の言語化</p><p class="d">自分の状態を言葉にする</p></li>
+      <li data-reveal data-delay=".16"><img src="images/eq-others.png" alt="" width="64" height="64" loading="lazy"><p class="en">OTHERS</p><p class="t">他者理解・対話</p><p class="d">相手の認識に関心を向ける</p></li>
+      <li data-reveal data-delay=".24"><img src="images/eq-action.png" alt="" width="64" height="64" loading="lazy"><p class="en">ACTION</p><p class="t">意思決定・行動</p><p class="d">目的から選び、振り返る</p></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== 02 WHY THE HEART：タイプライター × スクロールテリング ===================== -->
+<section class="eqx-sec eqx-heart" id="heart" data-theme="ice">
+  <div class="container">
+    <p class="eqx-kicker">02 — WHY THE HEART</p>
+    <h2 class="eqx-h2 tr">
+      <span class="tr-line"><span>社会を変える前に、</span></span>
+      <span class="tr-line"><span>変化が起きる場所がある。</span></span>
+    </h2>
+    <p class="eqx-type">それは、技術でも、制度でも、仕組みでもなく、<b class="eqx-type__word" data-type="人の心。">人の心。</b></p>
+  </div>
+  <div class="eqx-story" data-story>
+    <div class="eqx-story__sticky">
+      <div class="container eqx-story__inner">
+        <p class="eqx-story__lead">心が変わると、</p>
+        <p class="eqx-story__word" aria-hidden="true"><span class="eqx-story__slot"><b>考え方</b><b>感じ方</b><b>選択</b><b>行動</b><b>人との関係</b></span><span class="eqx-story__ga">が変わる。</span></p>
+        <ol class="eqx-story__list">
+          <li><span>01</span>考え方が変わる</li>
+          <li><span>02</span>感じ方が変わる</li>
+          <li><span>03</span>選択が変わる</li>
+          <li><span>04</span>行動が変わる</li>
+          <li><span>05</span>人との関係が変わる</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <p class="eqx-statement tr"><span class="tr-line"><span>だからBrifuは、</span></span><span class="tr-line"><span>「人の心」にイノベーションを起こします。</span></span></p>
+  </div>
+</section>
+
+<!-- ===================== 03 EQ認識理論：スクロールテリング × ラインドロー（スクロールに合わせて循環が描かれる） ===================== -->
+<section class="eqx-sec eqx-theory" id="theory" data-theme="night">
+  <div class="container">
+    <p class="eqx-kicker">03 — EQ RECOGNITION THEORY</p>
+    <h2 class="eqx-h2 tr">
+      <span class="tr-line"><span>EQ認識理論</span></span>
+      <span class="tr-line"><span>人は「認識した世界」の中で</span></span>
+      <span class="tr-line"><span>行動する。</span></span>
+    </h2>
+    <p class="eqx-lead" data-reveal>感情が認識をつくり、認識が選択を決め、選択が行動になり、行動が結果を生む。その結果を振り返ることで、認識が更新される。私たちは、この循環そのものを変えていきます。</p>
+  </div>
+  <div class="eqx-cycle" data-cycle>
+    <div class="eqx-cycle__sticky">
+      <div class="container eqx-cycle__inner">
+        <div class="eqx-cycle__fig" aria-hidden="true">
+          <svg viewBox="0 0 400 400">
+            <circle class="eqx-cycle__track" cx="200" cy="200" r="160"/>
+            <circle class="eqx-cycle__path" cx="200" cy="200" r="160" transform="rotate(-90 200 200)"/>
+            <g class="eqx-cycle__nodes"></g>
+          </svg>
+          <div class="eqx-cycle__center">
+            <span class="eqx-cycle__num">01</span>
+            <span class="eqx-cycle__name">感情</span>
+          </div>
+        </div>
+        <ol class="eqx-cycle__steps">
+          <li data-step="感情" data-n="01"><b>感情</b><span>最初に動くのは、いつも感情</span></li>
+          <li data-step="認識" data-n="02"><b>認識</b><span>感情が「世界の見え方」をつくる</span></li>
+          <li data-step="選択" data-n="03"><b>選択</b><span>見えている世界の中から選ぶ</span></li>
+          <li data-step="行動" data-n="04"><b>行動</b><span>選択が、行動として表れる</span></li>
+          <li data-step="結果" data-n="05"><b>結果</b><span>行動が、現実をつくる</span></li>
+          <li data-step="振り返り" data-n="06"><b>振り返り</b><span>結果を、感情と認識から見直す</span></li>
+          <li data-step="認識の更新" data-n="07"><b>認識の更新</b><span>世界の見え方が、変わる</span></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <p class="eqx-loop" data-reveal>更新された認識が、次の感情・選択・行動を変えていきます。</p>
+    <blockquote class="eqx-quote" data-reveal>
+      <p>人は認識によって行動する。<br>認識を整え、感情を力に変え、<br class="sp">豊かな人生と社会を創る。</p>
+      <cite>— EQ認識理論</cite>
+    </blockquote>
+  </div>
+</section>
+
+<!-- ===================== 04 WHY BRIFU：カウントアップ（事実の数字だけ） ===================== -->
+<section class="eqx-sec eqx-method" id="method" data-theme="day">
+  <div class="container">
+    <p class="eqx-kicker">04 — WHY BRIFU</p>
+    <h2 class="eqx-h2 tr">
+      <span class="tr-line"><span>Brifu独自のメソッドだから、</span></span>
+      <span class="tr-line"><span>人と組織が変わる。</span></span>
+    </h2>
+    <ol class="eqx-reasons">
+      <li data-reveal>
+        <p class="no">01</p>
+        <h3>現場から生まれた理論</h3>
+        <p>延べ2,000人以上の人材育成・コンサルティング、1万人以上の人の心との向き合い、数千人規模の組織づくり。その現場で「なぜ、人は変われないのか」と問い続け、代表・波多野輝未が体系化しました。</p>
+        <dl class="eqx-nums">
+          <div><dt>人材育成・コンサルティング</dt><dd><span data-count="2000">2,000</span><small>人以上</small></dd></div>
+          <div><dt>向き合ってきた人の心</dt><dd><span data-count="10000">10,000</span><small>人以上</small></dd></div>
+        </dl>
+      </li>
+      <li data-reveal data-delay=".1">
+        <p class="no">02</p>
+        <h3>「スキル」の前に、「認識」から変える</h3>
+        <p>知識やスキルを身につける横成長だけでなく、物事の見え方そのものが変わる縦成長を扱います。見え方が変わると、同じスキルでも、使ったときの質が変わります。</p>
+      </li>
+      <li data-reveal data-delay=".2">
+        <p class="no">03</p>
+        <h3>学ぶ・高める・育てる・活かすを、ひとつの理論で</h3>
+        <p>EQ Platformの4つの領域（EQ Academy／EQ Humanity／EQTM／EQ Business Nexus）は、すべてEQ認識理論を土台にしています。認識を言葉にする道具「EQコアカード®」も、代表自らが開発しました。</p>
+        <dl class="eqx-nums">
+          <div><dt>理論を土台にした領域</dt><dd><span data-count="4">4</span><small>領域</small></dd></div>
+        </dl>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ===================== 05 TWO WAYS TO GROW：ラインドロー（横と縦の矢印） ===================== -->
+<section class="eqx-sec eqx-growth" id="growth" data-theme="night">
+  <div class="container">
+    <p class="eqx-kicker">05 — TWO WAYS TO GROW</p>
+    <h2 class="eqx-h2 tr">
+      <span class="tr-line"><span>スキルを身につける「横成長」と、</span></span>
+      <span class="tr-line"><span>認識が成熟する「縦成長」。</span></span>
+    </h2>
+    <div class="eqx-axes">
+      <svg class="eqx-axes__svg" data-draw viewBox="0 0 520 360" aria-hidden="true">
+        <line x1="60" y1="300" x2="480" y2="300"/>
+        <polyline points="466,288 480,300 466,312"/>
+        <line x1="60" y1="300" x2="60" y2="40"/>
+        <polyline points="48,54 60,40 72,54"/>
+        <path class="eqx-axes__curve" d="M60 300 C 180 296, 250 250, 300 180 S 400 70, 470 56"/>
+      </svg>
+      <p class="eqx-axes__x">横成長<small>EQ Skills（知識・スキル）</small></p>
+      <p class="eqx-axes__y">縦成長<small>EIA（認識の成熟）</small></p>
+    </div>
+    <div class="eqx-growth__cols">
       <div data-reveal>
-        <p class="eyebrow">DEFINITION</p>
-        <h2 class="sec-title" id="def-title">EQは「感情をコントロールする力」<br class="pc">ではありません。</h2>
+        <img src="images/icon-yoko.png" alt="" width="72" height="72" loading="lazy">
+        <p class="en">HORIZONTAL GROWTH</p>
+        <h3>横成長<small>EQ Skills</small></h3>
+        <p>感情リテラシー、コミュニケーション、自己理解・他者理解など、EQの知識とスキルを身につける成長です。</p>
       </div>
-      <div class="prose" data-reveal data-delay=".1">
-        <p>EQ（Emotional Intelligence）は、「感情をコントロールする力」だと思われがちです。私たちの定義は少し違います。<strong style="color:#fff">感情を、認識を、行動を、自分と相手の可能性を活かすために使う力。</strong>それがEQです。</p>
-        <p>自分の感情に気づき、認識を見直し、目的から選び、行動する。相手の感情に目を向け、認識の違いを確かめ、本音で対話する。この往復が、自分にも相手にも「可能性」を残します。</p>
+      <div data-reveal data-delay=".1">
+        <img src="images/icon-tate.png" alt="" width="72" height="72" loading="lazy">
+        <p class="en">VERTICAL GROWTH</p>
+        <h3>縦成長<small>EIA</small></h3>
+        <p>自分の認識を自覚し、更新していく成長です。物事の見え方そのものが変わり、同じ場面で別の選び方ができるようになります。</p>
       </div>
     </div>
-    <ul class="icon-grid icon-grid--4 mt-l" data-reveal>
-      <li class="icon-card"><img src="images/eq-self.png" alt="" width="64" height="64" loading="lazy"><p class="icon-card__en">SELF</p><p class="icon-card__ttl">自己理解</p><p class="icon-card__txt">感情・価値観・認識を知る</p></li>
-      <li class="icon-card"><img src="images/eq-express.png" alt="" width="64" height="64" loading="lazy"><p class="icon-card__en">EXPRESS</p><p class="icon-card__ttl">感情の言語化</p><p class="icon-card__txt">自分の状態を言葉にする</p></li>
-      <li class="icon-card"><img src="images/eq-others.png" alt="" width="64" height="64" loading="lazy"><p class="icon-card__en">OTHERS</p><p class="icon-card__ttl">他者理解・対話</p><p class="icon-card__txt">相手の認識に関心を向ける</p></li>
-      <li class="icon-card"><img src="images/eq-action.png" alt="" width="64" height="64" loading="lazy"><p class="icon-card__en">ACTION</p><p class="icon-card__ttl">意思決定・行動</p><p class="icon-card__txt">目的から選び、振り返る</p></li>
-    </ul>
+    <div class="eqx-example" data-reveal>
+      <p class="eqx-example__k">たとえば</p>
+      <h3>面談のスキルを学んでも、部下が本音を話さないとき</h3>
+      <p>傾聴や質問の技術を身につけても、内側に「部下は導くべき存在だ」という認識があると、言葉の端々に評価する側の空気がにじみ、部下は安心できません。「部下は、可能性を持ったひとりの人だ」と見方が変わったとき、同じスキルでも面談の質が大きく変わります。<strong>スキル（横成長）は、認識の成熟（縦成長）に支えられて、はじめて本当に機能します。</strong></p>
+    </div>
   </div>
 </section>
 
-<section class="section s-sec section--mist" id="why" aria-labelledby="why-title">
+<!-- ===================== 06 WHAT CHANGES：マーキー × カードスタック ===================== -->
+<section class="eqx-sec eqx-change" id="change" data-theme="ice">
   <div class="container">
-    <div class="sec-head sec-head--center" data-reveal>
-      <p class="eyebrow">WHY THE HEART</p>
-      <h2 class="sec-title" id="why-title">社会を変える前に、<br class="sp">変化が起きる場所がある。</h2>
-      <p class="sec-lead">それは、技術でも、制度でも、仕組みでもなく、人の心。<br class="pc">心が変わると、次のことが変わっていきます。</p>
-    </div>
-    <ol class="change-list" data-reveal>
-      <li class="change"><p class="change__no">01</p><p class="change__word">考え方</p><p class="change__suffix">が変わる</p></li>
-      <li class="change"><p class="change__no">02</p><p class="change__word">感じ方</p><p class="change__suffix">が変わる</p></li>
-      <li class="change"><p class="change__no">03</p><p class="change__word">選択</p><p class="change__suffix">が変わる</p></li>
-      <li class="change"><p class="change__no">04</p><p class="change__word">行動</p><p class="change__suffix">が変わる</p></li>
-      <li class="change"><p class="change__no">05</p><p class="change__word">人との関係</p><p class="change__suffix">が変わる</p></li>
+    <p class="eqx-kicker">06 — WHAT CHANGES</p>
+    <h2 class="eqx-h2 tr">
+      <span class="tr-line"><span>EQを学ぶと、</span></span>
+      <span class="tr-line"><span>変化は5つの領域で起きる。</span></span>
+    </h2>
+    <p class="eqx-lead" data-reveal>自分から始まり、人へ、チームへ、組織へ、社会へ。一つの変化が、次の変化を生みます。</p>
+  </div>
+  <div class="eqx-marquee" aria-hidden="true">
+    <div class="eqx-marquee__track"><span>自分</span><span>人との関係</span><span>チーム</span><span>組織</span><span>社会</span><span>自分</span><span>人との関係</span><span>チーム</span><span>組織</span><span>社会</span></div>
+  </div>
+  <div class="container">
+    <ol class="eqx-stack">
+      <li class="eqx-card">
+        <div class="eqx-card__img"><img src="images/woman-green.jpg" alt="" loading="lazy"></div>
+        <div class="eqx-card__body"><p class="en">01 — SELF</p><h3>自分</h3><p class="lead">自分の心が分かる。</p><p class="res">自分で、自分の一歩を選べる。</p></div>
+      </li>
+      <li class="eqx-card">
+        <div class="eqx-card__img"><img src="images/hands.jpg" alt="" loading="lazy"></div>
+        <div class="eqx-card__body"><p class="en">02 — RELATIONSHIP</p><h3>人との関係</h3><p class="lead">相手の心にも、目を向けられる。</p><p class="res">すれ違いを減らし、本音で対話できる。</p></div>
+      </li>
+      <li class="eqx-card">
+        <div class="eqx-card__img"><img src="images/team-casual.jpg" alt="" loading="lazy"></div>
+        <div class="eqx-card__body"><p class="en">03 — TEAM</p><h3>チーム</h3><p class="lead">一人ひとりの可能性を活かせる。</p><p class="res">人が活きるチームへ。</p></div>
+      </li>
+      <li class="eqx-card">
+        <div class="eqx-card__img"><img src="images/two-men.jpg" alt="" loading="lazy"></div>
+        <div class="eqx-card__body"><p class="en">04 — ORGANIZATION</p><h3>組織</h3><p class="lead">人の成長と、組織の目的がつながる。</p><p class="res">理念が、人の行動に表れる組織へ。</p></div>
+      </li>
+      <li class="eqx-card">
+        <div class="eqx-card__img"><img src="images/society.jpg" alt="" loading="lazy"></div>
+        <div class="eqx-card__body"><p class="en">05 — SOCIETY</p><h3>社会</h3><p class="lead">一人の変化が、次の人へ伝わる。</p><p class="res">「お互いを大切にする社会」をつくる。</p></div>
+      </li>
     </ol>
-    <p class="lead-statement" data-reveal>だからBrifuは、「人の心」にイノベーションを起こします。</p>
   </div>
 </section>
 
-<section class="section s-sec" id="theory" aria-labelledby="theory-title">
+<!-- ===================== 07 NEXT STEP：ホバーリフト × 3Dチルト ===================== -->
+<section class="eqx-sec eqx-next" id="next" data-theme="day">
   <div class="container">
-    <div class="sec-head sec-head--center" data-reveal>
-      <p class="eyebrow">EQ RECOGNITION THEORY</p>
-      <h2 class="sec-title" id="theory-title">EQ認識理論<br>人は「認識した世界」の中で<br class="sp">行動する。</h2>
-      <p class="sec-lead">感情が認識をつくり、認識が選択を決め、選択が行動になり、行動が結果を生む。<br class="pc">その結果を振り返ることで、認識が更新される。私たちは、この循環そのものを変えていきます。</p>
-    </div>
-    <ol class="cycle" data-reveal>
-      <li><span class="cycle__num">1</span><p class="cycle__ttl">感情</p><p class="cycle__txt">最初に動くのは、いつも感情</p></li>
-      <li><span class="cycle__num">2</span><p class="cycle__ttl">認識</p><p class="cycle__txt">感情が「世界の見え方」をつくる</p></li>
-      <li><span class="cycle__num">3</span><p class="cycle__ttl">選択</p><p class="cycle__txt">見えている世界の中から選ぶ</p></li>
-      <li><span class="cycle__num">4</span><p class="cycle__ttl">行動</p><p class="cycle__txt">選択が、行動として表れる</p></li>
-      <li><span class="cycle__num">5</span><p class="cycle__ttl">結果</p><p class="cycle__txt">行動が、現実をつくる</p></li>
-      <li><span class="cycle__num">6</span><p class="cycle__ttl">振り返り</p><p class="cycle__txt">結果を、感情と認識から見直す</p></li>
-      <li><span class="cycle__num">7</span><p class="cycle__ttl">認識の更新</p><p class="cycle__txt">世界の見え方が、変わる</p></li>
-    </ol>
-    <p class="cycle-note" data-reveal>更新された認識が、次の感情・選択・行動を変えていきます。</p>
-    <blockquote class="quote" data-reveal>人は認識によって行動する。認識を整え、感情を力に変え、豊かな人生と社会を創る。<cite>— EQ認識理論</cite></blockquote>
-  </div>
-</section>
-
-<section class="section s-sec section--navy" id="growth" aria-labelledby="growth-title">
-  <div class="container">
-    <div class="sec-head" data-reveal>
-      <p class="eyebrow">TWO WAYS TO GROW</p>
-      <h2 class="sec-title" id="growth-title">スキルを身につける「横成長」と、<br class="pc">認識が成熟する「縦成長」。</h2>
-    </div>
-    <div class="growth">
-      <div class="growth__card" data-reveal>
-        <img src="images/icon-yoko.png" alt="" width="84" height="84" loading="lazy">
-        <div>
-          <p class="growth__en">HORIZONTAL GROWTH</p>
-          <h3 class="growth__ttl">横成長<small>EQ Skills</small></h3>
-          <p>感情リテラシー、コミュニケーション、自己理解・他者理解など、EQの知識とスキルを身につける成長です。</p>
-        </div>
-      </div>
-      <div class="growth__card" data-reveal data-delay=".1">
-        <img src="images/icon-tate.png" alt="" width="84" height="84" loading="lazy">
-        <div>
-          <p class="growth__en">VERTICAL GROWTH</p>
-          <h3 class="growth__ttl">縦成長<small>EIA</small></h3>
-          <p>自分の認識を自覚し、更新していく成長です。物事の見え方そのものが変わり、同じ場面で別の選び方ができるようになります。</p>
-        </div>
-      </div>
-    </div>
-    <div class="example" data-reveal>
-      <h3>たとえば、面談のスキルを学んでも部下が本音を話さないとき</h3>
-      <p>傾聴や質問の技術を身につけても、内側に「部下は導くべき存在だ」という認識があると、言葉の端々に評価する側の空気がにじみ、部下は安心できません。「部下は、可能性を持ったひとりの人だ」と見方が変わったとき、同じスキルでも面談の質が大きく変わります。スキル（横成長）は、認識の成熟（縦成長）に支えられて、はじめて本当に機能します。</p>
-    </div>
-  </div>
-</section>
-
-<section class="section s-sec section--mist" id="change" aria-labelledby="change-title">
-  <div class="container">
-    <div class="sec-head sec-head--center" data-reveal>
-      <p class="eyebrow">WHAT CHANGES</p>
-      <h2 class="sec-title" id="change-title">EQを学ぶと、<br class="sp">変化は5つの領域で起きる。</h2>
-      <p class="sec-lead">自分から始まり、人へ、チームへ、組織へ、社会へ。一つの変化が、次の変化を生みます。</p>
-    </div>
-    <ul class="eqd-list">
-      <li data-reveal>
-        <article class="eqd">
-          <div class="eqd__img"><img src="images/woman-green.jpg" alt="" loading="lazy"></div>
-          <div class="eqd__body"><p class="eqd__en">01 — SELF</p><h3 class="eqd__ttl">自分</h3><p class="eqd__lead">自分の心が分かる。</p><p class="eqd__result">自分で、自分の一歩を選べる。</p></div>
-        </article>
-      </li>
-      <li data-reveal data-delay=".08">
-        <article class="eqd">
-          <div class="eqd__img"><img src="images/hands.jpg" alt="" loading="lazy"></div>
-          <div class="eqd__body"><p class="eqd__en">02 — RELATIONSHIP</p><h3 class="eqd__ttl">人との関係</h3><p class="eqd__lead">相手の心にも、目を向けられる。</p><p class="eqd__result">すれ違いを減らし、本音で対話できる。</p></div>
-        </article>
-      </li>
-      <li data-reveal data-delay=".16">
-        <article class="eqd">
-          <div class="eqd__img"><img src="images/team-casual.jpg" alt="" loading="lazy"></div>
-          <div class="eqd__body"><p class="eqd__en">03 — TEAM</p><h3 class="eqd__ttl">チーム</h3><p class="eqd__lead">一人ひとりの可能性を活かせる。</p><p class="eqd__result">人が活きるチームへ。</p></div>
-        </article>
-      </li>
-      <li data-reveal>
-        <article class="eqd">
-          <div class="eqd__img"><img src="images/two-men.jpg" alt="" loading="lazy"></div>
-          <div class="eqd__body"><p class="eqd__en">04 — ORGANIZATION</p><h3 class="eqd__ttl">組織</h3><p class="eqd__lead">人の成長と、組織の目的がつながる。</p><p class="eqd__result">理念が、人の行動に表れる組織へ。</p></div>
-        </article>
-      </li>
-      <li data-reveal data-delay=".08">
-        <article class="eqd">
-          <div class="eqd__img"><img src="images/society.jpg" alt="" loading="lazy"></div>
-          <div class="eqd__body"><p class="eqd__en">05 — SOCIETY</p><h3 class="eqd__ttl">社会</h3><p class="eqd__lead">一人の変化が、次の人へ伝わる。</p><p class="eqd__result">「お互いを大切にする社会」をつくる。</p></div>
-        </article>
-      </li>
-    </ul>
-  </div>
-</section>
-
-<section class="section s-sec" aria-labelledby="next-title">
-  <div class="container">
-    <div class="sec-head sec-head--center" data-reveal>
-      <p class="eyebrow">NEXT STEP</p>
-      <h2 class="sec-title" id="next-title">EQを、学びと日常へ。</h2>
-    </div>
-    <div class="duo">
-      <a class="feature-card" href="service.html" data-reveal>
-        <div class="feature-card__img"><img src="images/team-office.jpg" alt="" loading="lazy"></div>
-        <div class="feature-card__body">
-          <p class="eyebrow">SERVICE</p>
-          <h3>EQを学ぶ・高める</h3>
-          <p class="feature-card__text">EQの知識・活用法・育成法を学ぶ「EQ Academy」、自分自身のEQを高める「EQTM」など、目的に応じた4つの領域をご用意しています。</p>
-          <span class="more">サービス内容を見る<span class="arr" aria-hidden="true">→</span></span>
-        </div>
+    <p class="eqx-kicker">07 — NEXT STEP</p>
+    <h2 class="eqx-h2 tr"><span class="tr-line"><span>EQを、学びと日常へ。</span></span></h2>
+    <div class="eqx-duo">
+      <a class="eqx-link" href="service.html" data-reveal>
+        <span class="eqx-link__img" data-tilt><img src="images/team-office.jpg" alt="" loading="lazy"></span>
+        <span class="eqx-link__en">SERVICE</span>
+        <span class="eqx-link__t">EQを学ぶ・高める</span>
+        <span class="eqx-link__d">EQの知識・活用法・育成法を学ぶ「EQ Academy」、自分自身のEQを高める「EQTM」など、目的に応じた4つの領域をご用意しています。</span>
+        <span class="eqx-link__more">サービス内容を見る <span aria-hidden="true">→</span></span>
       </a>
-      <a class="feature-card" href="shop.html#corecard" data-reveal data-delay=".1">
-        <div class="feature-card__img"><img src="images/cc-cards-ring.jpg" alt="" loading="lazy"></div>
-        <div class="feature-card__body">
-          <p class="eyebrow">EQ CORE CARD</p>
-          <h3>EQコアカードで、自分を知る</h3>
-          <p class="feature-card__text">目に見えない感情・価値観・認識・行動を、目に見える言葉にする道具。「自分を知る」ための入口として開発された実践ツールです。</p>
-          <span class="more">EQコアカードを見る<span class="arr" aria-hidden="true">→</span></span>
-        </div>
+      <a class="eqx-link" href="shop.html#corecard" data-reveal data-delay=".1">
+        <span class="eqx-link__img eqx-link__img--contain" data-tilt><img src="images/cc-cards-ring.jpg" alt="" loading="lazy"></span>
+        <span class="eqx-link__en">EQ CORE CARD</span>
+        <span class="eqx-link__t">EQコアカードで、自分を知る</span>
+        <span class="eqx-link__d">目に見えない感情・価値観・認識・行動を、目に見える言葉にする道具。「自分を知る」ための入口として開発された実践ツールです。</span>
+        <span class="eqx-link__more">EQコアカードを見る <span aria-hidden="true">→</span></span>
       </a>
     </div>
   </div>
@@ -246,7 +333,7 @@
   <div class="container contact-cta__grid">
     <div class="contact-cta__text">
       <div class="eyebrow"><span class="num">08</span> CONTACT</div>
-      <h2 class="h-1 split-group">
+      <h2 class="h-1 contact-cta__title" data-reveal>
         <span class="split-line"><span>講座・研修・法人向け支援・</span></span>
         <span class="split-line"><span>商品について、</span></span>
         <span class="split-line"><span>お気軽にご相談ください。</span></span>
@@ -258,7 +345,7 @@
         <li>EQコアカード・書籍のご購入について</li>
       </ul>
       <div class="contact-cta__actions" data-reveal data-delay=".14">
-        <a class="cta-btn cta-btn--primary" href="contact.html">
+        <a class="cta-btn cta-btn--primary" href="contact.html" data-magnetic>
           <span class="cta-btn__label">お問い合わせフォームへ</span>
           <span class="cta-btn__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </a>
@@ -274,7 +361,6 @@
     </figure>
   </div>
 </section>
-
 </main>
 
 <footer class="footer">
@@ -318,5 +404,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
 <script src="js/main.js"></script>
+<script src="js/effects.js"></script>
+<script src="js/eq.js"></script>
 </body>
 </html>

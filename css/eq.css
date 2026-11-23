@@ -1,0 +1,217 @@
+/* =========================================================
+   株式会社Brifu — BrifuのEQ（eq.html）専用
+   DESIGN_RULES.md に沿って作った見本ページ。
+   使わないもの：文字・カードの影、光彩、フチ文字、カード上部／左側の色帯、装飾線、12px未満の文字。
+   区画は「地の色（夜・淡い青・白）」と余白で分ける。地の色はスクロールで切り替わる（js/eq.js）。
+   ========================================================= */
+.eqx{position:relative;z-index:0;color:#fff}
+/* 背景色の切り替え：JSが動くときだけ、区画を透明にして下の層の色を見せる */
+.eqx-bg{position:fixed;inset:0;z-index:-1;background:var(--navy-950);transition:background-color .9s var(--ease-out)}
+[data-theme="night"]{background:var(--navy-950);color:#fff}
+[data-theme="ice"]{background:var(--ice-100);color:var(--ink-900)}
+[data-theme="day"]{background:#fff;color:var(--ink-900)}
+.eqx-live .eqx [data-theme]{background:transparent}
+[data-theme] {transition:color .5s ease}
+
+/* ---------- 文字の基本 ---------- */
+.eqx-kicker{font-family:var(--font-en);font-size:13px;font-weight:500;letter-spacing:.28em;color:var(--blue-600)}
+[data-theme="night"] .eqx-kicker{color:var(--cyan-400)}
+.eqx-display{margin-top:22px;font-size:clamp(38px,6.4vw,96px);font-weight:600;line-height:1.22;letter-spacing:.02em}
+.eqx-h2{margin-top:18px;font-size:clamp(28px,3.8vw,56px);font-weight:600;line-height:1.42;letter-spacing:.03em}
+.eqx-lead{margin-top:26px;max-width:40em;font-size:clamp(15px,1.25vw,18px);line-height:2.1}
+[data-theme="night"] .eqx-lead{color:rgba(255,255,255,.82)}
+[data-theme="ice"] .eqx-lead,[data-theme="day"] .eqx-lead{color:var(--ink-700)}
+.eqx-sec{position:relative;padding:clamp(110px,16vh,190px) 0}
+.eqx .breadcrumb{font-size:12px}
+
+/* ---------- HERO：オーロラ背景 ---------- */
+.eqx-hero{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:clamp(140px,20vh,200px) 0 clamp(80px,12vh,140px);overflow:hidden}
+.eqx-aurora{position:absolute;inset:-20%;pointer-events:none;opacity:.55}
+.eqx-aurora i{position:absolute;width:60vmax;height:60vmax;border-radius:50%;filter:blur(90px);will-change:transform}
+.eqx-aurora i:nth-child(1){left:38%;top:-6%;background:#1f5eff;animation:eqxA 26s ease-in-out infinite alternate}
+.eqx-aurora i:nth-child(2){left:58%;top:28%;background:#2ab7d8;opacity:.7;animation:eqxB 32s ease-in-out infinite alternate}
+.eqx-aurora i:nth-child(3){left:20%;top:44%;background:#4b33b8;opacity:.6;animation:eqxC 38s ease-in-out infinite alternate}
+@keyframes eqxA{to{transform:translate(-14vmax,10vmax) scale(1.15)}}
+@keyframes eqxB{to{transform:translate(-10vmax,-12vmax) scale(.9)}}
+@keyframes eqxC{to{transform:translate(16vmax,-6vmax) scale(1.2)}}
+/* 文字の後ろは暗く保つ（読みやすさ優先） */
+.eqx-hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(4,8,22,.86) 0%,rgba(4,8,22,.55) 50%,rgba(4,8,22,.1) 100%)}
+.eqx-hero__inner{position:relative;z-index:1}
+.eqx-hero__lead{margin-top:30px;max-width:36em;font-size:clamp(15px,1.3vw,18px);line-height:2.1;color:rgba(255,255,255,.86)}
+.eqx-toc{margin-top:44px;display:flex;flex-wrap:wrap;gap:10px 30px}
+.eqx-toc a{position:relative;display:inline-block;padding:6px 0;font-size:15px;font-weight:500;color:#fff}
+.eqx-toc a::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;background:var(--cyan-400);transform:scaleX(0);transform-origin:right;transition:transform .5s var(--ease-out)}
+.eqx-toc a:hover::after,.eqx-toc a:focus-visible::after{transform:scaleX(1);transform-origin:left}
+
+/* ---------- 01 定義：テキストスクランブル ---------- */
+.eqx-redefine{margin-top:clamp(48px,6vw,80px);padding:clamp(28px,4vw,48px) clamp(24px,4vw,56px);border-radius:20px;background:rgba(255,255,255,.05)}
+.eqx-redefine__label{position:relative;height:1.8em;font-size:14px;font-weight:600;letter-spacing:.12em}
+.eqx-redefine__label span{position:absolute;left:0;top:0;transition:opacity .5s,transform .6s var(--ease-out)}
+.eqx-redefine__label .is-before{color:rgba(255,255,255,.6)}
+.eqx-redefine__label .is-after{color:var(--cyan-400);opacity:0;transform:translateY(8px)}
+.eqx-redefine:has(.is-done) .is-before{opacity:0;transform:translateY(-8px)}
+.eqx-redefine:has(.is-done) .is-after{opacity:1;transform:none}
+.eqx-redefine__word{margin-top:10px;font-size:clamp(24px,3.6vw,50px);font-weight:700;line-height:1.45;letter-spacing:.03em;color:rgba(255,255,255,.62);min-height:1.45em}
+.eqx-scramble.is-done{color:#fff}
+.eqx-prose{margin-top:clamp(40px,5vw,60px);max-width:44em;display:grid;gap:1.2em;font-size:clamp(15px,1.2vw,17px);line-height:2.1;color:rgba(255,255,255,.82)}
+.eqx-prose strong{color:#fff}
+.eqx-four{margin-top:clamp(56px,7vw,96px);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(24px,3vw,48px)}
+.eqx-four img{width:60px;height:60px}
+.eqx-four .en{margin-top:18px;font-family:var(--font-en);font-size:12px;font-weight:600;letter-spacing:.2em;color:var(--cyan-300)}
+.eqx-four .t{margin-top:6px;font-size:19px;font-weight:700}
+.eqx-four .d{margin-top:6px;font-size:15px;line-height:1.8;color:rgba(255,255,255,.74)}
+@media (max-width:900px){.eqx-four{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* ---------- 02 なぜ「人の心」か：タイプライター × スクロールテリング ---------- */
+.eqx-type{margin-top:34px;font-size:clamp(17px,1.6vw,22px);line-height:1.9;color:var(--ink-700)}
+.eqx-type__word{color:var(--blue-600);font-weight:700}
+.eqx-type__word.is-typing::after{content:"";display:inline-block;width:2px;height:1em;margin-left:3px;vertical-align:-.12em;background:currentColor;animation:eqxCaret .9s steps(1) infinite}
+@keyframes eqxCaret{50%{opacity:0}}
+.eqx-story{position:relative;margin-top:clamp(40px,6vw,80px)}
+.eqx-story__sticky{position:relative}
+.eqx-story__inner{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,.6fr);align-items:center;gap:40px}
+.eqx-story__lead{grid-column:1;font-size:clamp(20px,2vw,28px);font-weight:600;color:var(--ink-700)}
+.eqx-story__word{grid-column:1;display:none}
+.eqx-story__list{grid-column:2;grid-row:1 / span 2;display:grid;gap:14px;list-style:none}
+.eqx-story__list li{font-size:clamp(17px,1.5vw,21px);font-weight:600;color:var(--ink-900);transition:color .4s}
+.eqx-story__list span{display:inline-block;width:2.4em;font-family:var(--font-en);font-size:13px;font-weight:500;letter-spacing:.1em;color:var(--blue-600)}
+/* JSが動くとき：スクロールに合わせて、大きな言葉が1つずつ替わる */
+.eqx-live:not(.eqx-static) .eqx-story{height:340vh}
+.eqx-live:not(.eqx-static) .eqx-story__sticky{position:sticky;top:0;height:100vh;height:100svh;display:flex;align-items:center}
+.eqx-live:not(.eqx-static) .eqx-story__word{display:flex;flex-direction:column;align-items:flex-start;gap:4px;margin-top:8px}
+.eqx-story__slot{position:relative;display:inline-grid;font-size:clamp(52px,9vw,136px);font-weight:700;line-height:1.15;color:var(--blue-600)}
+.eqx-story__slot b{grid-area:1 / 1;font-weight:700;opacity:0;transform:translateY(40%);transition:opacity .5s,transform .7s var(--ease-out)}
+.eqx-story__slot b.is-on{opacity:1;transform:none}
+.eqx-story__slot b.is-past{transform:translateY(-40%)}
+.eqx-story__ga{font-size:clamp(24px,2.6vw,38px);font-weight:600;color:var(--ink-900)}
+.eqx-live:not(.eqx-static) .eqx-story__list li{color:var(--ink-300)}
+.eqx-live:not(.eqx-static) .eqx-story__list li.is-on{color:var(--ink-900)}
+.eqx-statement{margin-top:clamp(60px,8vw,110px);font-size:clamp(24px,3.2vw,46px);font-weight:600;line-height:1.5;color:var(--ink-900)}
+.eqx-statement .tr-line:last-child{color:var(--blue-600)}
+@media (max-width:760px){
+  .eqx-story__inner{grid-template-columns:1fr;gap:28px}
+  .eqx-story__list{grid-column:1;grid-row:auto}
+  .eqx-live:not(.eqx-static) .eqx-story__list{grid-template-columns:repeat(5,auto);justify-content:start;gap:8px 16px}
+  .eqx-live:not(.eqx-static) .eqx-story__list li{font-size:0}
+  .eqx-live:not(.eqx-static) .eqx-story__list li span{font-size:14px;width:auto;color:inherit}
+}
+
+/* ---------- 03 EQ認識理論：スクロールに合わせて循環を描く ---------- */
+.eqx-cycle{position:relative;margin-top:clamp(40px,6vw,80px)}
+.eqx-cycle__inner{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:clamp(32px,6vw,96px)}
+.eqx-cycle__fig{position:relative;width:min(100%,480px);aspect-ratio:1;margin-inline:auto}
+.eqx-cycle__fig svg{width:100%;height:100%;overflow:visible}
+.eqx-cycle__track{fill:none;stroke:rgba(157,239,255,.16);stroke-width:2}
+.eqx-cycle__path{fill:none;stroke:var(--cyan-400);stroke-width:3;stroke-linecap:round}
+.eqx-cycle__nodes circle{fill:var(--navy-950);stroke:rgba(157,239,255,.5);stroke-width:2;transition:fill .4s,stroke .4s,r .4s}
+.eqx-cycle__nodes circle.is-on{fill:var(--cyan-400);stroke:var(--cyan-400)}
+.eqx-cycle__nodes text{font-family:var(--font-en);font-size:14px;font-weight:600;fill:rgba(255,255,255,.55);text-anchor:middle;dominant-baseline:central;transition:fill .4s}
+.eqx-cycle__nodes text.is-on{fill:#fff}
+.eqx-cycle__center{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+.eqx-cycle__num{font-family:var(--font-en);font-size:15px;font-weight:500;letter-spacing:.24em;color:var(--cyan-400)}
+.eqx-cycle__name{margin-top:4px;font-size:clamp(28px,3.4vw,46px);font-weight:700;line-height:1.3}
+.eqx-cycle__steps{display:grid;gap:clamp(12px,1.6vw,20px);list-style:none}
+.eqx-cycle__steps li{display:grid;grid-template-columns:3em minmax(0,1fr);gap:2px 10px;align-items:baseline;transition:opacity .4s}
+.eqx-cycle__steps li::before{content:attr(data-n);grid-row:1 / span 2;font-family:var(--font-en);font-size:14px;font-weight:500;letter-spacing:.12em;color:var(--cyan-400)}
+.eqx-cycle__steps b{font-size:clamp(18px,1.6vw,22px);font-weight:700}
+.eqx-cycle__steps span{grid-column:2;font-size:15px;line-height:1.7;color:rgba(255,255,255,.74)}
+.eqx-live:not(.eqx-static) .eqx-cycle{height:460vh}
+.eqx-live:not(.eqx-static) .eqx-cycle__sticky{position:sticky;top:0;height:100vh;height:100svh;display:flex;align-items:center}
+.eqx-live:not(.eqx-static) .eqx-cycle__steps li{opacity:.32}
+.eqx-live:not(.eqx-static) .eqx-cycle__steps li.is-on{opacity:1}
+.eqx-loop{margin-top:clamp(40px,5vw,64px);font-size:clamp(16px,1.4vw,19px);font-weight:600;color:var(--cyan-300)}
+.eqx-quote{margin-top:clamp(60px,8vw,110px);text-align:center}
+.eqx-quote p{font-size:clamp(22px,2.8vw,40px);font-weight:600;line-height:1.7}
+.eqx-quote cite{display:block;margin-top:18px;font-style:normal;font-size:14px;letter-spacing:.12em;color:rgba(255,255,255,.66)}
+@media (max-width:900px){
+  .eqx-cycle__inner{grid-template-columns:1fr;gap:20px}
+  .eqx-cycle__fig{width:min(72vw,320px)}
+  .eqx-live:not(.eqx-static) .eqx-cycle__steps li{display:none}
+  .eqx-live:not(.eqx-static) .eqx-cycle__steps li.is-on{display:grid}
+  .eqx-live:not(.eqx-static) .eqx-cycle__steps{min-height:5.5em;align-content:start}
+}
+
+/* ---------- 04 WHY BRIFU：カウントアップ ---------- */
+.eqx-reasons{margin-top:clamp(56px,7vw,96px);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(32px,4vw,64px);list-style:none}
+.eqx-reasons .no{font-family:var(--font-en);font-size:clamp(44px,4.4vw,64px);font-weight:500;line-height:1;color:var(--blue-600)}
+.eqx-reasons h3{margin-top:18px;font-size:clamp(19px,1.7vw,23px);font-weight:700;line-height:1.55}
+.eqx-reasons p:not(.no){margin-top:14px;font-size:15px;line-height:2;color:var(--ink-700)}
+.eqx-nums{margin-top:22px;display:flex;flex-wrap:wrap;gap:12px 28px}
+.eqx-nums dt{font-size:13px;color:var(--ink-500)}
+.eqx-nums dd{margin-top:2px;font-family:var(--font-en);font-size:clamp(34px,3.2vw,48px);font-weight:600;line-height:1.1;font-variant-numeric:tabular-nums}
+.eqx-nums dd small{margin-left:4px;font-family:var(--font-jp);font-size:14px;font-weight:600;color:var(--ink-700)}
+@media (max-width:900px){.eqx-reasons{grid-template-columns:1fr}}
+
+/* ---------- 05 横成長と縦成長：ラインドロー ---------- */
+.eqx-axes{position:relative;margin:clamp(48px,6vw,80px) auto 0;width:min(100%,640px)}
+.eqx-axes__svg{display:block;width:100%;height:auto;color:var(--cyan-400);stroke-width:2.4}
+.eqx-axes__svg .eqx-axes__curve{stroke:#fff;stroke-width:3}
+.eqx-axes__x,.eqx-axes__y{position:absolute;font-size:clamp(17px,1.6vw,21px);font-weight:700;line-height:1.4}
+.eqx-axes__x small,.eqx-axes__y small{display:block;font-size:13px;font-weight:500;color:rgba(255,255,255,.7)}
+.eqx-axes__x{right:0;bottom:-8%;text-align:right}
+.eqx-axes__y{left:15%;top:0}
+.eqx-growth__cols{margin-top:clamp(70px,9vw,120px);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(32px,5vw,80px)}
+.eqx-growth__cols img{width:64px;height:64px}
+.eqx-growth__cols .en{margin-top:16px;font-family:var(--font-en);font-size:12px;font-weight:600;letter-spacing:.2em;color:var(--cyan-300)}
+.eqx-growth__cols h3{margin-top:6px;font-size:clamp(22px,2vw,28px);font-weight:700}
+.eqx-growth__cols h3 small{margin-left:10px;font-family:var(--font-en);font-size:14px;font-weight:500;color:rgba(255,255,255,.7)}
+.eqx-growth__cols p:not(.en){margin-top:12px;font-size:15.5px;line-height:2;color:rgba(255,255,255,.8)}
+.eqx-example{margin-top:clamp(56px,7vw,90px);padding:clamp(28px,4vw,52px);border-radius:20px;background:rgba(255,255,255,.06)}
+.eqx-example__k{font-size:14px;font-weight:600;letter-spacing:.12em;color:var(--cyan-400)}
+.eqx-example h3{margin-top:8px;font-size:clamp(19px,1.9vw,26px);font-weight:700;line-height:1.6}
+.eqx-example p:not(.eqx-example__k){margin-top:16px;font-size:15.5px;line-height:2.1;color:rgba(255,255,255,.82)}
+.eqx-example strong{color:#fff}
+@media (max-width:760px){.eqx-growth__cols{grid-template-columns:1fr}.eqx-axes__y{left:16%;top:-2%}.eqx-axes__x{bottom:-14%}}
+
+/* ---------- 06 5つの変化：マーキー × カードスタック ---------- */
+.eqx-marquee{margin-top:clamp(48px,6vw,80px);overflow:hidden;white-space:nowrap}
+.eqx-marquee__track{display:inline-flex;gap:.9em;animation:eqxMarquee 36s linear infinite;font-size:clamp(40px,6vw,88px);font-weight:700;line-height:1.2;color:var(--ice-300)}
+.eqx-marquee__track span::after{content:"→";margin-left:.9em;color:var(--blue-400)}
+.eqx-marquee:hover .eqx-marquee__track{animation-play-state:paused}
+@keyframes eqxMarquee{to{transform:translateX(-50%)}}
+.eqx-stack{margin-top:clamp(48px,6vw,80px);display:grid;gap:clamp(24px,4vh,48px);list-style:none}
+.eqx-card{position:sticky;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-height:min(62vh,520px);border-radius:24px;overflow:hidden;background:#fff;color:var(--ink-900);transform-origin:50% 0;will-change:transform}
+.eqx-card:nth-child(even){background:var(--navy-900);color:#fff}
+.eqx-card:nth-child(1){top:110px}
+.eqx-card:nth-child(2){top:126px}
+.eqx-card:nth-child(3){top:142px}
+.eqx-card:nth-child(4){top:158px}
+.eqx-card:nth-child(5){top:174px}
+.eqx-card__img{overflow:hidden}
+.eqx-card__img img{width:100%;height:100%;object-fit:cover}
+.eqx-card__body{display:flex;flex-direction:column;justify-content:center;padding:clamp(28px,4vw,64px)}
+.eqx-card .en{font-family:var(--font-en);font-size:13px;font-weight:600;letter-spacing:.2em;color:var(--blue-600)}
+.eqx-card:nth-child(even) .en{color:var(--cyan-400)}
+.eqx-card h3{margin-top:10px;font-size:clamp(30px,3.6vw,52px);font-weight:700;line-height:1.3}
+.eqx-card .lead{margin-top:18px;font-size:clamp(17px,1.5vw,21px);font-weight:600;line-height:1.7}
+.eqx-card .res{margin-top:10px;font-size:15.5px;line-height:1.9;color:var(--ink-700)}
+.eqx-card:nth-child(even) .res{color:rgba(255,255,255,.78)}
+@media (max-width:760px){
+  .eqx-card{grid-template-columns:1fr;min-height:0}
+  .eqx-card__img{aspect-ratio:16/10}
+  .eqx-card:nth-child(n){top:84px}
+}
+
+/* ---------- 07 次の一歩：ホバーリフト × 3Dチルト ---------- */
+.eqx-duo{margin-top:clamp(48px,6vw,72px);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(28px,4vw,56px)}
+.eqx-link{display:flex;flex-direction:column;color:var(--ink-900);transition:transform .6s var(--ease-out)}
+.eqx-link__img{display:block;aspect-ratio:3/2;border-radius:20px;overflow:hidden;background:var(--ice-100);transition:transform .5s var(--ease-out)}
+.eqx-link__img img{width:100%;height:100%;object-fit:cover}
+.eqx-link__img--contain{background:#fff}
+.eqx-link__img--contain img{object-fit:contain}
+.eqx-link__en{margin-top:22px;font-family:var(--font-en);font-size:13px;font-weight:600;letter-spacing:.2em;color:var(--blue-600)}
+.eqx-link__t{margin-top:8px;font-size:clamp(22px,2.2vw,30px);font-weight:700;line-height:1.45}
+.eqx-link__d{margin-top:12px;font-size:15px;line-height:2;color:var(--ink-700)}
+.eqx-link__more{margin-top:18px;font-size:15px;font-weight:700;color:var(--blue-600)}
+.eqx-link__more span{display:inline-block;transition:transform .5s var(--ease-out)}
+@media (hover:hover){
+  .eqx-link:hover{transform:translateY(-6px)}
+  .eqx-link:hover .eqx-link__more span{transform:translateX(6px)}
+}
+@media (max-width:760px){.eqx-duo{grid-template-columns:1fr}}
+
+/* ---------- 動きを減らす設定 ---------- */
+@media (prefers-reduced-motion:reduce){
+  .eqx-aurora i,.eqx-marquee__track{animation:none}
+  .eqx-bg,[data-theme]{transition:none}
+}

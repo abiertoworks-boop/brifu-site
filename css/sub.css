@@ -558,3 +558,8 @@ br.sp{display:none}
 .sp-body .legal-contact { grid-template-columns: 1fr; gap: 0; }
 .sp-body .legal-contact dd { margin-bottom: 8px; }
 }
+
+/* 書籍：実際の表紙画像（作り物の表紙の飾り線は消す） */
+.sp-body .book-cover--img{padding:0;background:#fff;aspect-ratio:326/522;border-radius:2px;box-shadow:none;border:1px solid var(--ice-200)}
+.sp-body .book-cover--img::after{display:none}
+.sp-body .book-cover--img img{object-fit:contain}
