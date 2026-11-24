@@ -161,19 +161,22 @@
     const pct = loader.querySelector('.pct');
     const curtain = loader.querySelector('.curtain');
     if (lenis) lenis.stop();
-    if (hasGSAP && !reduceMotion && !CAPTURE) {
+    // 読み込み画面は短く（約0.9秒で中身が見える）。同じ訪問で2ページ目以降は出さない
+    let seen = false;
+    try { seen = sessionStorage.getItem('brifu-loader') === '1'; sessionStorage.setItem('brifu-loader', '1'); } catch (e) { /* 保存できない環境では毎回短く出す */ }
+    if (hasGSAP && !reduceMotion && !CAPTURE && !seen) {
       const tl = gsap.timeline({
         onComplete: () => { loader.remove(); if (lenis) lenis.start(); }
       });
       const counter = { v: 0 };
-      tl.to(letters, { y: 0, opacity: 1, duration: 1, stagger: 0.06, ease: 'expo.out' }, 0)
-        .to(bar, { scaleX: 1, duration: 1.4, ease: 'power2.inOut' }, 0.1)
-        .to(counter, { v: 100, duration: 1.4, ease: 'power2.inOut', onUpdate: () => { if (pct) pct.textContent = String(Math.round(counter.v)).padStart(3, '0'); } }, 0.1)
-        .to(curtain, { scaleY: 1, duration: 0.7, ease: 'expo.inOut' }, 1.5)
-        .add(startPage, 1.85)
-        .to(loader, { yPercent: -100, duration: 1, ease: 'expo.inOut' }, 1.95);
+      tl.to(letters, { y: 0, opacity: 1, duration: 0.5, stagger: 0.03, ease: 'expo.out' }, 0)
+        .to(bar, { scaleX: 1, duration: 0.6, ease: 'power2.inOut' }, 0.05)
+        .to(counter, { v: 100, duration: 0.6, ease: 'power2.inOut', onUpdate: () => { if (pct) pct.textContent = String(Math.round(counter.v)).padStart(3, '0'); } }, 0.05)
+        .to(curtain, { scaleY: 1, duration: 0.35, ease: 'expo.inOut' }, 0.6)
+        .add(startPage, 0.8)
+        .to(loader, { yPercent: -100, duration: 0.55, ease: 'expo.inOut' }, 0.85);
       // safety net: if rAF is throttled (background tab), never leave the loader covering the page
-      setTimeout(() => { if (document.getElementById('loader')) tl.progress(1); }, 6000);
+      setTimeout(() => { if (document.getElementById('loader')) tl.progress(1); }, 3000);
     } else {
       loader.remove();
       if (lenis) lenis.start();

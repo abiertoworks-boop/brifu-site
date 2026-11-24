@@ -2,7 +2,8 @@
    Brifu — お問い合わせフォーム
    info@brifu.co.jp へ FormSubmit 経由で送信し、送信者へ自動返信します。
    URL パラメータ：
-     ?type=business|academy|shop|media|other  … お問い合わせ種別を選択
+     ?type=academy|humanity|eqtm|nexus|corecard|other … お問い合わせ種別を選択
+       （旧リンク互換：business→nexus、shop→corecard、media→other）
      ?topic=no2|nexus|corecard|bulk|academy|humanity|eqtm … タイトルを入力
      ?subject=...                               … タイトルを直接入力（旧リンク互換）
    ========================================================= */
@@ -12,14 +13,16 @@
   var ENDPOINT = 'https://formsubmit.co/ajax/' + MAIL_TO;
 
   var TOPICS = {
-    no2: { type: 'business', title: 'No.2・右腕人材育成のご相談' },
-    nexus: { type: 'business', title: 'EQ Business Nexus のご相談' },
-    corecard: { type: 'shop', title: 'EQコアカード 体験会・研修のご相談' },
-    bulk: { type: 'shop', title: 'EQコアカード・書籍のまとめ購入について' },
+    no2: { type: 'nexus', title: 'No.2・右腕人材育成のご相談' },
+    nexus: { type: 'nexus', title: 'EQ Business Nexus のご相談' },
+    corecard: { type: 'corecard', title: 'EQコアカード 体験会・研修のご相談' },
+    bulk: { type: 'corecard', title: 'EQコアカード・書籍のまとめ購入について' },
     academy: { type: 'academy', title: 'EQ Academy（講座・認定）について' },
-    humanity: { type: 'academy', title: 'EQ Humanity（EQプロ育成コース）について' },
-    eqtm: { type: 'academy', title: 'EQTM について' }
+    humanity: { type: 'humanity', title: 'EQ Humanity（EQプロ育成コース）について' },
+    eqtm: { type: 'eqtm', title: 'EQTM について' }
   };
+  // 以前の種別名で作られたリンクも、そのまま使えるようにする
+  var LEGACY = { business: 'nexus', shop: 'corecard', media: 'other' };
 
   var form = document.getElementById('contactForm');
   if (!form) return;
@@ -30,6 +33,7 @@
   var params = new URLSearchParams(location.search);
   var topic = TOPICS[params.get('topic')];
   var type = params.get('type') || (topic && topic.type);
+  if (type && LEGACY[type]) type = LEGACY[type];
   if (type && f('type').querySelector('option[value="' + type + '"]')) f('type').value = type;
   if (topic) f('title').value = topic.title;
   if (params.get('subject')) f('title').value = params.get('subject');

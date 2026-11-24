@@ -64,6 +64,8 @@ h1,h2,h3,.h-display,.h-1,.h-2{text-wrap:balance}
 .pgap{display:block;height:.85em}
 br.pc{display:none}
 @media (min-width:901px){br.pc{display:inline}}
+br.sp{display:none}
+@media (max-width:767px){br.sp{display:inline}}
 
 .en{font-family:var(--font-en);letter-spacing:.06em}
 .serif{font-family:'Shippori Mincho',serif}
@@ -1286,3 +1288,118 @@ ol.bridge__flow,ol.method__list{list-style:none}
 .method__more{margin-top:clamp(40px,5vw,64px)}
 .method .link-arrow{color:var(--blue-600);font-size:15px}
 @media (max-width:900px){.method__list{grid-template-columns:1fr}}
+
+/* =========================================================
+   トップ：入口が先、理念はあと（2026年11月の再構成）
+   DESIGN_RULES.md 第1章・第3章の2 に沿う。影・光・色帯・装飾線は使わない。
+   ========================================================= */
+/* ボタン：詳しく見る／体験する／相談する の3種類だけ */
+.tp-actions{margin-top:36px;display:flex;flex-wrap:wrap;gap:12px}
+.tp-actions--center{justify-content:center}
+.tp-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 26px;border-radius:999px;
+  font-size:15px;font-weight:700;letter-spacing:.05em;line-height:1.3;border:1.5px solid transparent;
+  transition:transform .45s var(--ease-out),background-color .3s,color .3s,border-color .3s}
+.tp-btn--lg{min-height:60px;padding:0 32px;font-size:16px}
+.tp-btn--primary{background:var(--blue-600);color:#fff}
+.tp-btn--light{background:#fff;color:var(--navy-900)}
+.tp-btn--ghost{border-color:rgba(255,255,255,.7);color:#fff}
+.tp-btn--line{border-color:rgba(10,18,48,.3);color:var(--ink-900)}
+.tp-ext{font-size:.9em}
+@media (hover:hover){
+  .tp-btn:hover{transform:translateY(-2px)}
+  .tp-btn--primary:hover{background:var(--navy-700)}
+  .tp-btn--light:hover{background:var(--cyan-300)}
+  .tp-btn--ghost:hover{background:rgba(255,255,255,.12);border-color:#fff}
+  .tp-btn--line:hover{border-color:var(--blue-600);color:var(--blue-600)}
+}
+.tp-btn:focus-visible{outline:3px solid var(--cyan-400);outline-offset:3px}
+@media (max-width:560px){.tp-actions .tp-btn{width:100%}}
+
+/* 見出しのまとまり：見出し → 短い説明 */
+.tp-head{max-width:860px}
+.tp-sub{margin-top:22px;font-size:clamp(16px,1.4vw,20px);line-height:1.9;font-weight:500;color:var(--ink-700)}
+.tp-sub b{color:var(--blue-600)}
+
+/* 01 ファーストビュー：補足の一文 */
+.hero__note{margin-top:18px;max-width:34em;font-size:clamp(14px,1.1vw,16px);line-height:2;color:rgba(255,255,255,.72)}
+.hero .tp-actions{margin-top:40px}
+.nw{white-space:nowrap}
+
+/* 02 4つの事業（3Dマップ） */
+.tp-business .tp-sub{color:rgba(255,255,255,.82)}
+.tp-business .eyebrow{color:var(--cyan-400)}
+.tp-business .holo{margin-top:clamp(34px,4.5vw,56px)}
+
+/* 03 目的から選ぶ4つの入口 */
+ol.tp-entries{list-style:none;margin-top:clamp(40px,5vw,64px);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.tp-entry{display:flex;flex-direction:column;padding:clamp(24px,2.4vw,34px);border-radius:20px;background:#fff}
+.tp-entry--academy{--c:#1592ab}.tp-entry--humanity{--c:#6d4fd6}.tp-entry--eqtm{--c:#16955a}.tp-entry--nexus{--c:#b8742f}
+.tp-entry__name{font-family:var(--font-en);font-size:14px;font-weight:600;letter-spacing:.06em;color:var(--c)}
+.tp-entry__want{margin-top:12px;font-size:clamp(18px,1.6vw,22px);font-weight:700;line-height:1.55;color:var(--ink-900)}
+.tp-entry__desc{flex:1;margin-top:12px;font-size:15px;line-height:1.9;color:var(--ink-700)}
+.tp-entry__cta{margin-top:22px;display:grid;gap:10px}
+.tp-entry__cta .tp-btn{width:100%;min-height:48px}
+@media (max-width:1100px){ol.tp-entries{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){ol.tp-entries{grid-template-columns:1fr}}
+
+/* 04 はじめの一歩：EQ Gate */
+.tp-start__inner{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(36px,6vw,96px);align-items:center}
+.tp-start__wants{display:grid;gap:6px}
+.tp-start__wants li{font-size:clamp(18px,1.7vw,23px);font-weight:600;line-height:1.7;color:var(--ink-900)}
+.tp-start__text{margin-top:22px;font-size:16px;line-height:2;color:var(--ink-700)}
+.tp-start__text b{color:var(--ink-900)}
+.tp-start .tp-actions{margin-top:28px}
+.tp-start__biz{margin-top:18px;font-size:14px;color:var(--ink-500)}
+.tp-start__biz a,.tp-card__books a{color:var(--blue-600);text-decoration:underline;text-underline-offset:3px}
+@media (max-width:900px){.tp-start__inner{grid-template-columns:1fr}}
+
+/* 05 なぜBrifuはEQなのか */
+.tp-why__lead{margin-top:clamp(40px,5vw,64px);font-size:clamp(18px,1.6vw,22px);font-weight:600;color:var(--ink-700)}
+.tp-why__words{margin-top:14px;display:flex;flex-wrap:wrap;gap:10px 34px}
+.tp-why__words li{font-size:clamp(18px,1.6vw,22px);font-weight:600;color:var(--ink-700)}
+.tp-why__words b{font-size:clamp(28px,3vw,44px);font-weight:700;color:var(--blue-600);margin-right:4px}
+.tp-why__stmt{margin-top:clamp(34px,4vw,54px);font-size:clamp(20px,2.1vw,30px);font-weight:700;line-height:1.6;color:var(--ink-900)}
+
+/* 07 EQによって生まれる変化（事業ではなく、変化の広がり） */
+ol.tp-change__flow{list-style:none;margin-top:clamp(44px,5vw,72px);display:grid;grid-template-columns:repeat(9,auto);justify-content:space-between;align-items:center;gap:8px}
+.tp-change__item{display:grid;justify-items:center;gap:6px;text-align:center;width:clamp(120px,13vw,180px)}
+.tp-change__img{display:block;width:100%;aspect-ratio:1;border-radius:50%;overflow:hidden;background:var(--ice-100)}
+.tp-change__img img{width:100%;height:100%;object-fit:cover}
+.tp-change__item b{margin-top:10px;font-size:clamp(17px,1.5vw,21px);font-weight:700;color:var(--ink-900)}
+.tp-change__item span:last-child{font-size:14px;line-height:1.6;color:var(--ink-700)}
+.tp-change__sep{color:var(--blue-400)}
+.tp-change__arrow{width:clamp(24px,2.4vw,40px);height:auto}
+@media (max-width:900px){
+  ol.tp-change__flow{grid-template-columns:1fr;justify-items:start;gap:2px}
+  .tp-change__item{width:100%;grid-template-columns:76px minmax(0,1fr);grid-template-rows:auto auto;justify-items:start;align-items:center;column-gap:18px;row-gap:0;text-align:left}
+  .tp-change__img{grid-row:1 / span 2;width:76px}
+  .tp-change__item b{margin-top:0;align-self:end}
+  .tp-change__item span:last-child{align-self:start}
+  .tp-change__sep{transform:rotate(90deg);margin-left:22px}
+  .tp-change__arrow{width:26px}
+}
+
+/* 08 EQコアカード® */
+.tp-card__inner{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(36px,6vw,96px);align-items:center}
+.tp-card__img{margin:0;border-radius:20px;overflow:hidden;background:#fff;aspect-ratio:1}
+.tp-card__img img{width:100%;height:100%;object-fit:contain}
+.tp-card__books{margin-top:20px;font-size:14px;color:var(--ink-500)}
+@media (max-width:900px){.tp-card__inner{grid-template-columns:1fr}}
+
+/* 09 EQ Business Nexus */
+.tp-nexus .eyebrow{color:#e6c67f}
+
+/* 11 Purpose・Mission・Vision・Value */
+.tp-pmvv__list{margin-top:clamp(40px,5vw,64px);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(24px,3vw,44px)}
+.tp-pmvv__list img{width:64px;height:64px;object-fit:contain}
+.tp-pmvv__list .en{margin-top:16px;font-family:var(--font-en);font-size:13px;font-weight:600;letter-spacing:.2em;color:var(--blue-600)}
+.tp-pmvv__list h3{margin-top:6px;font-size:clamp(18px,1.6vw,21px);font-weight:700;color:var(--ink-900)}
+.tp-pmvv__list p:not(.en){margin-top:10px;font-size:15px;line-height:1.95;color:var(--ink-700)}
+/* アイコンが白い線画なので、濃紺の地で見せる */
+.tp-pmvv .eyebrow,.tp-pmvv__list .en{color:var(--cyan-400)}
+.tp-pmvv__list h3{color:#fff}
+.tp-pmvv__list p:not(.en){color:rgba(255,255,255,.8)}
+.tp-pmvv .tp-btn--line{border-color:rgba(255,255,255,.6);color:#fff}
+@media (hover:hover){.tp-pmvv .tp-btn--line:hover{border-color:#fff;color:#fff;background:rgba(255,255,255,.1)}}
+@media (max-width:1000px){.tp-pmvv__list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.tp-pmvv__list{grid-template-columns:1fr}}
