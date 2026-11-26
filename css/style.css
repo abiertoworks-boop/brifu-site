@@ -1403,3 +1403,73 @@ ol.tp-change__flow{list-style:none;margin-top:clamp(44px,5vw,72px);display:grid;
 @media (hover:hover){.tp-pmvv .tp-btn--line:hover{border-color:#fff;color:#fff;background:rgba(255,255,255,.1)}}
 @media (max-width:1000px){.tp-pmvv__list{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:560px){.tp-pmvv__list{grid-template-columns:1fr}}
+
+/* 入口カード：対象を一言 */
+.tp-entry__for{margin-top:10px;font-size:13px;line-height:1.7;color:var(--ink-500)}
+.tp-entry__for span{display:inline-block;margin-right:8px;font-weight:700;color:var(--c)}
+/* 変化・実績 */
+.tp-results{margin-top:clamp(56px,7vw,96px);padding:clamp(28px,4vw,52px);border-radius:20px;background:var(--ice-100)}
+.tp-results__k{font-size:14px;font-weight:700;letter-spacing:.06em;color:var(--blue-600)}
+.tp-results__nums{margin-top:18px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+.tp-results__nums dt{font-size:13px;line-height:1.6;color:var(--ink-500)}
+.tp-results__nums dd{margin-top:4px;font-family:var(--font-en);font-size:clamp(32px,3.4vw,50px);font-weight:600;line-height:1.1;color:var(--ink-900);font-variant-numeric:tabular-nums}
+.tp-results__nums dd small{margin-left:4px;font-family:var(--font-jp);font-size:14px;font-weight:600;color:var(--ink-700)}
+.tp-results__books{margin-top:20px;font-size:14px;line-height:1.8;color:var(--ink-700)}
+@media (max-width:900px){.tp-results__nums{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* EQ認識理論（固定表示の区画）の中のボタン */
+.core__text .tp-actions{margin-top:26px}
+
+/* =========================================================
+   光が走るエフェクトとホバー（EQ Platform・EQ Business Nexus・EQ Gate で使っていた動きを移植）
+   DESIGN_RULES.md 第1章03の許容範囲：光は「線・縁・ボタンの上を走る」だけ。
+   ぼかした光彩（text-shadow・色付き box-shadow）は使わず、文字は光らせない。
+   ========================================================= */
+@property --edge{syntax:'<angle>';initial-value:0deg;inherits:false}
+
+/* ① ボタン：ホバーで光の帯が横切る（EQ Platform のボタン） */
+.tp-btn,.cta-btn{position:relative;overflow:hidden;isolation:isolate;--sheen:rgba(255,255,255,.55)}
+.tp-btn--light,.cta-btn--primary{--sheen:rgba(31,94,255,.2)}
+.tp-btn--line{--sheen:rgba(31,94,255,.14)}
+.tp-btn::after,.cta-btn::after{content:"";position:absolute;top:-10%;bottom:-10%;left:-70%;width:45%;z-index:1;pointer-events:none;
+  background:linear-gradient(100deg,transparent 0%,var(--sheen) 50%,transparent 100%);transform:skewX(-20deg)}
+@media (hover:hover){
+  .tp-btn:hover::after,.cta-btn:hover::after{animation:lightRun .9s cubic-bezier(.4,0,.2,1)}
+}
+@keyframes lightRun{from{left:-70%}to{left:130%}}
+/* いちばん押してほしいボタン（EQ Gateで体験する）だけ、ときどき光が走る */
+.tp-btn--primary.tp-btn--lg::after{animation:lightLoop 5s cubic-bezier(.4,0,.2,1) 2.4s infinite}
+@keyframes lightLoop{0%{left:-70%}22%{left:130%}100%{left:130%}}
+
+/* ② 4つの入口カード：ホバーで持ち上がり、縁を事業の色の光が一周する（EQ Business Nexus の光の線） */
+.tp-entry{position:relative;isolation:isolate;transition:transform .8s var(--ease-out)}
+.tp-entry::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;pointer-events:none;z-index:2;
+  background:conic-gradient(from var(--edge),transparent 0deg 250deg,var(--c) 320deg,transparent 360deg);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;
+  opacity:0;transition:opacity .4s}
+@media (hover:hover){
+  .tp-entry:hover{transform:translateY(-8px)}
+  .tp-entry:hover::before{opacity:1;animation:edgeRun 2.2s linear infinite}
+}
+.tp-entry:focus-within::before{opacity:1;animation:edgeRun 2.2s linear infinite}
+@keyframes edgeRun{to{--edge:360deg}}
+
+/* ③ 変化の広がり：矢印の上を小さな光が行き来する（EQ Business Nexus の shuttle） */
+.tp-change__sep{position:relative}
+.tp-change__sep::after{content:"";position:absolute;top:50%;left:0;width:14px;height:3px;margin-top:-1.5px;border-radius:2px;pointer-events:none;
+  background:linear-gradient(90deg,transparent,var(--blue-500),transparent);animation:shuttle 2.6s ease-in-out infinite}
+.tp-change__sep:nth-child(4)::after{animation-delay:.5s}
+.tp-change__sep:nth-child(6)::after{animation-delay:1s}
+.tp-change__sep:nth-child(8)::after{animation-delay:1.5s}
+@keyframes shuttle{0%{left:0;opacity:0}15%{opacity:1}85%{opacity:1}100%{left:calc(100% - 14px);opacity:0}}
+
+/* ④ 写真のカード：ホバーで持ち上がり、写真がゆっくり拡大（EQ Gate の写真カード） */
+.tp-change__img img,.contact-cta__photo img{transition:transform 1.4s var(--ease-out)}
+@media (hover:hover){
+  .tp-change__item:hover .tp-change__img img{transform:scale(1.09)}
+  .contact-cta__photo:hover img{transform:scale(1.04)}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .tp-btn::after,.cta-btn::after,.tp-change__sep::after{animation:none!important;display:none}
+  .tp-entry::before{animation:none!important}
+}
