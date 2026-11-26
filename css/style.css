@@ -1473,3 +1473,7 @@ ol.tp-change__flow{list-style:none;margin-top:clamp(44px,5vw,72px);display:grid;
   .tp-btn::after,.cta-btn::after,.tp-change__sep::after{animation:none!important;display:none}
   .tp-entry::before{animation:none!important}
 }
+/* 実績の数字：単位は数字と同じ行に、見出しは言葉の途中で折り返さない */
+.tp-results__nums dd{white-space:nowrap}
+.tp-results__nums dt{word-break:auto-phrase;line-break:strict}
+@media (max-width:560px){.tp-results__nums{gap:20px 14px}.tp-results__nums dd{font-size:28px}.tp-results__nums dd small{font-size:12px}}
