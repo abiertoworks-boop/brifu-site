@@ -3,142 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>変化の入口診断 | 株式会社Brifu</title>
-<meta name="description" content="今の悩みや困りごとから、あなたが今伸ばすとよいEQの力がわかる、かんたんEQ診断。3問（場合により4問）・所要1分ほど。">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<title>かんたんEQ診断は EQ Gate に移りました | 株式会社Brifu</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://abiertoworks-boop.github.io/EQ2/diagnosis.html">
+<meta http-equiv="refresh" content="0; url=https://abiertoworks-boop.github.io/EQ2/diagnosis.html">
+<script>
+  // かんたんEQ診断は 2026年11月に EQ Gate へ移設。旧URLに付いていた ?〜 や #〜 もそのまま引き継ぐ
+  location.replace('https://abiertoworks-boop.github.io/EQ2/diagnosis.html' + location.search + location.hash);
+</script>
+<style>body{font-family:'Noto Sans JP',sans-serif;background:#040816;color:#fff;display:grid;place-items:center;min-height:100vh;margin:0;padding:24px;text-align:center;line-height:2}a{color:#9defff}</style>
 </head>
 <body>
-<div id="transition"></div>
-<div id="cursor"><div class="ring"></div><div class="dot"></div></div>
-
-<header class="header">
-  <a class="logo" href="index.html" aria-label="Brifu">
-    <span class="mark"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 4l16 16-16 16L4 20z"/><path d="M20 10l10 10-10 10-10-10z" opacity=".6"/><circle cx="20" cy="20" r="3" fill="currentColor" stroke="none"/></svg></span>
-    <span>Brifu<small>株式会社Brifu</small></span>
-  </a>
-  <nav class="nav-links" aria-label="主要ナビゲーション">
-    <a href="index.html">トップ</a><a href="eq.html">BrifuのEQ</a><a href="service.html">4つの事業</a><a href="company.html">会社概要</a><a href="https://abiertoworks-boop.github.io/eq-business-nexus/" target="_blank" rel="noopener">法人向け支援</a><a href="shop.html">物販・書籍</a>
-  </nav>
-  <div class="nav-right">
-    <a class="nav-cta" href="index.html">TOPへ戻る</a>
-    <button class="menu-btn" aria-label="メニュー" aria-expanded="false"><span></span><span></span><span></span></button>
-  </div>
-</header>
-<div class="menu" aria-hidden="true" data-lenis-prevent>
-  <div class="menu__bg"></div>
-  <div class="menu__inner">
-    <ul class="menu__list">
-      <li><a href="index.html"><small>01</small>トップ</a></li>
-      <li><a href="eq.html"><small>02</small>BrifuのEQ</a></li>
-      <li><a href="service.html"><small>03</small>4つの事業</a></li>
-      <li><a href="company.html"><small>04</small>会社概要</a></li>
-      <li><a href="https://abiertoworks-boop.github.io/eq-business-nexus/" target="_blank" rel="noopener"><small>05</small>法人向け支援</a></li>
-      <li><a href="shop.html"><small>06</small>物販・書籍</a></li>
-      <li><a href="contact.html"><small>07</small>お問い合わせ</a></li>
-    </ul>
-    <div class="menu__sub">
-      <a href="corecard.html">EQコアカード</a>
-      <a href="https://abiertoworks-boop.github.io/EQ2/" target="_blank" rel="noopener">EQ Gate（EQコアカードを体験する）</a>
-      <a href="privacy.html">プライバシーポリシー</a>
-      <a href="tokushoho.html">特定商取引法に基づく表記</a>
-    </div>
-  </div>
-</div>
-
-<main>
-<section class="subhero">
-  <div class="subhero__photo"></div>
-  <div class="container">
-    <div class="breadcrumb"><a href="index.html">TOP</a><span>/</span><span>DIAGNOSIS</span></div>
-    <div class="eyebrow">変化の入口診断</div>
-    <h1 class="h-display split-group">
-      <span class="split-line"><span>なぜ、分かっているのに</span></span>
-      <span class="split-line"><span>うまくいかないのだろう？</span></span>
-    </h1>
-    <p class="lead" data-reveal style="margin-top:30px">自分の心、人との関係、チームや組織。<br>今の悩みから、あなたが今伸ばすとよいEQの力を見つけます。</p>
-  </div>
-</section>
-
-<section class="section diag">
-  <div class="container">
-    <div class="diag__panel" id="diagPanel">
-      <div class="diag__intro" id="diagIntro">
-        <div class="eyebrow">EQ CHECK</div>
-        <h2 class="h-2">悩み解決のヒントがわかる<br>かんたんEQ診断</h2>
-        <p class="lead" style="margin-top:20px">今の悩みや困りごとから、あなたが今伸ばすとよいEQの力がわかります。<span class="pgap"></span>性格タイプを当てる診断ではありません。<br>答えに正解・不正解もありません。</p>
-        <button class="btn btn--lg" id="diagStart" type="button">診断をはじめる <span class="arr">→</span></button>
-        <ul class="diag__notes">
-          <li>3問（場合により4問）・所要1分ほど。</li>
-          <li>点数や優劣はつけません。回答は保存・送信されません。</li>
-          <li>結果から、その力を育てる学び（EQ Platform）をご案内します。</li>
-        </ul>
-      </div>
-      <div id="diagQuiz" hidden></div>
-      <div id="diagResult" hidden></div>
-    </div>
-  </div>
-</section>
-
-<section class="section section--white">
-  <div class="container">
-    <div class="grid-2">
-      <div>
-        <div class="eyebrow">ABOUT THIS DIAGNOSIS</div>
-        <h2 class="h-2 split-group"><span class="split-line"><span>この診断の目的は、</span></span><span class="split-line"><span>EQを教えることではありません。</span></span></h2>
-      </div>
-      <div class="lead" data-reveal>
-        <p>「EQって何なのか分からない」から、「もしかしたら自分にも関係があるかもしれない」へ。<br class="pc">「自分はここに課題があるのかもしれない」から、「だったら少し知ってみたい」へ。</p>
-        <p style="margin-top:16px">診断の役割は、商品を売ることではなく、自己認識を起こすこと。<br class="pc">自分ってこういうところがあるんだ、と気づいた先に、EQの学びがあります。</p>
-      </div>
-    </div>
-  </div>
-</section>
-</main>
-
-<footer class="footer">
-  <div class="container">
-    <div class="footer__top">
-      <div class="footer__brand">
-        <a class="logo" href="index.html"><span class="mark"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 4l16 16-16 16L4 20z"/><path d="M20 10l10 10-10 10-10-10z" opacity=".6"/><circle cx="20" cy="20" r="3" fill="currentColor" stroke="none"/></svg></span><span>Brifu<small>株式会社Brifu</small></span></a>
-        <p>「人の心にイノベーション」を起こし、社会に「真のイノベーション」を創り出す。</p>
-      </div>
-      <div>
-        <h4>SITE</h4>
-        <ul>
-          <li><a href="index.html">トップ</a></li>
-          <li><a href="eq.html">BrifuのEQ</a></li>
-          <li><a href="service.html">4つの事業</a></li>
-          <li><a href="company.html">会社概要</a></li>
-          <li><a href="https://abiertoworks-boop.github.io/eq-business-nexus/" target="_blank" rel="noopener">法人向け支援</a></li>
-          <li><a href="shop.html">物販・書籍</a></li>
-          <li><a href="contact.html">お問い合わせ</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>COMPANY</h4>
-        <ul>
-          <li><a href="corecard.html">EQコアカード</a></li>
-          <li><a href="https://abiertoworks-boop.github.io/EQ2/" target="_blank" rel="noopener">EQ Gate</a></li>
-          <li><a href="privacy.html">プライバシーポリシー</a></li>
-          <li><a href="tokushoho.html">特定商取引法に基づく表記</a></li>
-          <li>〒150-0046 東京都渋谷区松濤1-5-1-804</li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer__bottom">
-      <span>© 株式会社Brifu — Innovation in the Heart</span>
-      <a href="index.html">BACK TO TOP ↑</a>
-    </div>
-  </div>
-</footer>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
-<script src="js/main.js"></script>
-<script src="js/diagnosis.js"></script>
+<p>「かんたんEQ診断」は、EQ Gate に移りました。<br>自動で移動しない場合は <a href="https://abiertoworks-boop.github.io/EQ2/diagnosis.html">こちら</a> からご利用ください。</p>
 </body>
 </html>

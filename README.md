@@ -22,10 +22,10 @@ AI（Claude）で作業するときは `CLAUDE.md` から自動で読み込ま�
 | 物販・書籍 | `shop.html` | EQコアカード®、著書2冊、ご購入について |
 | お問い合わせ | `contact.html` | 申込み・相談をすべて集約するフォーム（FormSubmit 経由で info@brifu.co.jp へ送信、自動返信あり） |
 
-「自分に何が向いているか」を調べる場所は **EQ Gate**（https://abiertoworks-boop.github.io/EQ2/）だけです。`diagnosis.html` は保留中で、Brifuのサイトからはリンクしていません。
+「自分に何が向いているか」を調べる場所は **EQ Gate**（https://abiertoworks-boop.github.io/EQ2/）だけです。「かんたんEQ診断」は2026年11月に EQ Gate（https://abiertoworks-boop.github.io/EQ2/diagnosis.html）へ移しました。Brifu側の `diagnosis.html` は、移設先へ自動で移動するだけのページです。
 
 そのほか `privacy.html`（プライバシーポリシー）と `tokushoho.html`（特定商取引法に基づく表記）、
-`corecard.html`（EQコアカードの詳細LP）、`diagnosis.html`（変化の入口診断）、`nexus.html`（EQ Business Nexus）があります。
+`corecard.html`（EQコアカードの詳細LP）、`diagnosis.html`（EQ Gate の診断への転送）、`nexus.html`（EQ Business Nexus）があります。
 
 ```
 css/style.css    全ページ共通のデザイン（色・文字・ヘッダー・メニュー・フッター・ボタン・トップの各セクション・08 CONTACT）
