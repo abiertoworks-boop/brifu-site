@@ -110,3 +110,25 @@
     });
   }
 })();
+
+/* ---------- 扉（[data-doors]）：画面に入ったら開く。PCではスクロールに合わせて扉の列がゆっくり横へ流れる ---------- */
+(function () {
+  'use strict';
+  var sec = document.querySelector('[data-doors]');
+  if (!sec) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !('IntersectionObserver' in window)) { sec.classList.add('is-open'); return; }
+  var io = new IntersectionObserver(function (es) {
+    if (es[0].isIntersecting) { sec.classList.add('is-open'); io.disconnect(); }
+  }, { threshold: 0.35 });
+  io.observe(sec);
+  var row = sec.querySelector('.tp-doors__row'), wide = window.matchMedia('(min-width: 901px)'), ticking = false;
+  function drift() {
+    ticking = false;
+    if (!wide.matches) { row.style.removeProperty('--drift'); return; }
+    var r = sec.getBoundingClientRect(), p = (innerHeight - r.top) / (innerHeight + r.height); // 0〜1
+    row.style.setProperty('--drift', ((0.5 - Math.max(0, Math.min(1, p))) * 60).toFixed(1) + 'px');
+  }
+  window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(drift); } }, { passive: true });
+  drift();
+})();

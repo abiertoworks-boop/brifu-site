@@ -1608,3 +1608,102 @@ ol.tp-bars{list-style:none;margin-top:clamp(40px,5vw,72px);display:grid;gap:clam
   .tp-voice:first-child{border-left:0!important;padding-left:0!important}
   .tp-voice__who{margin-top:auto;padding-top:12px;align-self:flex-start}
 }
+
+/* =========================================================
+   2026年11月 v5：4つの事業が流れる帯／入口の写真を切らない／扉／広がりの図／実績の帯
+   ========================================================= */
+/* スクロール後のヘッダー：白い区画の上でも濁らない濃紺に */
+.header.is-scrolled{background:rgba(6,16,51,.94)}
+
+/* ---------- 4つの事業が流れる帯（EQ Business Nexus・BrifuのEQで使ったマーキー） ---------- */
+.tp-mq{position:relative;background:#fff;color:var(--ink-900);overflow:hidden;padding:clamp(22px,3vw,40px) 0 clamp(14px,2vw,24px)}
+.tp-mq__row{overflow:hidden;white-space:nowrap}
+.tp-mq__track{display:inline-flex;align-items:baseline;width:max-content;animation:mqFlow 46s linear infinite}
+.tp-mq__row--sub .tp-mq__track{animation-duration:38s}
+.tp-mq__row.is-rev .tp-mq__track{animation-direction:reverse}
+.tp-mq:hover .tp-mq__track{animation-play-state:paused}
+@keyframes mqFlow{to{transform:translateX(-50%)}}
+.tp-mq__item{display:inline-flex;align-items:baseline;gap:.5em;padding-right:1.4em}
+.tp-mq__item::after{content:"／";margin-left:1em;font-weight:200;color:var(--ice-300)}
+.tp-mq__item b{font-family:var(--font-en);font-size:clamp(34px,5.4vw,84px);font-weight:300;letter-spacing:-.01em;line-height:1.1}
+.tp-mq__item small{font-size:clamp(13px,1.1vw,16px);font-weight:600;color:var(--c)}
+.tp-mq__item--academy{--c:#1592ab}.tp-mq__item--humanity{--c:#6d4fd6}.tp-mq__item--eqtm{--c:#16955a}.tp-mq__item--nexus{--c:#b8742f}
+.tp-mq__row--sub{margin-top:clamp(6px,1vw,12px)}
+.tp-mq__row--sub span{padding-right:2.2em;font-size:clamp(14px,1.3vw,18px);font-weight:600;letter-spacing:.12em;color:var(--ink-500)}
+@media (prefers-reduced-motion:reduce){.tp-mq__track{animation:none}}
+
+/* ---------- 入口の写真：元の比率（3:2）のまま、切らずに収める ---------- */
+.tp-bar__img{aspect-ratio:3/2}
+.tp-bar__img img,.tp-bar--humanity .tp-bar__img img,.tp-bar--nexus .tp-bar__img img{object-position:50% 50%}
+.tp-bar{grid-template-columns:minmax(0,.75fr) minmax(0,1.3fr) auto}
+@media (max-width:1000px){.tp-bar{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}}
+@media (max-width:640px){.tp-bar{grid-template-columns:1fr}.tp-bar__img{aspect-ratio:3/2}}
+@media (min-width:1001px){.tp-bar{grid-template-columns:minmax(0,.75fr) minmax(0,1.3fr) 170px}}
+
+/* ---------- 02 迷っている方へ：4つの扉（参考動画の光る扉） ----------
+   扉の枠を光の線が描き、線の上を光が走り、扉が開くと向こうに入口（事業名）が見える。
+   光は「線」と「扉の向こうから差す光」だけ。文字は光らせない（DESIGN_RULES 03 の許容範囲） */
+.tp-doors{position:relative;overflow:hidden;color:#fff;background:radial-gradient(80% 60% at 50% 100%,#0b2a5c 0%,var(--navy-950) 62%)}
+.tp-doors .eyebrow{color:var(--cyan-400)}
+.tp-doors .tp-sub{color:rgba(255,255,255,.8)}
+.tp-doors__head{max-width:820px}
+ol.tp-doors__row{list-style:none;margin-top:clamp(56px,7vw,96px);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(18px,3vw,56px);
+  transform:translateX(var(--drift,0px));transition:transform .2s linear}
+.door{--c:#5fe0ff}
+.door--academy{--c:#5fe7ff}.door--eqtm{--c:#62f0a8}.door--humanity{--c:#b9a6ff}.door--nexus{--c:#ffc57a}
+.door__link{display:grid;justify-items:center;gap:22px;color:#fff;outline:none}
+.door__stage{position:relative;display:block;width:min(100%,190px);aspect-ratio:180/280;perspective:900px}
+/* 扉の向こう（開くと見える入口） */
+.door__inside{position:absolute;left:6.7%;right:6.7%;top:4.3%;bottom:2.2%;display:grid;align-content:center;justify-items:center;gap:6px;padding:10px;text-align:center;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--c) 55%,#fff) 0%,color-mix(in srgb,var(--c) 30%,var(--navy-900)) 100%);opacity:.18;transition:opacity 1.2s var(--ease-out)}
+.door__inside b{font-family:var(--font-en);font-size:clamp(15px,1.3vw,19px);font-weight:600;line-height:1.25;color:var(--navy-950)}
+.door__inside small{font-size:12.5px;font-weight:700;color:var(--navy-900)}
+/* 扉の板：左の蝶番を軸に開く */
+.door__leaf{position:absolute;left:6.7%;right:6.7%;top:4.3%;bottom:2.2%;transform-origin:0 50%;transform:rotateY(0deg);
+  background:linear-gradient(160deg,#0f2a6e 0%,#071338 70%);transition:transform 1.6s cubic-bezier(.65,0,.25,1)}
+.door__leaf i{position:absolute;right:12%;top:52%;width:6px;height:6px;border-radius:50%;background:var(--c)}
+/* 枠：描かれる線と、線の上を走る光 */
+.door__frame{position:absolute;inset:0;width:100%;height:100%;overflow:visible;fill:none;pointer-events:none}
+.door__line{stroke:var(--c);stroke-width:2.6;stroke-linejoin:round;stroke-dasharray:720;stroke-dashoffset:720;transition:stroke-dashoffset 1.6s cubic-bezier(.65,0,.35,1)}
+.door__run{stroke:#fff;stroke-width:2.6;stroke-linecap:round;stroke-dasharray:46 674;stroke-dashoffset:720;opacity:0}
+.door__floor{stroke:var(--c);stroke-width:1.4;opacity:0;transition:opacity 1s .8s}
+/* 足もとに落ちる光（床の反射） */
+.door__stage::after{content:"";position:absolute;left:-10%;right:-10%;bottom:-16%;height:18%;pointer-events:none;opacity:0;
+  background:radial-gradient(50% 50% at 50% 0%,color-mix(in srgb,var(--c) 45%,transparent),transparent 70%);transition:opacity 1.2s .6s}
+.door__wish{font-family:'Shippori Mincho','Noto Serif JP',serif;font-size:clamp(15px,1.35vw,19px);font-weight:500;line-height:1.7;text-align:center;color:rgba(255,255,255,.88);word-break:auto-phrase;transition:color .4s}
+/* 画面に入ったら：枠が描かれ → 床が光り → 扉が順に開く */
+.is-open .door__line{stroke-dashoffset:0;transition-delay:calc(var(--i) * .18s)}
+.is-open .door__floor,.is-open .door__stage::after{opacity:.9}
+.is-open .door__leaf{transform:rotateY(-62deg);transition-delay:calc(1.3s + var(--i) * .32s)}
+.is-open .door__inside{opacity:1;transition-delay:calc(1.4s + var(--i) * .32s)}
+.is-open .door__run{opacity:1;animation:doorRun 4.2s linear calc(2.6s + var(--i) * .5s) infinite}
+@keyframes doorRun{to{stroke-dashoffset:0}}
+/* ホバー・フォーカス：扉が大きく開き、気持ちの言葉が事業の色に */
+@media (hover:hover){
+  .is-open .door__link:hover .door__leaf{transform:rotateY(-96deg);transition-delay:0s;transition-duration:.9s}
+  .door__link:hover .door__wish{color:var(--c)}
+}
+.is-open .door__link:focus-visible .door__leaf{transform:rotateY(-96deg);transition-delay:0s}
+.door__link:focus-visible .door__wish{color:var(--c);text-decoration:underline;text-underline-offset:6px}
+/* EQ Gate への案内 */
+.tp-doors__gate{margin-top:clamp(56px,7vw,96px);max-width:760px}
+.tp-doors__gate-k{font-size:15px;font-weight:700;color:var(--cyan-300)}
+.tp-doors__gate-t{margin-top:10px;font-size:clamp(17px,1.6vw,21px);line-height:1.9;color:#fff}
+.tp-doors__gate-t b{color:var(--cyan-300)}
+@media (max-width:900px){
+  ol.tp-doors__row{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:44px;transform:none}
+  .door__stage{width:min(100%,150px)}
+}
+@media (prefers-reduced-motion:reduce){
+  .door__line{stroke-dashoffset:0;transition:none}.door__floor,.door__stage::after{opacity:.9;transition:none}
+  .door__leaf{transform:rotateY(-62deg);transition:none}.door__inside{opacity:1;transition:none}.door__run{display:none}
+  ol.tp-doors__row{transform:none}
+}
+/* 扉：開いたときに事業名が隠れないよう大きく開く。気持ちの言葉は列の幅からはみ出さない */
+.is-open .door__leaf{transform:rotateY(-80deg)}
+@media (hover:hover){.is-open .door__link:hover .door__leaf{transform:rotateY(-100deg)}}
+.is-open .door__link:focus-visible .door__leaf{transform:rotateY(-100deg)}
+.door__link{min-width:0}
+.door__wish{word-break:normal;overflow-wrap:anywhere;max-width:100%}
+@media (max-width:560px){.door__wish{font-size:14.5px;line-height:1.65}}
+@media (prefers-reduced-motion:reduce){.door__leaf{transform:rotateY(-80deg)}}

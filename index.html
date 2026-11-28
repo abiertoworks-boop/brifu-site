@@ -85,6 +85,13 @@
 </section>
 
 
+<!-- ===================== 4つの事業が流れる帯 ===================== -->
+<div class="tp-mq" aria-label="Brifuの4つの事業：EQ Academy、EQ Humanity、EQTM、EQ Business Nexus">
+  <div class="tp-mq__row" aria-hidden="true"><div class="tp-mq__track"><span class="tp-mq__item tp-mq__item--academy"><b>EQ Academy</b><small>学ぶ・教える</small></span><span class="tp-mq__item tp-mq__item--humanity"><b>EQ Humanity</b><small>EQプロを目指す</small></span><span class="tp-mq__item tp-mq__item--eqtm"><b>EQTM</b><small>自分のEQを高める</small></span><span class="tp-mq__item tp-mq__item--nexus"><b>EQ Business Nexus</b><small>ビジネスに活かす</small></span><span class="tp-mq__item tp-mq__item--academy"><b>EQ Academy</b><small>学ぶ・教える</small></span><span class="tp-mq__item tp-mq__item--humanity"><b>EQ Humanity</b><small>EQプロを目指す</small></span><span class="tp-mq__item tp-mq__item--eqtm"><b>EQTM</b><small>自分のEQを高める</small></span><span class="tp-mq__item tp-mq__item--nexus"><b>EQ Business Nexus</b><small>ビジネスに活かす</small></span></div></div>
+  <div class="tp-mq__row tp-mq__row--sub is-rev" aria-hidden="true"><div class="tp-mq__track"><span>学ぶ。</span><span>成長する。</span><span>人を育てる。</span><span>ビジネスに活かす。</span><span>学ぶ。</span><span>成長する。</span><span>人を育てる。</span><span>ビジネスに活かす。</span><span>学ぶ。</span><span>成長する。</span><span>人を育てる。</span><span>ビジネスに活かす。</span><span>学ぶ。</span><span>成長する。</span><span>人を育てる。</span><span>ビジネスに活かす。</span></div></div>
+</div>
+
+
 <!-- ===================== 01 目的別の4つの入口 ===================== -->
 <section class="section section--white tp-entrysec" id="entry">
   <div class="container">
@@ -163,29 +170,66 @@
 </section>
 
 
-<!-- ===================== 02 迷っている方へ：EQ Gate ===================== -->
-<section class="section section--white tp-start" id="start">
-  <div class="container tp-start__inner">
-    <div>
+<!-- ===================== 02 迷っている方へ：4つの扉（扉の向こうに、それぞれの入口） ===================== -->
+<section class="section tp-doors" id="start" data-doors>
+  <div class="container">
+    <div class="tp-doors__head">
       <div class="eyebrow eyebrow--plain"><span class="num">02</span> NOT SURE?</div>
       <h2 class="h-1 tr">
         <span class="tr-line"><span>私は、</span></span>
         <span class="tr-line"><span>どこから始めればいい？</span></span>
       </h2>
-      <p class="tp-sub" data-reveal>あなたに合うEQの入口を見つける。</p>
+      <p class="tp-sub" data-reveal>あなたの気持ちに近い扉を開けてみてください。その向こうに、入口があります。</p>
     </div>
-    <div class="tp-start__body">
-      <ul class="tp-start__wants" aria-label="こんな気持ちはありませんか">
-        <li data-reveal>「EQを、学んでみたい。」</li>
-        <li data-reveal data-delay=".12">「自分自身を、成長させたい。」</li>
-        <li data-reveal data-delay=".24">「人を育てられるように、なりたい。」</li>
-        <li data-reveal data-delay=".36">「組織やビジネスに、活かしたい。」</li>
-      </ul>
-      <p class="tp-start__text">目的によって、最適な入口は異なります。<br>まずは<b>EQ Gate</b>で体験しながら、今のあなたに合う入口を見つけてください。</p>
+    <ol class="tp-doors__row">
+      <li class="door door--academy" style="--i:0">
+        <a class="door__link" href="service.html#academy" aria-label="EQを、学びたい。 → EQ Academy">
+          <span class="door__stage">
+            <span class="door__inside" aria-hidden="true"><b>EQ Academy</b><small>学ぶ・教える</small></span>
+            <span class="door__leaf" aria-hidden="true"><i></i></span>
+            <svg class="door__frame" viewBox="0 0 180 280" aria-hidden="true"><path class="door__line" d="M12 274V12H168V274"/><path class="door__run" d="M12 274V12H168V274"/><path class="door__floor" d="M0 274H180M12 274L-6 280M168 274L186 280"/></svg>
+          </span>
+          <span class="door__wish">「EQを、<br>学びたい。」</span>
+        </a>
+      </li>
+      <li class="door door--eqtm" style="--i:1">
+        <a class="door__link" href="service.html#eqtm" aria-label="自分自身を、成長させたい。 → EQTM">
+          <span class="door__stage">
+            <span class="door__inside" aria-hidden="true"><b>EQTM</b><small>自分のEQを高める</small></span>
+            <span class="door__leaf" aria-hidden="true"><i></i></span>
+            <svg class="door__frame" viewBox="0 0 180 280" aria-hidden="true"><path class="door__line" d="M12 274V12H168V274"/><path class="door__run" d="M12 274V12H168V274"/><path class="door__floor" d="M0 274H180M12 274L-6 280M168 274L186 280"/></svg>
+          </span>
+          <span class="door__wish">「自分自身を、<br>成長させたい。」</span>
+        </a>
+      </li>
+      <li class="door door--humanity" style="--i:2">
+        <a class="door__link" href="service.html#humanity" aria-label="人を、育てられるようになりたい。 → EQ Humanity">
+          <span class="door__stage">
+            <span class="door__inside" aria-hidden="true"><b>EQ Humanity</b><small>EQプロを目指す</small></span>
+            <span class="door__leaf" aria-hidden="true"><i></i></span>
+            <svg class="door__frame" viewBox="0 0 180 280" aria-hidden="true"><path class="door__line" d="M12 274V12H168V274"/><path class="door__run" d="M12 274V12H168V274"/><path class="door__floor" d="M0 274H180M12 274L-6 280M168 274L186 280"/></svg>
+          </span>
+          <span class="door__wish">「人を<br>育てられるように<br class="sp">なりたい。」</span>
+        </a>
+      </li>
+      <li class="door door--nexus" style="--i:3">
+        <a class="door__link" href="https://abiertoworks-boop.github.io/eq-business-nexus/" target="_blank" rel="noopener" aria-label="組織やビジネスに、活かしたい。 → EQ Business Nexus">
+          <span class="door__stage">
+            <span class="door__inside" aria-hidden="true"><b>EQ Business Nexus</b><small>ビジネスに活かす</small></span>
+            <span class="door__leaf" aria-hidden="true"><i></i></span>
+            <svg class="door__frame" viewBox="0 0 180 280" aria-hidden="true"><path class="door__line" d="M12 274V12H168V274"/><path class="door__run" d="M12 274V12H168V274"/><path class="door__floor" d="M0 274H180M12 274L-6 280M168 274L186 280"/></svg>
+          </span>
+          <span class="door__wish">「組織やビジネスに、<br>活かしたい。」</span>
+        </a>
+      </li>
+    </ol>
+    <div class="tp-doors__gate" data-reveal>
+      <p class="tp-doors__gate-k">どの扉か、まだ決められないときは</p>
+      <p class="tp-doors__gate-t">まずは<b>EQ Gate</b>で体験しながら、今のあなたに合う入口を見つけてください。</p>
       <div class="tp-actions">
-        <a class="tp-btn tp-btn--primary tp-btn--lg" href="https://abiertoworks-boop.github.io/EQ2/" target="_blank" rel="noopener" data-magnetic>EQ Gateで体験する<span class="tp-ext" aria-hidden="true">↗</span></a>
+        <a class="tp-btn tp-btn--light tp-btn--lg" href="https://abiertoworks-boop.github.io/EQ2/" target="_blank" rel="noopener" data-magnetic>EQ Gateで体験する<span class="tp-ext" aria-hidden="true">↗</span></a>
+        <a class="tp-btn tp-btn--ghost tp-btn--lg" href="contact.html?type=nexus">経営・組織について相談する</a>
       </div>
-      <p class="tp-start__biz">経営・組織のご相談は <a href="contact.html?type=nexus">相談する</a> からどうぞ。</p>
     </div>
   </div>
 </section>
