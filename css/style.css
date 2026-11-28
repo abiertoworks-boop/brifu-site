@@ -1770,3 +1770,13 @@ ol.tp-ripple__list{list-style:none;display:grid;gap:clamp(18px,2vw,26px)}
 .tp-proof__nums dt{word-break:auto-phrase;min-height:calc(1.6em * 2);display:flex;align-items:flex-end}
 @media (max-width:560px){.tp-proof__nums .n{font-size:38px}.tp-proof__nums .u{font-size:13px}.tp-proof__nums dd{gap:5px}}
 @media (max-width:900px){.rp-label{font-size:21px}}
+
+/* ---------- UIレビューでの修正（2026年11月） ---------- */
+/* 最初の画面：何の会社かを日本語で一言。補足の一文を読みやすく */
+.hero__label--jp{font-family:var(--font-jp);text-transform:none;letter-spacing:.14em;font-weight:600;font-size:clamp(13px,1.1vw,15px)}
+.hero__note{color:rgba(255,255,255,.86);font-size:clamp(14px,1.15vw,16px)}
+/* 押せる大きさ：フッターのリンクと3Dマップのボタンを、指で押しやすい高さに */
+.footer ul li a{display:inline-block;padding:6px 0}
+@media (max-width:900px){.footer ul li{padding:0}.footer ul li a{padding:11px 0}}
+.holo__tools button{min-height:40px}
+@media (max-width:560px){.holo__tools button{min-height:40px;font-size:12px}}
