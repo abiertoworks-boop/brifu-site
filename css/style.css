@@ -1553,3 +1553,5 @@ ol.tp-bars{list-style:none;margin-top:clamp(40px,5vw,72px);display:grid;gap:clam
 .tp-start__wants li{font-family:'Shippori Mincho','Noto Serif JP',serif;font-size:clamp(20px,2.1vw,30px);font-weight:500;line-height:1.6;letter-spacing:.04em;color:var(--ink-900)}
 .tp-start__wants li:nth-child(even){padding-left:1.2em}
 .tp-start__text{margin-top:clamp(28px,3vw,40px)}
+.tp-start__wants li{word-break:auto-phrase;line-break:strict}
+@media (max-width:560px){.tp-start__wants li{font-size:18px;letter-spacing:.02em}.tp-start__wants li:nth-child(even){padding-left:.6em}}
