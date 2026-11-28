@@ -1578,3 +1578,33 @@ ol.tp-bars{list-style:none;margin-top:clamp(40px,5vw,72px);display:grid;gap:clam
   .tp-voices__list::-webkit-scrollbar{display:none}
   .tp-voice{flex:0 0 82%;scroll-snap-align:start;margin-bottom:0}
 }
+
+/* ---------- 受講者の声：幅と高さをそろえ、声の間に区切り線（2026年11月 依頼主の指示） ----------
+   1行に並ぶ声どうしで、見出し・本文・お名前の高さをそろえる（subgrid）。線は声と声の間だけ */
+.tp-voices__list{columns:auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:0;row-gap:0}
+.tp-voice{display:grid;grid-template-rows:subgrid;grid-row:span 4;row-gap:0;margin:0;
+  padding:clamp(28px,3vw,40px) clamp(24px,2.6vw,40px);border-left:1px solid var(--ice-200)}
+.tp-voices__list .tp-voice:nth-child(2){padding-top:clamp(28px,3vw,40px)}
+.tp-voice:nth-child(3n+1){border-left:0;padding-left:0}
+.tp-voice:nth-child(3n){padding-right:0}
+.tp-voice:nth-child(n+4){border-top:1px solid var(--ice-200)}
+.tp-voice:nth-child(-n+3){padding-top:0}
+.tp-voice__tag,.tp-voice__t,.tp-voice__q,.tp-voice__who{align-self:start}
+.tp-voice__who{align-self:end}
+@media (max-width:1000px){
+  .tp-voices__list{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tp-voice:nth-child(3n+1){border-left:1px solid var(--ice-200);padding-left:clamp(24px,2.6vw,40px)}
+  .tp-voice:nth-child(3n){padding-right:clamp(24px,2.6vw,40px)}
+  .tp-voice:nth-child(2n+1){border-left:0;padding-left:0}
+  .tp-voice:nth-child(2n){padding-right:0}
+  .tp-voice:nth-child(n+3){border-top:1px solid var(--ice-200);padding-top:clamp(28px,3vw,40px)}
+  .tp-voice:nth-child(-n+2){padding-top:0}
+}
+/* スマホ：横にめくる。どのカードも同じ幅・同じ高さ、カードの間に縦の線 */
+@media (max-width:640px){
+  .tp-voices__list{display:flex;align-items:stretch;gap:0}
+  .tp-voice{display:flex;flex-direction:column;flex:0 0 82%;grid-row:auto;border-top:0!important;
+    padding:0 20px!important;border-left:1px solid var(--ice-200)!important}
+  .tp-voice:first-child{border-left:0!important;padding-left:0!important}
+  .tp-voice__who{margin-top:auto;padding-top:12px;align-self:flex-start}
+}
