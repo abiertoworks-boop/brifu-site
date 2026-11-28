@@ -563,3 +563,25 @@ br.sp{display:none}
 .sp-body .book-cover--img{padding:0;background:#fff;aspect-ratio:326/522;border-radius:2px;box-shadow:none;border:1px solid var(--ice-200)}
 .sp-body .book-cover--img::after{display:none}
 .sp-body .book-cover--img img{object-fit:contain}
+
+/* =========================================================
+   枠を減らす（2026年11月 依頼主の方針）
+   カードの線・影をやめ、背景のわずかな色の差と余白で分ける。
+   入力欄の線は「書ける場所」の合図なので残す。
+   ========================================================= */
+.sp-body :is(.box,.band,.card,.change,.feature-card,.info-card,.issue,.path-card,.step,.svc,.guide-row,.pmap-area,.pmap__gate,.aside-box,.form,.form-done,.book,.eqd,.product__img,.icon-card,.growth__card,.example){
+  border:0;box-shadow:none}
+.sp-body .s-sec:not(.section--mist):not(.section--navy) :is(.box,.band,.card,.change,.feature-card,.info-card,.issue,.path-card,.step,.svc,.guide-row,.pmap-area,.aside-box,.book,.eqd){background:var(--ice-100)}
+.sp-body .s-sec.section--mist :is(.box,.band,.card,.change,.feature-card,.info-card,.issue,.path-card,.step,.svc,.guide-row,.pmap-area,.aside-box,.book,.eqd,.form,.form-done){background:#fff}
+.sp-body .section--navy :is(.icon-card,.growth__card,.example){background:rgba(255,255,255,.06)}
+@media (hover:hover){
+  .sp-body :is(.feature-card,.svc,.card,.path-card,.info-card,.pmap-area):hover{box-shadow:none;transform:translateY(-6px)}
+}
+/* 左・上の色帯、見出しの飾りの線（禁止事項12・13） */
+.sp-body .box__ttl{border-left:0;padding-left:0}
+.sp-body .quote{border-left:0;padding-left:0}
+.sp-body .quote p{font-family:'Shippori Mincho','Noto Serif JP',serif;font-size:clamp(20px,2vw,28px);line-height:1.8}
+.sp-body .svc--featured{background:var(--nexus-bg)}
+/* プライバシーポリシー・特商法：箱に入れず、読み物として */
+.sp-body .legal{background:none;padding:0}
+.sp-body .legal h2{border-bottom:0;padding-bottom:0}

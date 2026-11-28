@@ -10,7 +10,7 @@
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Shippori+Mincho:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -86,7 +86,7 @@
 
 
 <!-- ===================== 01 目的別の4つの入口 ===================== -->
-<section class="section section--light tp-entrysec" id="entry">
+<section class="section section--white tp-entrysec" id="entry">
   <div class="container">
     <div class="tp-head">
       <div class="eyebrow eyebrow--plain"><span class="num">01</span> FIND YOUR ENTRANCE</div>
@@ -94,43 +94,68 @@
         <span class="tr-line"><span>目的から選ぶ、</span></span>
         <span class="tr-line"><span>4つの入口。</span></span>
       </h2>
+      <p class="tp-sub" data-reveal>いまのあなたの目的に、いちばん近いものから。</p>
     </div>
-    <ol class="tp-entries">
-      <li class="tp-entry tp-entry--academy" data-reveal>
-        <p class="tp-entry__name">EQ Academy</p>
-        <p class="tp-entry__for"><span>対象</span>講師・コンサルタント・人材育成担当・教育に携わる方</p>
-        <h3 class="tp-entry__want">EQを仕事・教育に取り入れたい</h3>
-        <p class="tp-entry__desc">EQの知識・活用法・育成法を学ぶ。</p>
-        <div class="tp-entry__cta">
-          <a class="tp-btn tp-btn--line" href="service.html#academy">詳しく見る</a>
+    <ol class="tp-bars">
+      <li class="tp-bar tp-bar--academy" data-reveal>
+        <figure class="tp-bar__img"><img src="images/entry-academy.jpg" alt="オフィスのテーブルで、ノートパソコンを囲んで笑顔で話し合う3人" loading="lazy" decoding="async"></figure>
+        <div class="tp-bar__body">
+          <p class="tp-bar__no" aria-hidden="true">01</p>
+          <div class="tp-bar__main">
+            <p class="tp-bar__name">EQ Academy</p>
+            <h3 class="tp-bar__want">EQを仕事・教育に取り入れたい</h3>
+            <p class="tp-bar__for">対象：講師・コンサルタント・人材育成担当・教育に携わる方</p>
+          </div>
+          <p class="tp-bar__desc">EQの知識・活用法・育成法を学ぶ。</p>
+        </div>
+        <div class="tp-bar__cta">
+          <a class="tp-bar__link" href="service.html#academy"><span>詳しく見る</span><i aria-hidden="true">→</i></a>
         </div>
       </li>
-      <li class="tp-entry tp-entry--humanity" data-reveal data-delay=".08">
-        <p class="tp-entry__name">EQ Humanity</p>
-        <p class="tp-entry__for"><span>対象</span>EIA STEP2まで進んだ方</p>
-        <h3 class="tp-entry__want">EQのプロとして、人の成長を支えたい</h3>
-        <p class="tp-entry__desc">自身の成長を土台に、EQプロを目指す。</p>
-        <div class="tp-entry__cta">
-          <a class="tp-btn tp-btn--line" href="service.html#humanity">詳しく見る</a>
+      <li class="tp-bar tp-bar--humanity" data-reveal data-delay=".06">
+        <figure class="tp-bar__img"><img src="images/entry-humanity.jpg" alt="マイクを持って、聞き手に語りかける男性" loading="lazy" decoding="async"></figure>
+        <div class="tp-bar__body">
+          <p class="tp-bar__no" aria-hidden="true">02</p>
+          <div class="tp-bar__main">
+            <p class="tp-bar__name">EQ Humanity</p>
+            <h3 class="tp-bar__want">EQのプロとして、人の成長を支えたい</h3>
+            <p class="tp-bar__for">対象：EIA STEP2まで進んだ方</p>
+          </div>
+          <p class="tp-bar__desc">自身の成長を土台に、EQプロを目指す。</p>
+        </div>
+        <div class="tp-bar__cta">
+          <a class="tp-bar__link" href="service.html#humanity"><span>詳しく見る</span><i aria-hidden="true">→</i></a>
         </div>
       </li>
-      <li class="tp-entry tp-entry--eqtm" data-reveal data-delay=".16">
-        <p class="tp-entry__name">EQTM</p>
-        <p class="tp-entry__for"><span>対象</span>自分の感情・認識・行動を育てたい方</p>
-        <h3 class="tp-entry__want">自分自身のEQを高めたい</h3>
-        <p class="tp-entry__desc">学びと実践で、自分自身のEQを高める。</p>
-        <div class="tp-entry__cta">
-          <a class="tp-btn tp-btn--line" href="service.html#eqtm">詳しく見る</a>
+      <li class="tp-bar tp-bar--eqtm" data-reveal data-delay=".12">
+        <figure class="tp-bar__img"><img src="images/entry-eqtm.jpg" alt="講座の席で、前を見つめてメモをとる3人の男女" loading="lazy" decoding="async"></figure>
+        <div class="tp-bar__body">
+          <p class="tp-bar__no" aria-hidden="true">03</p>
+          <div class="tp-bar__main">
+            <p class="tp-bar__name">EQTM</p>
+            <h3 class="tp-bar__want">自分自身のEQを高めたい</h3>
+            <p class="tp-bar__for">対象：自分の感情・認識・行動を育てたい方</p>
+          </div>
+          <p class="tp-bar__desc">学びと実践で、自分自身のEQを高める。</p>
+        </div>
+        <div class="tp-bar__cta">
+          <a class="tp-bar__link" href="service.html#eqtm"><span>詳しく見る</span><i aria-hidden="true">→</i></a>
         </div>
       </li>
-      <li class="tp-entry tp-entry--nexus" data-reveal data-delay=".24">
-        <p class="tp-entry__name">EQ Business Nexus</p>
-        <p class="tp-entry__for"><span>対象</span>経営者・事業責任者・人事責任者・次世代リーダー</p>
-        <h3 class="tp-entry__want">EQを経営・事業・組織に活かしたい</h3>
-        <p class="tp-entry__desc">人とビジネスの両面から、成果につながる仕組みをつくる。</p>
-        <div class="tp-entry__cta">
-          <a class="tp-btn tp-btn--line" href="https://abiertoworks-boop.github.io/eq-business-nexus/" target="_blank" rel="noopener">詳しく見る<span class="tp-ext" aria-hidden="true">↗</span></a>
-          <a class="tp-btn tp-btn--primary" href="contact.html?type=nexus">相談する</a>
+      <li class="tp-bar tp-bar--nexus" data-reveal data-delay=".18">
+        <figure class="tp-bar__img"><img src="images/entry-nexus.jpg" alt="スクリーンの資料を示しながらプレゼンテーションする女性" loading="lazy" decoding="async"></figure>
+        <div class="tp-bar__body">
+          <p class="tp-bar__no" aria-hidden="true">04</p>
+          <div class="tp-bar__main">
+            <p class="tp-bar__name">EQ Business Nexus</p>
+            <h3 class="tp-bar__want">EQを経営・事業・組織に活かしたい</h3>
+            <p class="tp-bar__for">対象：経営者・事業責任者・人事責任者・次世代リーダー</p>
+          </div>
+          <p class="tp-bar__desc">人とビジネスの両面から、成果につながる仕組みをつくる。</p>
+        </div>
+        <div class="tp-bar__cta">
+          <a class="tp-bar__link" href="https://abiertoworks-boop.github.io/eq-business-nexus/" target="_blank" rel="noopener"><span>詳しく見る<span class="tp-ext" aria-hidden="true">↗</span></span><i aria-hidden="true">→</i></a>
+          <a class="tp-bar__talk" href="contact.html?type=nexus">相談する</a>
         </div>
       </li>
     </ol>
@@ -149,12 +174,12 @@
       </h2>
       <p class="tp-sub" data-reveal>あなたに合うEQの入口を見つける。</p>
     </div>
-    <div class="tp-start__body" data-reveal data-delay=".1">
-      <ul class="tp-start__wants">
-        <li>EQを学びたい。</li>
-        <li>自分自身を成長させたい。</li>
-        <li>人を育てられるようになりたい。</li>
-        <li>組織やビジネスに活かしたい。</li>
+    <div class="tp-start__body">
+      <ul class="tp-start__wants" aria-label="こんな気持ちはありませんか">
+        <li data-reveal>「EQを、学んでみたい。」</li>
+        <li data-reveal data-delay=".12">「自分自身を、成長させたい。」</li>
+        <li data-reveal data-delay=".24">「人を育てられるように、なりたい。」</li>
+        <li data-reveal data-delay=".36">「組織やビジネスに、活かしたい。」</li>
       </ul>
       <p class="tp-start__text">目的によって、最適な入口は異なります。<br>まずは<b>EQ Gate</b>で体験しながら、今のあなたに合う入口を見つけてください。</p>
       <div class="tp-actions">
@@ -182,14 +207,14 @@
       <li class="tp-change__sep" aria-hidden="true"><svg class="tp-change__arrow" data-draw viewBox="0 0 40 24" aria-hidden="true"><line x1="2" y1="12" x2="36" y2="12"/><polyline points="29,5 36,12 29,19"/></svg></li>
       <li class="tp-change__item"><span class="tp-change__img"><img src="images/hands.jpg" alt="" loading="lazy" decoding="async"></span><b>人との関係</b><span>本音で対話できる</span></li>
       <li class="tp-change__sep" aria-hidden="true"><svg class="tp-change__arrow" data-draw viewBox="0 0 40 24" aria-hidden="true"><line x1="2" y1="12" x2="36" y2="12"/><polyline points="29,5 36,12 29,19"/></svg></li>
-      <li class="tp-change__item"><span class="tp-change__img"><img src="images/team-casual.jpg" alt="" loading="lazy" decoding="async"></span><b>チーム</b><span>一人ひとりが活きる</span></li>
+      <li class="tp-change__item"><span class="tp-change__img"><img src="images/team-office.jpg" alt="" loading="lazy" decoding="async"></span><b>チーム</b><span>一人ひとりが活きる</span></li>
       <li class="tp-change__sep" aria-hidden="true"><svg class="tp-change__arrow" data-draw viewBox="0 0 40 24" aria-hidden="true"><line x1="2" y1="12" x2="36" y2="12"/><polyline points="29,5 36,12 29,19"/></svg></li>
       <li class="tp-change__item"><span class="tp-change__img"><img src="images/two-men.jpg" alt="" loading="lazy" decoding="async"></span><b>組織</b><span>理念が行動に表れる</span></li>
       <li class="tp-change__sep" aria-hidden="true"><svg class="tp-change__arrow" data-draw viewBox="0 0 40 24" aria-hidden="true"><line x1="2" y1="12" x2="36" y2="12"/><polyline points="29,5 36,12 29,19"/></svg></li>
       <li class="tp-change__item"><span class="tp-change__img"><img src="images/society.jpg" alt="" loading="lazy" decoding="async"></span><b>社会</b><span>お互いを大切にする社会へ</span></li>
     </ol>
     <div class="tp-results" data-reveal>
-      <p class="tp-results__k">代表・波多野輝未が、EQ認識理論を体系化するまでの実績</p>
+      <p class="tp-results__k">この変化を支える、代表・波多野輝未の現場の実績</p>
       <dl class="tp-results__nums">
         <div><dt>延べ人材育成・コンサルティング</dt><dd><span data-count="2000">2,000</span><small>人以上</small></dd></div>
         <div><dt>向き合ってきた人の心</dt><dd><span data-count="10000">10,000</span><small>人以上</small></dd></div>
